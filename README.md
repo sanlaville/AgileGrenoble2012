@@ -1,6 +1,6 @@
 # Agile Grenoble 2012
 
-Premier test pour la session Object Calisthenics sur le Gilded Rose Kata à Agile Grenoble 2012.
+Dépôt pour la session Object Calisthenics sur le Gilded Rose Kata à Agile Grenoble 2012.
 
 
 # Gilded Rose Kata
