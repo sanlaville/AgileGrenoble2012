@@ -87,7 +87,7 @@ public class InnTest {
 		items.add(new Item("Backstage passes to a TAFKAL80ETC concert", 15,
 				maxQuality));
 		items.add(new Item("Conjured Mana Cake", 3, maxQuality));
-		items.add(new Item("Sulfuras, Hand of Ragnaros", 0, 50));
+		items.add(new Item("Sulfuras, Hand of Ragnaros", 0, maxQuality));
 		Inn inn = new Inn(items);
 
 		// When
