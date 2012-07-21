@@ -201,15 +201,15 @@ public class InnTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 0;
-		Item sulfuras = new Item("Backstage passes to a TAFKAL80ETC concert",
+		Item backstage = new Item("Backstage passes to a TAFKAL80ETC concert",
 				sellIn, startQuality);
-		Inn inn = new Inn(asList(sulfuras));
+		Inn inn = new Inn(asList(backstage));
 
 		// When
 		inn.updateQuality();
 
 		// Then
-		assertThat(sulfuras.getQuality()).isEqualTo(0);
+		assertThat(backstage.getQuality()).isEqualTo(0);
 	}
 
 	@Test
