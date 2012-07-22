@@ -16,29 +16,9 @@ public class Item {
 	 * 
 	 */
 	public void updateQuality() {
-		if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-			if (quality > 0) {
-				if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-					decreaseQuality(1);
-				}
-			}
-		} else {
-			if (quality < 50) {
-				increaseQuality(1);
-
-				if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-					if (sellIn < 11) {
-						if (quality < 50) {
-							increaseQuality(1);
-						}
-					}
-
-					if (sellIn < 6) {
-						if (quality < 50) {
-							increaseQuality(1);
-						}
-					}
-				}
+		if (quality > 0) {
+			if (!name.equals("Sulfuras, Hand of Ragnaros")) {
+				decreaseQuality(1);
 			}
 		}
 
@@ -47,14 +27,10 @@ public class Item {
 		}
 
 		if (sellIn < 0) {
-			if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-				if (quality > 0) {
-					if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-						decreaseQuality(1);
-					}
+			if (quality > 0) {
+				if (!name.equals("Sulfuras, Hand of Ragnaros")) {
+					decreaseQuality(1);
 				}
-			} else {
-				resetQualityToZero();
 			}
 		}
 	}

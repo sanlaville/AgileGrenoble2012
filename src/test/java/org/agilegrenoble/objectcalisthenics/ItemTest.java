@@ -3,8 +3,6 @@ package org.agilegrenoble.objectcalisthenics;
 import static java.util.Arrays.asList;
 import static org.fest.assertions.Assertions.assertThat;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 import org.fest.assertions.Assertions;
@@ -92,87 +90,6 @@ public class ItemTest {
 	}
 
 	@Test
-	public void backstage_passes_increases_by2_from_day_10_to_6_before_the_concert() {
-		// Given
-		int startQuality = 20;
-		int sellIn = 10;
-		Item backstage = new Item("Backstage passes to a TAFKAL80ETC concert",
-				sellIn, startQuality);
-
-		// When
-		int startOfPeriod = sellIn;
-		int endOfPeriod = 5;
-		List<Integer> actualBackstageQualityInThePeriod = backstageQualityInThePeriod(
-				startOfPeriod, endOfPeriod, backstage);
-
-		// Then
-		int qualityPerDayIncrease = 2;
-		List<Integer> expectedBackstageQualityInThePeriod = inclusiveRange(22,
-				30, qualityPerDayIncrease);
-		assertThat(actualBackstageQualityInThePeriod).isEqualTo(
-				expectedBackstageQualityInThePeriod);
-	}
-
-	@Test
-	public void backstage_passes_increases_by_3_from_day_5_to_0_before_the_concert() {
-		// Given
-		int startQuality = 20;
-		int sellIn = 5;
-		Item backstage = new Item("Backstage passes to a TAFKAL80ETC concert",
-				sellIn, startQuality);
-
-		// Then
-		int startOfPeriod = sellIn;
-		int endOfPeriod = 0;
-		List<Integer> actualBackstageQualityInThePeriod = backstageQualityInThePeriod(
-				startOfPeriod, endOfPeriod, backstage);
-
-		// When
-		int qualityPerDayIncrease = 3;
-		List<Integer> expectedBackstageQualityInThePeriod = inclusiveRange(23,
-				35, qualityPerDayIncrease);
-		assertThat(actualBackstageQualityInThePeriod).isEqualTo(
-				expectedBackstageQualityInThePeriod);
-	}
-
-	@Test
-	public void backstage_passes_increases_by1_from_before_day_10_the_concert() {
-		// Given
-		int startQuality = 20;
-		int sellIn = 15;
-		Item backstage = new Item("Backstage passes to a TAFKAL80ETC concert",
-				sellIn, startQuality);
-
-		// Then
-		int startOfPeriod = sellIn;
-		int endOfPeriod = 10;
-		List<Integer> actualBackstageQualityInThePeriod = backstageQualityInThePeriod(
-				startOfPeriod, endOfPeriod, backstage);
-
-		// When
-		int qualityPerDayIncrease = 1;
-		List<Integer> expectedBackstageQualityInThePeriod = inclusiveRange(21,
-				25, qualityPerDayIncrease);
-		assertThat(actualBackstageQualityInThePeriod).isEqualTo(
-				expectedBackstageQualityInThePeriod);
-	}
-
-	@Test
-	public void backstage_passes_is_0_after_the_concert() {
-		// Given
-		int startQuality = 20;
-		int sellIn = 0;
-		Item backstage = new Item("Backstage passes to a TAFKAL80ETC concert",
-				sellIn, startQuality);
-
-		// When
-		backstage.updateQuality();
-
-		// Then
-		assertThat(backstage.quality).isEqualTo(0);
-	}
-
-	@Test
 	@Ignore
 	// TODO not yet implemented
 	public void conjured_degrade_in_quality_twice_as_fast_as_normal_items() {
@@ -257,7 +174,7 @@ public class ItemTest {
 	private Item buildRandomItem(int quality) {
 		Item item = null;
 
-		int ran = random.nextInt(5);
+		int ran = random.nextInt(4);
 		switch (ran) {
 		case 0:
 			item = new Item("+5 Dexterity Vest", 10, quality);
@@ -269,10 +186,6 @@ public class ItemTest {
 			item = new Item("Sulfuras, Hand of Ragnaros", 0, quality);
 			break;
 		case 3:
-			item = new Item("Backstage passes to a TAFKAL80ETC concert", 15,
-					quality);
-			break;
-		case 4:
 			item = new Item("Conjured Mana Cake", 3, quality);
 			break;
 		}
@@ -284,25 +197,5 @@ public class ItemTest {
 		for (int i = 0; i < times; i++) {
 			item.updateQuality();
 		}
-	}
-
-	private List<Integer> inclusiveRange(int min, int max, int step) {
-		List<Integer> inclusiveRange = new LinkedList<Integer>();
-		for (int i = min; i <= max; i = i + step)
-			inclusiveRange.add(i);
-
-		return inclusiveRange;
-	}
-
-	private List<Integer> backstageQualityInThePeriod(int startOfPeriod,
-			int endOfPeriod, Item backstage) {
-		List<Integer> qualityInThePeriod = new LinkedList<Integer>();
-
-		for (int day = startOfPeriod; day > endOfPeriod; --day) {
-			backstage.updateQuality();
-			qualityInThePeriod.add(backstage.quality);
-		}
-
-		return qualityInThePeriod;
 	}
 }
