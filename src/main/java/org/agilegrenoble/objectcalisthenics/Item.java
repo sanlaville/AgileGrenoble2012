@@ -1,9 +1,9 @@
 package org.agilegrenoble.objectcalisthenics;
 
 public class Item {
-	private String name;
-	private int sellIn;
-	private int quality;
+	protected String name;
+	protected int sellIn;
+	protected int quality;
 
 	public Item(String name, int sellIn, int quality) {
 		this.name = name;
@@ -11,81 +11,96 @@ public class Item {
 		this.sellIn = sellIn;
 	}
 
-	public void setSellIn(int sellIn) {
-		this.sellIn = sellIn;
-	}
-
-	public void setQuality(int quality) {
-		this.quality = quality;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public int getSellIn() {
-		return sellIn;
-	}
-
-	public int getQuality() {
-		return quality;
-	}
-
 	/**
 	 * Update quality for the item
 	 * 
 	 */
 	public void updateQuality() {
-		if (!getName().equals("Aged Brie")
-				&& !getName().equals(
-						"Backstage passes to a TAFKAL80ETC concert")) {
-			if (getQuality() > 0) {
-				if (!getName().equals("Sulfuras, Hand of Ragnaros")) {
-					setQuality(getQuality() - 1);
+		if (!name.equals("Aged Brie")
+				&& !name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+			if (quality > 0) {
+				if (!name.equals("Sulfuras, Hand of Ragnaros")) {
+					decreaseQuality(1);
 				}
 			}
 		} else {
-			if (getQuality() < 50) {
-				setQuality(getQuality() + 1);
+			if (quality < 50) {
+				increaseQuality(1);
 
-				if (getName().equals(
-						"Backstage passes to a TAFKAL80ETC concert")) {
-					if (getSellIn() < 11) {
-						if (getQuality() < 50) {
-							setQuality(getQuality() + 1);
+				if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+					if (sellIn < 11) {
+						if (quality < 50) {
+							increaseQuality(1);
 						}
 					}
 
-					if (getSellIn() < 6) {
-						if (getQuality() < 50) {
-							setQuality(getQuality() + 1);
+					if (sellIn < 6) {
+						if (quality < 50) {
+							increaseQuality(1);
 						}
 					}
 				}
 			}
 		}
 
-		if (!getName().equals("Sulfuras, Hand of Ragnaros")) {
-			setSellIn(getSellIn() - 1);
+		if (!name.equals("Sulfuras, Hand of Ragnaros")) {
+			decreaseSellIn(1);
 		}
 
-		if (getSellIn() < 0) {
-			if (!getName().equals("Aged Brie")) {
-				if (!getName().equals(
-						"Backstage passes to a TAFKAL80ETC concert")) {
-					if (getQuality() > 0) {
-						if (!getName().equals("Sulfuras, Hand of Ragnaros")) {
-							setQuality(getQuality() - 1);
+		if (sellIn < 0) {
+			if (!name.equals("Aged Brie")) {
+				if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+					if (quality > 0) {
+						if (!name.equals("Sulfuras, Hand of Ragnaros")) {
+							decreaseQuality(1);
 						}
 					}
 				} else {
-					setQuality(getQuality() - getQuality());
+					resetQualityToZero();
 				}
 			} else {
-				if (getQuality() < 50) {
-					setQuality(getQuality() + 1);
+				if (quality < 50) {
+					increaseQuality(1);
 				}
 			}
 		}
+	}
+
+	/**
+	 * Reset quality to zero
+	 */
+	protected void resetQualityToZero() {
+		quality = 0;
+	}
+
+	/**
+	 * Decrease sellIn by the given value
+	 * 
+	 * @param value
+	 *            integer by which the sellIn should be increased.
+	 */
+	protected void decreaseSellIn(int value) {
+		sellIn -= value;
+	}
+
+	/**
+	 * Increase quality by the given value
+	 * 
+	 * @param value
+	 *            integer by which the quality should be increased.
+	 */
+	protected void increaseQuality(int value) {
+		quality += value;
+
+	}
+
+	/**
+	 * Decrease quality by the given value
+	 * 
+	 * @param value
+	 *            integer by which the quality should be increased.
+	 */
+	protected void decreaseQuality(int value) {
+		quality -= value;
 	}
 }

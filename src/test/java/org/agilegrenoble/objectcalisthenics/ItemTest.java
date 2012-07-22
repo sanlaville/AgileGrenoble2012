@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import org.fest.assertions.Assertions;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -29,9 +30,9 @@ public class ItemTest {
 
 		// When
 		freshItem.updateQuality();
-		int actualFreshItemQuality = startquality - freshItem.getQuality();
+		int actualFreshItemQuality = startquality - freshItem.quality;
 		passedItem.updateQuality();
-		int actualPassedItemQuality = startquality - passedItem.getQuality();
+		int actualPassedItemQuality = startquality - passedItem.quality;
 
 		// Then
 		assertThat(actualFreshItemQuality).isEqualTo(
@@ -48,7 +49,7 @@ public class ItemTest {
 		repeatUpdateQuality(item, random.nextInt(10));
 
 		// Then
-		assertThat(item.getQuality()).isGreaterThanOrEqualTo(0);
+		assertThat(item.quality).isGreaterThanOrEqualTo(0);
 	}
 
 	@Test
@@ -61,7 +62,7 @@ public class ItemTest {
 		brie.updateQuality();
 
 		// Then
-		assertThat(brie.getQuality()).isEqualTo(startQuality + 1);
+		assertThat(brie.quality).isEqualTo(startQuality + 1);
 	}
 
 	@Test
@@ -74,7 +75,7 @@ public class ItemTest {
 		repeatUpdateQuality(item, random.nextInt(10));
 
 		// Then
-		assertThat(item.getQuality()).isLessThanOrEqualTo(maxQuality);
+		assertThat(item.quality).isLessThanOrEqualTo(maxQuality);
 	}
 
 	@Test
@@ -87,7 +88,7 @@ public class ItemTest {
 		repeatUpdateQuality(sulfuras, random.nextInt(10));
 
 		// Then
-		assertThat(sulfuras.getQuality()).isGreaterThanOrEqualTo(startQuality);
+		assertThat(sulfuras.quality).isGreaterThanOrEqualTo(startQuality);
 	}
 
 	@Test
@@ -100,7 +101,7 @@ public class ItemTest {
 		repeatUpdateQuality(sulfuras, random.nextInt(10));
 
 		// Then
-		assertThat(sulfuras.getSellIn()).isEqualTo(startSellIn);
+		assertThat(sulfuras.sellIn).isEqualTo(startSellIn);
 	}
 
 	@Test
@@ -181,7 +182,7 @@ public class ItemTest {
 		backstage.updateQuality();
 
 		// Then
-		assertThat(backstage.getQuality()).isEqualTo(0);
+		assertThat(backstage.quality).isEqualTo(0);
 	}
 
 	@Test
@@ -197,7 +198,73 @@ public class ItemTest {
 		inn.updateQuality();
 
 		// Then
-		assertThat(conjured.getQuality()).isEqualTo(4);
+		assertThat(conjured.quality).isEqualTo(4);
+	}
+	
+	@Test
+	public void increaseQuality_ShouldIncreaseQualityByTheGivenValue(){
+		// Given
+		int startQuality = random.nextInt();
+		Item item = new Item(null, 0, startQuality);
+		
+		int value = random.nextInt();
+		
+		// When
+		item.increaseQuality(value);
+		int actualQuality = item.quality;
+		
+		// Then
+		int expectedQuality = startQuality + value;
+		Assertions.assertThat(actualQuality).isEqualTo(expectedQuality);
+	}
+	
+	@Test
+	public void decreaseQuality_ShouldDecreaseQualityByTheGivenValue(){
+		// Given
+		int startQuality = random.nextInt();
+		Item item = new Item(null, 0, startQuality);
+		
+		int value = random.nextInt();
+		
+		// When
+		item.decreaseQuality(value);
+		int actualQuality = item.quality;
+		
+		// Then
+		int expectedQuality = startQuality - value;
+		Assertions.assertThat(actualQuality).isEqualTo(expectedQuality);
+	}
+	
+	@Test
+	public void decreaseSellIn_ShouldDecreaseSellInByTheGivenValue(){
+		// Given
+		int startSellIn = random.nextInt();
+		Item item = new Item(null, startSellIn, 0);
+		
+		int value = random.nextInt();
+		
+		// When
+		item.decreaseSellIn(value);
+		int actualSelIn = item.sellIn;
+		
+		// Then
+		int expectedSellIn = startSellIn - value;
+		Assertions.assertThat(actualSelIn).isEqualTo(expectedSellIn);
+	}
+	
+	@Test
+	public void resetQualityToZero_ShouldResetQualityToZero()
+	{
+		// Given
+		int startQuality = random.nextInt();
+		Item item = new Item(null, 0, startQuality);
+		
+		// When
+		item.resetQualityToZero();
+		int actualQuality = item.quality;
+		
+		// Then
+		Assertions.assertThat(actualQuality).isEqualTo(0);
 	}
 
 	private Item buildRandomItem(int quality) {
@@ -249,7 +316,7 @@ public class ItemTest {
 
 		for (int day = startOfPeriod; day > endOfPeriod; --day) {
 			backstage.updateQuality();
-			qualityInThePeriod.add(backstage.getQuality());
+			qualityInThePeriod.add(backstage.quality);
 		}
 
 		return qualityInThePeriod;
