@@ -53,19 +53,6 @@ public class ItemTest {
 	}
 
 	@Test
-	public void brie_quality_increases_with_time() {
-		// Given
-		int startQuality = 20;
-		Item brie = new Item("Aged Brie", 10, startQuality);
-
-		// When
-		brie.updateQuality();
-
-		// Then
-		assertThat(brie.quality).isEqualTo(startQuality + 1);
-	}
-
-	@Test
 	public void quality_never_exceeds_50() {
 		// Given
 		int maxQuality = 50;
@@ -270,25 +257,22 @@ public class ItemTest {
 	private Item buildRandomItem(int quality) {
 		Item item = null;
 
-		int ran = random.nextInt(6);
+		int ran = random.nextInt(5);
 		switch (ran) {
 		case 0:
 			item = new Item("+5 Dexterity Vest", 10, quality);
 			break;
 		case 1:
-			item = new Item("Aged Brie", 2, quality);
-			break;
-		case 2:
 			item = new Item("Elixir of the Mongoose", 5, quality);
 			break;
-		case 3:
+		case 2:
 			item = new Item("Sulfuras, Hand of Ragnaros", 0, quality);
 			break;
-		case 4:
+		case 3:
 			item = new Item("Backstage passes to a TAFKAL80ETC concert", 15,
 					quality);
 			break;
-		case 5:
+		case 4:
 			item = new Item("Conjured Mana Cake", 3, quality);
 			break;
 		}
