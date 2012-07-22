@@ -64,32 +64,6 @@ public class ItemTest {
 	}
 
 	@Test
-	public void sulfuras_never_decreases_in_quality() {
-		// Given
-		int startQuality = 40;
-		Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", 0, startQuality);
-
-		// When
-		repeatUpdateQuality(sulfuras, random.nextInt(10));
-
-		// Then
-		assertThat(sulfuras.quality).isGreaterThanOrEqualTo(startQuality);
-	}
-
-	@Test
-	public void sulfuras_never_has_to_be_sold() {
-		// Given
-		int startSellIn = 10;
-		Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", startSellIn, 0);
-
-		// When
-		repeatUpdateQuality(sulfuras, random.nextInt(10));
-
-		// Then
-		assertThat(sulfuras.sellIn).isEqualTo(startSellIn);
-	}
-
-	@Test
 	@Ignore
 	// TODO not yet implemented
 	public void conjured_degrade_in_quality_twice_as_fast_as_normal_items() {
@@ -174,7 +148,7 @@ public class ItemTest {
 	private Item buildRandomItem(int quality) {
 		Item item = null;
 
-		int ran = random.nextInt(4);
+		int ran = random.nextInt(3);
 		switch (ran) {
 		case 0:
 			item = new Item("+5 Dexterity Vest", 10, quality);
@@ -183,9 +157,6 @@ public class ItemTest {
 			item = new Item("Elixir of the Mongoose", 5, quality);
 			break;
 		case 2:
-			item = new Item("Sulfuras, Hand of Ragnaros", 0, quality);
-			break;
-		case 3:
 			item = new Item("Conjured Mana Cake", 3, quality);
 			break;
 		}

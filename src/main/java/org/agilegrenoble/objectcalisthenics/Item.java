@@ -17,20 +17,14 @@ public class Item {
 	 */
 	public void updateQuality() {
 		if (quality > 0) {
-			if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-				decreaseQuality(1);
-			}
+			decreaseQuality(1);
 		}
 
-		if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-			decreaseSellIn(1);
-		}
+		decreaseSellIn(1);
 
 		if (sellIn < 0) {
 			if (quality > 0) {
-				if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-					decreaseQuality(1);
-				}
+				decreaseQuality(1);
 			}
 		}
 	}
