@@ -1,34 +1,22 @@
 package org.agilegrenoble.objectcalisthenics;
 
-public class Item {
+public abstract class Item {
 	protected String name;
 	protected int sellIn;
 	protected int quality;
 
 	public Item(String name, int sellIn, int quality) {
 		this.name = name;
-		this.quality = quality;
 		this.sellIn = sellIn;
+		this.quality = quality;
 	}
 
 	/**
 	 * Update quality for the item
 	 * 
 	 */
-	public void updateQuality() {
-		if (quality > 0) {
-			decreaseQuality(1);
-		}
-
-		decreaseSellIn(1);
-
-		if (sellIn < 0) {
-			if (quality > 0) {
-				decreaseQuality(1);
-			}
-		}
-	}
-
+	public abstract void updateQuality();
+	
 	/**
 	 * Reset quality to zero
 	 */

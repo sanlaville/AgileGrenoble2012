@@ -4,45 +4,16 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-public class BackstageItemTest {
+public class BackstageItemTest extends ItemTest{
 
-	private Random random = null;
 
 	@Before
 	public void setup() {
-		random = new Random();
-	}
-
-	@Test
-	public void quality_is_never_negative() {
-		// Given
-		int quality = 0;
-		BackstageItem backstage = new BackstageItem(15, quality);
-
-		// When
-		repeatUpdateQuality(backstage, random.nextInt(10));
-
-		// Then
-		assertThat(backstage.quality).isGreaterThanOrEqualTo(0);
-	}
-
-	@Test
-	public void quality_never_exceeds_50() {
-		// Given
-		int maxQuality = 50;
-		BackstageItem backstage = new BackstageItem(15, maxQuality);
-
-		// When
-		repeatUpdateQuality(backstage, random.nextInt(10));
-
-		// Then
-		assertThat(backstage.quality).isLessThanOrEqualTo(maxQuality);
+		super.setup();
 	}
 
 	@Test
@@ -122,12 +93,6 @@ public class BackstageItemTest {
 		assertThat(backstage.quality).isEqualTo(0);
 	}
 
-	private void repeatUpdateQuality(Item item, int times) {
-		for (int i = 0; i < times; i++) {
-			item.updateQuality();
-		}
-	}
-
 	private List<Integer> inclusiveRange(int min, int max, int step) {
 		List<Integer> inclusiveRange = new LinkedList<Integer>();
 		for (int i = min; i <= max; i = i + step)
@@ -146,5 +111,15 @@ public class BackstageItemTest {
 		}
 
 		return qualityInThePeriod;
+	}
+
+	@Override
+	protected Item buildItem(int quality) {
+		return buildItem(15, quality);
+	}
+
+	@Override
+	protected Item buildItem(int sellIn, int quality) {
+		return  new BackstageItem(sellIn, quality);
 	}
 }

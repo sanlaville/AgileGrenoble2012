@@ -1,18 +1,16 @@
 package org.agilegrenoble.objectcalisthenics;
 
-import static java.util.Arrays.asList;
 import static org.fest.assertions.Assertions.assertThat;
 
 import java.util.Random;
 
 import org.fest.assertions.Assertions;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-public class ItemTest {
+public abstract class ItemTest {
 
-	private Random random = null;
+	protected Random random = null;
 
 	@Before
 	public void setup() {
@@ -20,28 +18,10 @@ public class ItemTest {
 	}
 
 	@Test
-	public void quality_degrades_twice_as_fast_after_the_sell_date_has_passed() {
-		// Given
-		int startquality = 10;
-		Item freshItem = buildRandomNormalItem(2, startquality);
-		Item passedItem = buildRandomNormalItem(0, startquality);
-
-		// When
-		freshItem.updateQuality();
-		int actualFreshItemQuality = startquality - freshItem.quality;
-		passedItem.updateQuality();
-		int actualPassedItemQuality = startquality - passedItem.quality;
-
-		// Then
-		assertThat(actualFreshItemQuality).isEqualTo(
-				actualPassedItemQuality / 2);
-	}
-
-	@Test
 	public void quality_is_never_negative() {
 		// Given
 		int quality = 0;
-		Item item = buildRandomNormalItem(quality);
+		Item item = buildItem(quality);
 
 		// When
 		repeatUpdateQuality(item, random.nextInt(10));
@@ -54,7 +34,7 @@ public class ItemTest {
 	public void quality_never_exceeds_50() {
 		// Given
 		int maxQuality = 50;
-		Item item = buildRandomNormalItem(maxQuality);
+		Item item = buildItem(maxQuality);
 
 		// When
 		repeatUpdateQuality(item, random.nextInt(10));
@@ -64,26 +44,11 @@ public class ItemTest {
 	}
 
 	@Test
-	@Ignore
-	// TODO not yet implemented
-	public void conjured_degrade_in_quality_twice_as_fast_as_normal_items() {
-		// Given
-		int startQuality = 6;
-		Item conjured = new Item("Conjured Mana Cake", 3, startQuality);
-		Inn inn = new Inn(asList(conjured));
-
-		// When
-		inn.updateQuality();
-
-		// Then
-		assertThat(conjured.quality).isEqualTo(4);
-	}
-
-	@Test
 	public void increaseQuality_ShouldIncreaseQualityByTheGivenValue() {
 		// Given
 		int startQuality = random.nextInt();
-		Item item = new Item(null, 0, startQuality);
+		int startSellIn = 0;
+		Item item = buildItem(startSellIn, startQuality);
 
 		int value = random.nextInt();
 
@@ -100,7 +65,8 @@ public class ItemTest {
 	public void decreaseQuality_ShouldDecreaseQualityByTheGivenValue() {
 		// Given
 		int startQuality = random.nextInt();
-		Item item = new Item(null, 0, startQuality);
+		int startSellIn = 0;
+		Item item = buildItem(startSellIn, startQuality);
 
 		int value = random.nextInt();
 
@@ -116,9 +82,10 @@ public class ItemTest {
 	@Test
 	public void decreaseSellIn_ShouldDecreaseSellInByTheGivenValue() {
 		// Given
+		int startQuality = 0;
 		int startSellIn = random.nextInt();
-		Item item = new Item(null, startSellIn, 0);
-
+		Item item = buildItem(startSellIn, startQuality);
+		
 		int value = random.nextInt();
 
 		// When
@@ -134,7 +101,8 @@ public class ItemTest {
 	public void resetQualityToZero_ShouldResetQualityToZero() {
 		// Given
 		int startQuality = random.nextInt();
-		Item item = new Item(null, 0, startQuality);
+		int startSellIn = 0;
+		Item item = buildItem(startSellIn, startQuality);
 
 		// When
 		item.resetQualityToZero();
@@ -144,39 +112,12 @@ public class ItemTest {
 		Assertions.assertThat(actualQuality).isEqualTo(0);
 	}
 
-	private Item buildRandomNormalItem(int sellIn, int quality) {
-		Item item = null;
 
-		int ran = random.nextInt(2);
-		switch (ran) {
-		case 0:
-			item = new Item("+5 Dexterity Vest", sellIn, quality);
-			break;
-		case 1:
-			item = new Item("Elixir of the Mongoose", sellIn, quality);
-			break;
-		}
+	protected abstract Item buildItem(int quality);
+	
+	protected abstract Item buildItem(int sellIn, int quality);
 
-		return item;
-	}
-
-	private Item buildRandomNormalItem(int quality) {
-		Item item = null;
-
-		int ran = random.nextInt(2);
-		switch (ran) {
-		case 0:
-			item = new Item("+5 Dexterity Vest", 10, quality);
-			break;
-		case 1:
-			item = new Item("Elixir of the Mongoose", 5, quality);
-			break;
-		}
-
-		return item;
-	}
-
-	private void repeatUpdateQuality(Item item, int times) {
+	protected void repeatUpdateQuality(Item item, int times) {
 		for (int i = 0; i < times; i++) {
 			item.updateQuality();
 		}
