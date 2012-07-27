@@ -24,11 +24,11 @@ public class InnTest {
 	}
 
 	@Test
-	public void quality_degrades_twice_as_fast_after_the_sell_date_has_passed() {
+	public void quality_degrades_twice_as_fast_for_normal_items_after_the_sell_date_has_passed() {
 		// Given
 		int startquality = 10;
-		Item freshItem = new Item("freshItem", 2, startquality);
-		Item passedItem = new Item("passedItem", 0, startquality);
+		Item freshItem = buildRandomNormalItem(2, startquality);
+		Item passedItem = buildRandomNormalItem(0, startquality);
 		Inn inn = new Inn(asList(freshItem, passedItem));
 
 		// When
@@ -44,13 +44,8 @@ public class InnTest {
 	@Test
 	public void quality_is_never_negative() {
 		// Given
-		ArrayList<Item> items = new ArrayList<Item>();
-		items.add(new Item("+5 Dexterity Vest", 10, 0));
-		items.add(new Item("Aged Brie", 2, 0));
-		items.add(new Item("Elixir of the Mongoose", 5, 0));
-		items.add(new Item("Sulfuras, Hand of Ragnaros", 0, 0));
-		items.add(new Item("Backstage passes to a TAFKAL80ETC concert", 15, 0));
-		items.add(new Item("Conjured Mana Cake", 3, 0));
+		int quality = 0;
+		ArrayList<Item> items = buildItems(quality);
 		Inn inn = new Inn(items);
 
 		// When
@@ -61,6 +56,7 @@ public class InnTest {
 			assertThat(item.getQuality()).isGreaterThanOrEqualTo(0);
 		}
 	}
+
 
 	@Test
 	public void brie_quality_increases_with_time() {
@@ -79,15 +75,8 @@ public class InnTest {
 	@Test
 	public void quality_never_exceeds_50() {
 		// Given
-		ArrayList<Item> items = new ArrayList<Item>();
 		int maxQuality = 50;
-		items.add(new Item("+5 Dexterity Vest", 10, maxQuality));
-		items.add(new Item("Aged Brie", 2, maxQuality));
-		items.add(new Item("Elixir of the Mongoose", 5, maxQuality));
-		items.add(new Item("Backstage passes to a TAFKAL80ETC concert", 15,
-				maxQuality));
-		items.add(new Item("Conjured Mana Cake", 3, maxQuality));
-		items.add(new Item("Sulfuras, Hand of Ragnaros", 0, maxQuality));
+		ArrayList<Item> items = buildItems(maxQuality);
 		Inn inn = new Inn(items);
 
 		// When
@@ -228,6 +217,34 @@ public class InnTest {
 		assertThat(conjured.getQuality()).isEqualTo(4);
 	}
 
+	private Item buildRandomNormalItem(int sellIn, int quality) {
+		Item item = null;
+		
+		int ran = random.nextInt(2);
+		switch (ran) {
+		case 0:
+			item = new Item("+5 Dexterity Vest", sellIn, quality);
+			break;
+		case 1:
+			item = new Item("Elixir of the Mongoose", sellIn, quality);
+			break;
+		}
+		
+		return item;
+	}
+
+
+	private ArrayList<Item> buildItems(int quality) {
+		ArrayList<Item> items = new ArrayList<Item>();
+		items.add(new Item("+5 Dexterity Vest", 10, quality));
+		items.add(new Item("Aged Brie", 2, quality));
+		items.add(new Item("Elixir of the Mongoose", 5, quality));
+		items.add(new Item("Sulfuras, Hand of Ragnaros", 0, quality));
+		items.add(new Item("Backstage passes to a TAFKAL80ETC concert", 15, quality));
+		items.add(new Item("Conjured Mana Cake", 3, quality));
+		return items;
+	}
+	
 	private void repeatUpdateQuality(Inn inn, int times) {
 		for (int i = 0; i < times; i++) {
 			inn.updateQuality();
