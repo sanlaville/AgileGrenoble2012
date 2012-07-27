@@ -21,11 +21,11 @@ public class ItemTest {
 	}
 
 	@Test
-	public void quality_degrades_twice_as_fast_after_the_sell_date_has_passed() {
+	public void quality_degrades_twice_as_fast_for_normal_items_after_the_sell_date_has_passed() {
 		// Given
 		int startquality = 10;
-		Item freshItem = new Item("freshItem", 2, startquality);
-		Item passedItem = new Item("passedItem", 0, startquality);
+		Item freshItem = buildRandomNormalItem(2, startquality);
+		Item passedItem = buildRandomNormalItem(0, startquality);
 
 		// When
 		freshItem.updateQuality();
@@ -200,19 +200,35 @@ public class ItemTest {
 		assertThat(conjured.getQuality()).isEqualTo(4);
 	}
 
+	private Item buildRandomNormalItem(int sellIn, int quality) {
+		Item item = null;
+
+		int ran = random.nextInt(2);
+		switch (ran) {
+		case 0:
+			item = new Item("+5 Dexterity Vest", sellIn, quality);
+			break;
+		case 1:
+			item = new Item("Elixir of the Mongoose", sellIn, quality);
+			break;
+		}
+
+		return item;
+	}
+
 	private Item buildRandomItem(int quality) {
 		Item item = null;
 
-		int ran = random.nextInt(6);
+		int ran = random.nextInt(5);
 		switch (ran) {
 		case 0:
 			item = new Item("+5 Dexterity Vest", 10, quality);
 			break;
 		case 1:
-			item = new Item("Aged Brie", 2, quality);
+			item = new Item("Elixir of the Mongoose", 5, quality);
 			break;
 		case 2:
-			item = new Item("Elixir of the Mongoose", 5, quality);
+			item = new Item("Aged Brie", 2, quality);
 			break;
 		case 3:
 			item = new Item("Sulfuras, Hand of Ragnaros", 0, quality);
@@ -220,9 +236,6 @@ public class ItemTest {
 		case 4:
 			item = new Item("Backstage passes to a TAFKAL80ETC concert", 15,
 					quality);
-			break;
-		case 5:
-			item = new Item("Conjured Mana Cake", 3, quality);
 			break;
 		}
 
