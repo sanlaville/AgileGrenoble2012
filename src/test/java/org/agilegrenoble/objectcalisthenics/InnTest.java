@@ -1,13 +1,10 @@
 package org.agilegrenoble.objectcalisthenics;
 
-import static java.util.Arrays.asList;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 public class InnTest {

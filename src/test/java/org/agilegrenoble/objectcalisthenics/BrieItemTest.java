@@ -17,24 +17,6 @@ public class BrieItemTest {
 	}
 
 	@Test
-	public void quality_degrades_twice_as_fast_after_the_sell_date_has_passed() {
-		// Given
-		int startquality = 10;
-		BrieItem brieFreshItem = new BrieItem(2, startquality);
-		BrieItem briePassedItem = new BrieItem(0, startquality);
-
-		// When
-		brieFreshItem.updateQuality();
-		int actualFreshItemQuality = startquality - brieFreshItem.quality;
-		briePassedItem.updateQuality();
-		int actualPassedItemQuality = startquality - briePassedItem.quality;
-
-		// Then
-		assertThat(actualFreshItemQuality).isEqualTo(
-				actualPassedItemQuality / 2);
-	}
-
-	@Test
 	public void quality_is_never_negative() {
 		// Given
 		int quality = 0;

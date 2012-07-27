@@ -20,27 +20,6 @@ public class BackstageItemTest {
 	}
 
 	@Test
-	@Ignore
-	// FIXME
-	public void quality_degrades_twice_as_fast_after_the_sell_date_has_passed() {
-		// Given
-		int startquality = 10;
-		BackstageItem backstageFreshItem = new BackstageItem(2, startquality);
-		BackstageItem backstagePassedItem = new BackstageItem(0, startquality);
-
-		// When
-		backstageFreshItem.updateQuality();
-		int actualFreshItemQuality = startquality - backstageFreshItem.quality;
-		backstagePassedItem.updateQuality();
-		int actualPassedItemQuality = startquality
-				- backstagePassedItem.quality;
-
-		// Then
-		assertThat(actualFreshItemQuality).isEqualTo(
-				actualPassedItemQuality / 2);
-	}
-
-	@Test
 	public void quality_is_never_negative() {
 		// Given
 		int quality = 0;

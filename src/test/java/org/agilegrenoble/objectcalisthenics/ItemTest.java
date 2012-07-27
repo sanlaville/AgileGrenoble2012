@@ -23,8 +23,8 @@ public class ItemTest {
 	public void quality_degrades_twice_as_fast_after_the_sell_date_has_passed() {
 		// Given
 		int startquality = 10;
-		Item freshItem = new Item("freshItem", 2, startquality);
-		Item passedItem = new Item("passedItem", 0, startquality);
+		Item freshItem = buildRandomNormalItem(2, startquality);
+		Item passedItem = buildRandomNormalItem(0, startquality);
 
 		// When
 		freshItem.updateQuality();
@@ -41,7 +41,7 @@ public class ItemTest {
 	public void quality_is_never_negative() {
 		// Given
 		int quality = 0;
-		Item item = buildRandomItem(quality);
+		Item item = buildRandomNormalItem(quality);
 
 		// When
 		repeatUpdateQuality(item, random.nextInt(10));
@@ -54,7 +54,7 @@ public class ItemTest {
 	public void quality_never_exceeds_50() {
 		// Given
 		int maxQuality = 50;
-		Item item = buildRandomItem(maxQuality);
+		Item item = buildRandomNormalItem(maxQuality);
 
 		// When
 		repeatUpdateQuality(item, random.nextInt(10));
@@ -78,86 +78,98 @@ public class ItemTest {
 		// Then
 		assertThat(conjured.quality).isEqualTo(4);
 	}
-	
+
 	@Test
-	public void increaseQuality_ShouldIncreaseQualityByTheGivenValue(){
+	public void increaseQuality_ShouldIncreaseQualityByTheGivenValue() {
 		// Given
 		int startQuality = random.nextInt();
 		Item item = new Item(null, 0, startQuality);
-		
+
 		int value = random.nextInt();
-		
+
 		// When
 		item.increaseQuality(value);
 		int actualQuality = item.quality;
-		
+
 		// Then
 		int expectedQuality = startQuality + value;
 		Assertions.assertThat(actualQuality).isEqualTo(expectedQuality);
 	}
-	
+
 	@Test
-	public void decreaseQuality_ShouldDecreaseQualityByTheGivenValue(){
+	public void decreaseQuality_ShouldDecreaseQualityByTheGivenValue() {
 		// Given
 		int startQuality = random.nextInt();
 		Item item = new Item(null, 0, startQuality);
-		
+
 		int value = random.nextInt();
-		
+
 		// When
 		item.decreaseQuality(value);
 		int actualQuality = item.quality;
-		
+
 		// Then
 		int expectedQuality = startQuality - value;
 		Assertions.assertThat(actualQuality).isEqualTo(expectedQuality);
 	}
-	
+
 	@Test
-	public void decreaseSellIn_ShouldDecreaseSellInByTheGivenValue(){
+	public void decreaseSellIn_ShouldDecreaseSellInByTheGivenValue() {
 		// Given
 		int startSellIn = random.nextInt();
 		Item item = new Item(null, startSellIn, 0);
-		
+
 		int value = random.nextInt();
-		
+
 		// When
 		item.decreaseSellIn(value);
 		int actualSelIn = item.sellIn;
-		
+
 		// Then
 		int expectedSellIn = startSellIn - value;
 		Assertions.assertThat(actualSelIn).isEqualTo(expectedSellIn);
 	}
-	
+
 	@Test
-	public void resetQualityToZero_ShouldResetQualityToZero()
-	{
+	public void resetQualityToZero_ShouldResetQualityToZero() {
 		// Given
 		int startQuality = random.nextInt();
 		Item item = new Item(null, 0, startQuality);
-		
+
 		// When
 		item.resetQualityToZero();
 		int actualQuality = item.quality;
-		
+
 		// Then
 		Assertions.assertThat(actualQuality).isEqualTo(0);
 	}
 
-	private Item buildRandomItem(int quality) {
+	private Item buildRandomNormalItem(int sellIn, int quality) {
 		Item item = null;
 
-		int ran = random.nextInt(3);
+		int ran = random.nextInt(2);
+		switch (ran) {
+		case 0:
+			item = new Item("+5 Dexterity Vest", sellIn, quality);
+			break;
+		case 1:
+			item = new Item("Elixir of the Mongoose", sellIn, quality);
+			break;
+		}
+
+		return item;
+	}
+
+	private Item buildRandomNormalItem(int quality) {
+		Item item = null;
+
+		int ran = random.nextInt(2);
 		switch (ran) {
 		case 0:
 			item = new Item("+5 Dexterity Vest", 10, quality);
 			break;
 		case 1:
 			item = new Item("Elixir of the Mongoose", 5, quality);
-			break;
-		case 2:
-			item = new Item("Conjured Mana Cake", 3, quality);
 			break;
 		}
 
