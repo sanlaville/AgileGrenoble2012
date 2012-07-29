@@ -16,7 +16,7 @@ public abstract class Item {
 	 * 
 	 */
 	public abstract void updateQuality();
-	
+
 	/**
 	 * Reset quality to zero
 	 */
@@ -53,5 +53,14 @@ public abstract class Item {
 	 */
 	protected void decreaseQuality(int value) {
 		quality -= value;
+	}
+
+	/**
+	 * @return true if the sell by date has passed, false otherwise.
+	 **/
+	public boolean hasTheSellByDatePassed() {
+		if (sellIn > 0)
+			return false;
+		return true;
 	}
 }

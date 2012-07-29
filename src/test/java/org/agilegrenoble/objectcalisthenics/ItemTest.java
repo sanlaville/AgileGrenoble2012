@@ -85,7 +85,7 @@ public abstract class ItemTest {
 		int startQuality = 0;
 		int startSellIn = random.nextInt();
 		Item item = buildItem(startSellIn, startQuality);
-		
+
 		int value = random.nextInt();
 
 		// When
@@ -112,9 +112,36 @@ public abstract class ItemTest {
 		Assertions.assertThat(actualQuality).isEqualTo(0);
 	}
 
+	@Test
+	public void hasTheSellByDatePassed_WithSellInLowerThanOrEquals0_ShouldReturn_True() {
+		// Given
+		int startQuality = random.nextInt();
+		int startSellIn = random.nextInt(5)-4;
+		Item item = buildItem(startSellIn, startQuality);
+
+		// When
+		boolean actualHasTehSellByDatePassed = item.hasTheSellByDatePassed();
+
+		// Then
+		Assertions.assertThat(actualHasTehSellByDatePassed).isTrue();
+	}
+	
+	@Test
+	public void hasTheSellByDatePassed_WithSellInGreaterThan0_ShouldReturn_False() {
+		// Given
+		int startQuality = random.nextInt();
+		int startSellIn = random.nextInt(5)+1;
+		Item item = buildItem(startSellIn, startQuality);
+		
+		// When
+		boolean actualHasTehSellByDatePassed = item.hasTheSellByDatePassed();
+		
+		// Then
+		Assertions.assertThat(actualHasTehSellByDatePassed).isFalse();
+	}
 
 	protected abstract Item buildItem(int quality);
-	
+
 	protected abstract Item buildItem(int sellIn, int quality);
 
 	protected void repeatUpdateQuality(Item item, int times) {
