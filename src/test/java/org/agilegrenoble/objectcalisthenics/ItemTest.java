@@ -139,6 +139,32 @@ public abstract class ItemTest {
 		// Then
 		Assertions.assertThat(actualHasTehSellByDatePassed).isFalse();
 	}
+	
+	@Test
+	public void hasNegativeQuality_WithNegativeQuality_ShouldReturn_True() {
+		// Given
+		int startQuality = random.nextInt(5) - 5;
+		Item item = buildItem(startQuality);
+		
+		// When
+		boolean actualHasNegativeQuality = item.hasNegativeQuality();
+		
+		// Then
+		Assertions.assertThat(actualHasNegativeQuality).isTrue();
+	}
+	
+	@Test
+	public void hasNegativeQuality_WithPositiveQuality_ShouldReturn_False() {
+		// Given
+		int startQuality = random.nextInt(50);
+		Item item = buildItem(startQuality);
+		
+		// When
+		boolean actualHasNegativeQuality = item.hasNegativeQuality();
+		
+		// Then
+		Assertions.assertThat(actualHasNegativeQuality).isFalse();
+	}
 
 	protected abstract Item buildItem(int quality);
 

@@ -4,11 +4,13 @@ public class NormalItem extends Item {
 
 	protected DecreaseSellInAndQualityEachDay decreaseSellInAndQualityEachDay = null;
 	protected OnceTheSellByDateHasPassedQualityDegradesTwice onceTheSellByDateHasPassedQualityDegradesTwice = null;
+	protected QualityIsNeverNegative qualityIsNeverNegative = null;
 	
 	public NormalItem(String name, int sellIn, int quality) {
 		super(name, sellIn, quality);
 		decreaseSellInAndQualityEachDay = new DecreaseSellInAndQualityEachDay(this); 
 		onceTheSellByDateHasPassedQualityDegradesTwice = new OnceTheSellByDateHasPassedQualityDegradesTwice(this);
+		qualityIsNeverNegative = new QualityIsNeverNegative(this);
 	}
 
 	/**
@@ -18,9 +20,6 @@ public class NormalItem extends Item {
 	public void updateQuality() {
 		decreaseSellInAndQualityEachDay.execute();
 		onceTheSellByDateHasPassedQualityDegradesTwice.execute();
-		
-		if (quality < 0) {
-			quality = 0;
-		}
+		qualityIsNeverNegative.execute();
 	}
 }

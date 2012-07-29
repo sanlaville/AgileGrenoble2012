@@ -63,4 +63,11 @@ public abstract class Item {
 			return false;
 		return true;
 	}
+
+	public boolean hasNegativeQuality() {
+		if (quality < 0)
+			return true;
+
+		return false;
+	}
 }
