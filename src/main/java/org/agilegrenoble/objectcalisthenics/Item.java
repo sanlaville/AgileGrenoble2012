@@ -70,4 +70,15 @@ public abstract class Item {
 
 		return false;
 	}
+
+	public boolean hasQualityGreaterThan50() {
+		if (quality > 50)
+			return true;
+
+		return false;
+	}
+
+	public void keepQualityTo50() {
+		quality = 50;
+	}
 }

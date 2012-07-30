@@ -3,10 +3,13 @@ package org.agilegrenoble.objectcalisthenics;
 public class BrieItem extends Item {
 
 	protected DecreaseSellInAndIncreaseQualityEachDay decreaseSellInAndIncreaseQualityEachDay = null;
-	
+	protected QualityIsNeverMoreThan50 qualityIsNeverMoreThan50 = null;
+
 	public BrieItem(int sellIn, int quality) {
 		super("Aged Brie", sellIn, quality);
-		decreaseSellInAndIncreaseQualityEachDay = new DecreaseSellInAndIncreaseQualityEachDay(this);
+		decreaseSellInAndIncreaseQualityEachDay = new DecreaseSellInAndIncreaseQualityEachDay(
+				this);
+		qualityIsNeverMoreThan50 = new QualityIsNeverMoreThan50(this);
 	}
 
 	/**
@@ -19,14 +22,10 @@ public class BrieItem extends Item {
 		decreaseSellInAndIncreaseQualityEachDay.execute();
 
 		if (sellIn < 0) {
-			if (quality < 50) {
-				increaseQuality(1);
-			}
+			increaseQuality(1);
 		}
-		
-		if (quality > 50) {
-			quality = 50;
-		}
+
+		qualityIsNeverMoreThan50.execute();
 	}
 
 }

@@ -101,8 +101,7 @@ public abstract class ItemTest {
 	public void resetQualityToZero_ShouldResetQualityToZero() {
 		// Given
 		int startQuality = random.nextInt();
-		int startSellIn = 0;
-		Item item = buildItem(startSellIn, startQuality);
+		Item item = buildItem(startQuality);
 
 		// When
 		item.resetQualityToZero();
@@ -116,7 +115,7 @@ public abstract class ItemTest {
 	public void hasTheSellByDatePassed_WithSellInLowerThanOrEquals0_ShouldReturn_True() {
 		// Given
 		int startQuality = random.nextInt();
-		int startSellIn = random.nextInt(5)-4;
+		int startSellIn = random.nextInt(5) - 4;
 		Item item = buildItem(startSellIn, startQuality);
 
 		// When
@@ -125,45 +124,85 @@ public abstract class ItemTest {
 		// Then
 		Assertions.assertThat(actualHasTehSellByDatePassed).isTrue();
 	}
-	
+
 	@Test
 	public void hasTheSellByDatePassed_WithSellInGreaterThan0_ShouldReturn_False() {
 		// Given
 		int startQuality = random.nextInt();
-		int startSellIn = random.nextInt(5)+1;
+		int startSellIn = random.nextInt(5) + 1;
 		Item item = buildItem(startSellIn, startQuality);
-		
+
 		// When
 		boolean actualHasTehSellByDatePassed = item.hasTheSellByDatePassed();
-		
+
 		// Then
 		Assertions.assertThat(actualHasTehSellByDatePassed).isFalse();
 	}
-	
+
 	@Test
 	public void hasNegativeQuality_WithNegativeQuality_ShouldReturn_True() {
 		// Given
 		int startQuality = random.nextInt(5) - 5;
 		Item item = buildItem(startQuality);
-		
+
 		// When
 		boolean actualHasNegativeQuality = item.hasNegativeQuality();
-		
+
 		// Then
 		Assertions.assertThat(actualHasNegativeQuality).isTrue();
 	}
-	
+
 	@Test
 	public void hasNegativeQuality_WithPositiveQuality_ShouldReturn_False() {
 		// Given
 		int startQuality = random.nextInt(50);
 		Item item = buildItem(startQuality);
-		
+
 		// When
 		boolean actualHasNegativeQuality = item.hasNegativeQuality();
-		
+
 		// Then
 		Assertions.assertThat(actualHasNegativeQuality).isFalse();
+	}
+
+	@Test
+	public void hasQualityGreaterThan50_WithQualityGreaterThan50_ShouldReturn_True() {
+		// Given
+		int startQuality = random.nextInt(30) + 51;
+		Item item = buildItem(startQuality);
+
+		// When
+		boolean actualHasQualityGreaterThan50 = item.hasQualityGreaterThan50();
+
+		// Then
+		Assertions.assertThat(actualHasQualityGreaterThan50).isTrue();
+	}
+
+	@Test
+	public void hasQualityGreaterThan50_WithQualityLowerThanOrEquals50_ShouldReturn_False() {
+		// Given
+		int startQuality = random.nextInt(51);
+		Item item = buildItem(startQuality);
+
+		// When
+		boolean actualHasQualityGreaterThan50 = item.hasQualityGreaterThan50();
+
+		// Then
+		Assertions.assertThat(actualHasQualityGreaterThan50).isFalse();
+	}
+
+	@Test
+	public void keepQualityTo50_Should_SetQualityTo50() {
+		// Given
+		int startQuality = random.nextInt();
+		Item item = buildItem(startQuality);
+
+		// When
+		item.keepQualityTo50();
+		int actualQuality = item.quality;
+
+		// Then
+		Assertions.assertThat(actualQuality).isEqualTo(50);
 	}
 
 	protected abstract Item buildItem(int quality);
