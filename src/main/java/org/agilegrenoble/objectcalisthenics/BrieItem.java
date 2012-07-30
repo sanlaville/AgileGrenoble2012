@@ -18,13 +18,7 @@ public class BrieItem extends Item {
 	 */
 	@Override
 	public void updateQuality() {
-
 		decreaseSellInAndIncreaseQualityEachDay.execute();
-
-		if (sellIn < 0) {
-			increaseQuality(1);
-		}
-
 		qualityIsNeverMoreThan50.execute();
 	}
 
