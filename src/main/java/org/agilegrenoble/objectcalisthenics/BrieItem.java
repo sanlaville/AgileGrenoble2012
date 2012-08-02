@@ -1,5 +1,8 @@
 package org.agilegrenoble.objectcalisthenics;
 
+import org.agilegrenoble.objectcalisthenics.rules.DecreaseSellInAndIncreaseQualityEachDay;
+import org.agilegrenoble.objectcalisthenics.rules.QualityIsNeverMoreThan50;
+
 public class BrieItem extends Item {
 
 	protected DecreaseSellInAndIncreaseQualityEachDay decreaseSellInAndIncreaseQualityEachDay = null;

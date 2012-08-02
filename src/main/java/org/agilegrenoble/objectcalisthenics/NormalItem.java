@@ -1,5 +1,9 @@
 package org.agilegrenoble.objectcalisthenics;
 
+import org.agilegrenoble.objectcalisthenics.rules.DecreaseSellInAndQualityEachDay;
+import org.agilegrenoble.objectcalisthenics.rules.OnceTheSellByDateHasPassedQualityDegradesTwice;
+import org.agilegrenoble.objectcalisthenics.rules.QualityIsNeverNegative;
+
 public class NormalItem extends Item {
 
 	protected DecreaseSellInAndQualityEachDay decreaseSellInAndQualityEachDay = null;

@@ -1,5 +1,6 @@
-package org.agilegrenoble.objectcalisthenics;
+package org.agilegrenoble.objectcalisthenics.rules;
 
+import org.agilegrenoble.objectcalisthenics.Item;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;

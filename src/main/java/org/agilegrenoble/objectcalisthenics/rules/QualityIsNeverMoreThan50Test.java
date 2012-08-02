@@ -1,5 +1,7 @@
-package org.agilegrenoble.objectcalisthenics;
+package org.agilegrenoble.objectcalisthenics.rules;
 
+import org.agilegrenoble.objectcalisthenics.Item;
+import org.agilegrenoble.objectcalisthenics.rules.QualityIsNeverMoreThan50;
 import org.junit.Test;
 import org.mockito.Mockito;
 

@@ -1,5 +1,8 @@
 package org.agilegrenoble.objectcalisthenics;
 
+import org.agilegrenoble.objectcalisthenics.rules.QualityIsNeverMoreThan50;
+import org.agilegrenoble.objectcalisthenics.rules.UpdateQualityDependingOnSellIn;
+
 public class BackstageItem extends Item {
 
 	protected UpdateQualityDependingOnSellIn updateQualityDependingOnSellIn = null;

@@ -20,7 +20,7 @@ public abstract class Item {
 	/**
 	 * Reset quality to zero
 	 */
-	protected void dropQualityToZero() {
+	public void dropQualityToZero() {
 		quality = 0;
 	}
 
@@ -30,7 +30,7 @@ public abstract class Item {
 	 * @param value
 	 *            integer by which the sellIn should be increased.
 	 */
-	protected void decreaseSellIn(int value) {
+	public void decreaseSellIn(int value) {
 		sellIn -= value;
 	}
 
@@ -40,7 +40,7 @@ public abstract class Item {
 	 * @param value
 	 *            integer by which the quality should be increased.
 	 */
-	protected void increaseQuality(int value) {
+	public void increaseQuality(int value) {
 		quality += value;
 
 	}
@@ -51,7 +51,7 @@ public abstract class Item {
 	 * @param value
 	 *            integer by which the quality should be increased.
 	 */
-	protected void decreaseQuality(int value) {
+	public void decreaseQuality(int value) {
 		quality -= value;
 	}
 

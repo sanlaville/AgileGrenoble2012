@@ -1,4 +1,6 @@
-package org.agilegrenoble.objectcalisthenics;
+package org.agilegrenoble.objectcalisthenics.rules;
+
+import org.agilegrenoble.objectcalisthenics.Item;
 
 public class IncreaseQualityByThreeWhenSellInIsBetween5And1 {
 
