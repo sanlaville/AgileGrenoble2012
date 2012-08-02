@@ -18,7 +18,7 @@ public class QualityIsNeverNegativeTest {
 		
 		// Then
 		Mockito.verify(item).hasNegativeQuality();
-		Mockito.verify(item).resetQualityToZero();
+		Mockito.verify(item).dropQualityToZero();
 		Mockito.verifyNoMoreInteractions(item);
 	}
 	

@@ -20,7 +20,7 @@ public abstract class Item {
 	/**
 	 * Reset quality to zero
 	 */
-	protected void resetQualityToZero() {
+	protected void dropQualityToZero() {
 		quality = 0;
 	}
 
@@ -80,5 +80,29 @@ public abstract class Item {
 
 	public void keepQualityTo50() {
 		quality = 50;
+	}
+
+	public boolean hasSellInGreaterThan10() {
+		if (sellIn > 10)
+			return true;
+		return false;
+	}
+
+	public boolean hasSellInBetween10And6() {
+		if ((sellIn <= 10) && (sellIn >= 6))
+			return true;
+		return false;
+	}
+
+	public boolean hasSellInBetween5And1() {
+		if ((sellIn <= 5) && (sellIn >= 1))
+			return true;
+		return false;
+	}
+
+	public boolean hasSellInLowerThanOrEqulas0() {
+		if (sellIn <= 0)
+			return true;
+		return false;
 	}
 }

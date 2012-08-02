@@ -98,13 +98,13 @@ public abstract class ItemTest {
 	}
 
 	@Test
-	public void resetQualityToZero_ShouldResetQualityToZero() {
+	public void dropQualityToZero_ShouldSetQualityToZero() {
 		// Given
 		int startQuality = random.nextInt();
 		Item item = buildItem(startQuality);
 
 		// When
-		item.resetQualityToZero();
+		item.dropQualityToZero();
 		int actualQuality = item.quality;
 
 		// Then
@@ -205,6 +205,146 @@ public abstract class ItemTest {
 		Assertions.assertThat(actualQuality).isEqualTo(50);
 	}
 
+	@Test
+	public void hasSellInGreaterThan10_WithSellInGreaterThan10_ShouldReturn_True() {
+		// Given
+		int startQuality = random.nextInt();
+		int startSellIn = random.nextInt(30) + 11;
+		Item item = buildItem(startSellIn, startQuality);
+
+		// When
+		boolean actualHasSellInGreaterThan10 = item.hasSellInGreaterThan10();
+
+		// Then
+		Assertions.assertThat(actualHasSellInGreaterThan10).isTrue();
+	}
+
+	@Test
+	public void hasSellInGreaterThan10_WithSellInLowerThanOrEquals10_ShouldReturn_False() {
+		// Given
+		int startQuality = random.nextInt();
+		int startSellIn = random.nextInt(11);
+		Item item = buildItem(startSellIn, startQuality);
+
+		// When
+		boolean actualHasSellInGreaterThan10 = item.hasSellInGreaterThan10();
+
+		// Then
+		Assertions.assertThat(actualHasSellInGreaterThan10).isFalse();
+	}
+
+	@Test
+	public void hasSellInBetween10And6_WithSellInGreaterThan10_ShouldReturn_False() {
+		// Given
+		int startQuality = random.nextInt();
+		int startSellIn = random.nextInt(30) + 11;
+		Item item = buildItem(startSellIn, startQuality);
+
+		// When
+		boolean actualHasSellInGreaterThan10 = item.hasSellInBetween10And6();
+
+		// Then
+		Assertions.assertThat(actualHasSellInGreaterThan10).isFalse();
+	}
+
+	@Test
+	public void hasSellInBetween10And6_WithSellInBetween10And6_ShouldReturn_True() {
+		// Given
+		int startQuality = random.nextInt();
+		int startSellIn = random.nextInt(5) + 6;
+		Item item = buildItem(startSellIn, startQuality);
+
+		// When
+		boolean actualHasSellInGreaterThan10 = item.hasSellInBetween10And6();
+
+		// Then
+		Assertions.assertThat(actualHasSellInGreaterThan10).isTrue();
+	}
+
+	@Test
+	public void hasSellInBetween10And6_WithSellInLowerThanOrEquals5_ShouldReturn_False() {
+		// Given
+		int startQuality = random.nextInt();
+		int startSellIn = random.nextInt(6);
+		Item item = buildItem(startSellIn, startQuality);
+
+		// When
+		boolean actualHasSellInGreaterThan10 = item.hasSellInBetween10And6();
+
+		// Then
+		Assertions.assertThat(actualHasSellInGreaterThan10).isFalse();
+	}
+	
+	@Test
+	public void hasSellInBetween5And1_WithSellInGreaterThan5_ShouldReturn_False() {
+		// Given
+		int startQuality = random.nextInt();
+		int startSellIn = random.nextInt(30) + 6;
+		Item item = buildItem(startSellIn, startQuality);
+		
+		// When
+		boolean actualHasSellInBetween5And1 = item.hasSellInBetween5And1();
+		
+		// Then
+		Assertions.assertThat(actualHasSellInBetween5And1).isFalse();
+	}
+	
+	@Test
+	public void hasSellInBetween5And1_WithSellInBetween5And1_ShouldReturn_True() {
+		// Given
+		int startQuality = random.nextInt();
+		int startSellIn = random.nextInt(5) + 1;
+		Item item = buildItem(startSellIn, startQuality);
+		
+		// When
+		boolean actualHasSellInBetween5And1 = item.hasSellInBetween5And1();
+		
+		// Then
+		Assertions.assertThat(actualHasSellInBetween5And1).isTrue();
+	}
+	
+	@Test
+	public void hasSellInBetween5And1_WithSellInEquals0_ShouldReturn_False() {
+		// Given
+		int startQuality = random.nextInt();
+		int startSellIn = 0;
+		Item item = buildItem(startSellIn, startQuality);
+		
+		// When
+		boolean actualHasSellInBetween5And1 = item.hasSellInBetween5And1();
+		
+		// Then
+		Assertions.assertThat(actualHasSellInBetween5And1).isFalse();
+	}
+
+	@Test
+	public void hasSellInLowerThanOrEqulas0_WithSellInLowerThanOrEqulas0_ShouldReturn_True() {
+		// Given
+		int startQuality = random.nextInt();
+		int startSellIn = 0 - random.nextInt(30);
+		Item item = buildItem(startSellIn, startQuality);
+		
+		// When
+		boolean actualHasSellInLowerThanOrEqulas0 = item.hasSellInLowerThanOrEqulas0();
+		
+		// Then
+		Assertions.assertThat(actualHasSellInLowerThanOrEqulas0).isTrue();
+	}
+	
+	@Test
+	public void hasSellInLowerThanOrEqulas0_WithSellInGreaterThan0_ShouldReturn_False() {
+		// Given
+		int startQuality = random.nextInt();
+		int startSellIn = random.nextInt(30) + 1;
+		Item item = buildItem(startSellIn, startQuality);
+		
+		// When
+		boolean actualHasSellInLowerThanOrEqulas0 = item.hasSellInLowerThanOrEqulas0();
+		
+		// Then
+		Assertions.assertThat(actualHasSellInLowerThanOrEqulas0).isFalse();
+	}
+	
 	protected abstract Item buildItem(int quality);
 
 	protected abstract Item buildItem(int sellIn, int quality);

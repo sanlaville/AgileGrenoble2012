@@ -1,15 +1,15 @@
 package org.agilegrenoble.objectcalisthenics;
 
-public class QualityIsNeverNegative {
+public class DropQualityToZeroAfterTheConcert {
 
 	protected Item item = null;
 	
-	public QualityIsNeverNegative(Item item) {
+	public DropQualityToZeroAfterTheConcert(Item item) {
 		this.item = item;
 	}
 
 	public void execute() {
-		if (item.hasNegativeQuality())
+		if (item.hasSellInLowerThanOrEqulas0())
 			item.dropQualityToZero();
 	}
 
