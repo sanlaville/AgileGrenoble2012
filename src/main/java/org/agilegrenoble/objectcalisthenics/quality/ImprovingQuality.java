@@ -15,4 +15,10 @@ public final class ImprovingQuality extends Quality {
     public void increase() {
         increase(1);
     }
+
+    @Override
+    public void update() {
+        increase(1);
+        
+    }
 }

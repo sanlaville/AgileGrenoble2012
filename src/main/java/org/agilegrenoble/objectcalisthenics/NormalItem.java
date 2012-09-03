@@ -13,29 +13,17 @@ public class NormalItem extends Item {
 	 * 
 	 */
     public void updateQuality() {
-        if (name.equals("Aged Brie")) {
-            quality.increase();
-            sellIn.decreaseSellIn();
-            if (sellIn.getSellIn() < 0) {
-                quality.increase();
-            }
-        } else if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) { 
-            quality.decrease();
-            sellIn.decreaseSellIn();
-            if (sellIn.getSellIn() < 0) {
-                quality.decrease();
-            }
-        } else { // backstage pass
+        if (name.equals("Backstage passes to a TAFKAL80ETC concert")) { // backstage pass
             
-            quality.increase();
+            quality.update();
 
             if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (sellIn.getSellIn() < 11) {
-                    quality.increase();
+                    quality.update();
                 }
 
                 if (sellIn.getSellIn() < 6) {
-                    quality.increase();
+                    quality.update();
                 }
             }
 
@@ -43,6 +31,12 @@ public class NormalItem extends Item {
 
             if (sellIn.getSellIn() < 0) {
                 quality.resetToZero();
+            }
+        } else {
+            quality.update();
+            sellIn.decreaseSellIn();
+            if (sellIn.getSellIn() < 0) {
+                quality.update();
             }
         }
     }

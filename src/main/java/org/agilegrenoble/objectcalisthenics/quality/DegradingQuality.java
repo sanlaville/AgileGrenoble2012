@@ -12,7 +12,13 @@ public class DegradingQuality extends Quality {
     }
     
     public void increase() {
-        increase(1);
+        decrease(1);
+    }
+
+    @Override
+    public void update() {
+        decrease(1);
+        
     }
 
 }
