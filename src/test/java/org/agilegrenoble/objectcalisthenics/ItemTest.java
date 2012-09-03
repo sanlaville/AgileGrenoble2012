@@ -30,9 +30,9 @@ public class ItemTest {
 
 		// When
 		freshItem.updateQuality();
-		int actualFreshItemQuality = startquality - freshItem.data.getQuality();
+		int actualFreshItemQuality = startquality - freshItem.quality.getQuality();
 		passedItem.updateQuality();
-		int actualPassedItemQuality = startquality - passedItem.data.getQuality();
+		int actualPassedItemQuality = startquality - passedItem.quality.getQuality();
 
 		// Then
 		assertThat(actualFreshItemQuality).isEqualTo(
@@ -49,7 +49,7 @@ public class ItemTest {
 		repeatUpdateQuality(item, random.nextInt(10));
 
 		// Then
-		assertThat(item.data.getQuality()).isGreaterThanOrEqualTo(0);
+		assertThat(item.quality.getQuality()).isGreaterThanOrEqualTo(0);
 	}
 
 	@Test
@@ -62,7 +62,7 @@ public class ItemTest {
 		brie.updateQuality();
 
 		// Then
-		assertThat(brie.data.getQuality()).isEqualTo(startQuality + 1);
+		assertThat(brie.quality.getQuality()).isEqualTo(startQuality + 1);
 	}
 
 	@Test
@@ -75,7 +75,7 @@ public class ItemTest {
 		repeatUpdateQuality(item, random.nextInt(10));
 
 		// Then
-		assertThat(item.data.getQuality()).isLessThanOrEqualTo(maxQuality);
+		assertThat(item.quality.getQuality()).isLessThanOrEqualTo(maxQuality);
 	}
 
 	@Test
@@ -88,7 +88,7 @@ public class ItemTest {
 		repeatUpdateQuality(sulfuras, random.nextInt(10));
 
 		// Then
-		assertThat(sulfuras.data.getQuality()).isGreaterThanOrEqualTo(startQuality);
+		assertThat(sulfuras.quality.getQuality()).isGreaterThanOrEqualTo(startQuality);
 	}
 
 	@Test
@@ -101,7 +101,7 @@ public class ItemTest {
 		repeatUpdateQuality(sulfuras, random.nextInt(10));
 
 		// Then
-		assertThat(sulfuras.sellIn).isEqualTo(startSellIn);
+		assertThat(sulfuras.sellIn.getSellIn()).isEqualTo(startSellIn);
 	}
 
 	@Test
@@ -182,7 +182,7 @@ public class ItemTest {
 		backstage.updateQuality();
 
 		// Then
-		assertThat(backstage.data.getQuality()).isEqualTo(0);
+		assertThat(backstage.quality.getQuality()).isEqualTo(0);
 	}
 
 	@Test
@@ -198,7 +198,7 @@ public class ItemTest {
 		inn.updateQuality();
 
 		// Then
-		assertThat(conjured.data.getQuality()).isEqualTo(4);
+		assertThat(conjured.quality.getQuality()).isEqualTo(4);
 	}
 	
 	@Test
@@ -210,8 +210,8 @@ public class ItemTest {
 		int value = random.nextInt();
 		
 		// When
-		item.data.increase(value);
-		int actualQuality = item.data.getQuality();
+		item.quality.increase(value);
+		int actualQuality = item.quality.getQuality();
 		
 		// Then
 		int expectedQuality = startQuality + value;
@@ -227,8 +227,8 @@ public class ItemTest {
 		int value = random.nextInt();
 		
 		// When
-		item.data.decrease(value);
-		int actualQuality = item.data.getQuality();
+		item.quality.decrease(value);
+		int actualQuality = item.quality.getQuality();
 		
 		// Then
 		int expectedQuality = startQuality - value;
@@ -244,8 +244,8 @@ public class ItemTest {
 		int value = random.nextInt();
 		
 		// When
-		item.decreaseSellIn(value);
-		int actualSelIn = item.sellIn;
+		item.sellIn.decreaseSellIn(value);
+		int actualSelIn = item.sellIn.getSellIn();
 		
 		// Then
 		int expectedSellIn = startSellIn - value;
@@ -260,8 +260,8 @@ public class ItemTest {
 		Item item = new Item(null, 0, startQuality);
 		
 		// When
-		item.data.resetToZero();
-		int actualQuality = item.data.getQuality();
+		item.quality.resetToZero();
+		int actualQuality = item.quality.getQuality();
 		
 		// Then
 		Assertions.assertThat(actualQuality).isEqualTo(0);
@@ -316,7 +316,7 @@ public class ItemTest {
 
 		for (int day = startOfPeriod; day > endOfPeriod; --day) {
 			backstage.updateQuality();
-			qualityInThePeriod.add(backstage.data.getQuality());
+			qualityInThePeriod.add(backstage.quality.getQuality());
 		}
 
 		return qualityInThePeriod;
