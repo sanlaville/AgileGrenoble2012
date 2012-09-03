@@ -1,11 +1,13 @@
 package org.agilegrenoble.objectcalisthenics;
 
+import org.agilegrenoble.objectcalisthenics.quality.Quality;
+
 public class Item {
 	protected String name;
 	public SellIn sellIn;
-    protected Cuality quality;
+    protected Quality quality;
 
-    public Item(String name, SellIn sellIn, Cuality quality) {
+    public Item(String name, SellIn sellIn, Quality quality) {
 		this.name = name;
 		this.quality = quality;
 		this.sellIn = sellIn;

@@ -1,10 +1,10 @@
-package org.agilegrenoble.objectcalisthenics;
+package org.agilegrenoble.objectcalisthenics.quality;
 
-public abstract class Cuality {
+public abstract class Quality {
 
     protected int quality;
 
-    public Cuality(int quality) {
+    public Quality(int quality) {
         this.quality = quality;
     }
 
@@ -19,7 +19,7 @@ public abstract class Cuality {
      * @param value
      *            integer by which the quality should be increased.
      */
-    protected void decrease(int value) {
+    public void decrease(int value) {
         if (quality > 0)
             quality -= value;
     }
@@ -30,7 +30,7 @@ public abstract class Cuality {
      * @param value
      *            integer by which the quality should be increased.
      */
-    protected void increase(int value) {
+    public void increase(int value) {
         if (quality < 50)
             quality += value;
     }

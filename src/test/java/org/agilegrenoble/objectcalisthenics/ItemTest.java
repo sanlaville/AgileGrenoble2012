@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import org.agilegrenoble.objectcalisthenics.quality.ImprovingQuality;
+import org.agilegrenoble.objectcalisthenics.quality.DegradingQuality;
 import org.fest.assertions.Assertions;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -25,8 +27,8 @@ public class ItemTest {
 	public void quality_degrades_twice_as_fast_after_the_sell_date_has_passed() {
 		// Given
 		int startquality = 10;
-		Item freshItem = new Item("freshItem", new SellIn(2), new Quality(startquality));
-		Item passedItem = new Item("passedItem", new SellIn(0), new Quality(startquality));
+		Item freshItem = new Item("freshItem", new SellIn(2), new DegradingQuality(startquality));
+		Item passedItem = new Item("passedItem", new SellIn(0), new DegradingQuality(startquality));
 
 		// When
 		freshItem.updateQuality();
@@ -56,7 +58,7 @@ public class ItemTest {
 	public void brie_quality_increases_with_time() {
 		// Given
 		int startQuality = 20;
-		Item brie = new Item("Aged Brie", new SellIn(10), new IncreasingQuality(startQuality));
+		Item brie = new Item("Aged Brie", new SellIn(10), new ImprovingQuality(startQuality));
 
 		// When
 		brie.updateQuality();
@@ -82,7 +84,7 @@ public class ItemTest {
 	public void sulfuras_never_decreases_in_quality() {
 		// Given
 		int startQuality = 40;
-		Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", new SellIn(0), new Quality(startQuality));
+		Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", new SellIn(0), new DegradingQuality(startQuality));
 
 		// When
 		repeatUpdateQuality(sulfuras, random.nextInt(10));
@@ -95,7 +97,7 @@ public class ItemTest {
 	public void sulfuras_never_has_to_be_sold() {
 		// Given
 		int startSellIn = 10;
-		Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", new SellIn(startSellIn), new Quality(0));
+		Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", new SellIn(startSellIn), new DegradingQuality(0));
 
 		// When
 		repeatUpdateQuality(sulfuras, random.nextInt(10));
@@ -110,7 +112,7 @@ public class ItemTest {
 		int startQuality = 20;
 		int sellIn = 10;
 		Item backstage = new Item("Backstage passes to a TAFKAL80ETC concert",
-				new SellIn(sellIn), new Quality(startQuality));
+				new SellIn(sellIn), new DegradingQuality(startQuality));
 
 		// When
 		int startOfPeriod = sellIn;
@@ -132,7 +134,7 @@ public class ItemTest {
 		int startQuality = 20;
 		int sellIn = 5;
 		Item backstage = new Item("Backstage passes to a TAFKAL80ETC concert",
-				new SellIn(sellIn), new Quality(startQuality));
+				new SellIn(sellIn), new DegradingQuality(startQuality));
 
 		// Then
 		int startOfPeriod = sellIn;
@@ -154,7 +156,7 @@ public class ItemTest {
 		int startQuality = 20;
 		int sellIn = 15;
 		Item backstage = new Item("Backstage passes to a TAFKAL80ETC concert",
-				new SellIn(sellIn), new Quality(startQuality));
+				new SellIn(sellIn), new DegradingQuality(startQuality));
 
 		// Then
 		int startOfPeriod = sellIn;
@@ -176,7 +178,7 @@ public class ItemTest {
 		int startQuality = 20;
 		int sellIn = 0;
 		Item backstage = new Item("Backstage passes to a TAFKAL80ETC concert",
-				new SellIn(sellIn), new Quality(startQuality));
+				new SellIn(sellIn), new DegradingQuality(startQuality));
 
 		// When
 		backstage.updateQuality();
@@ -191,7 +193,7 @@ public class ItemTest {
 	public void conjured_degrade_in_quality_twice_as_fast_as_normal_items() {
 		// Given
 		int startQuality = 6;
-		Item conjured = new Item("Conjured Mana Cake", new SellIn(3), new Quality(startQuality));
+		Item conjured = new Item("Conjured Mana Cake", new SellIn(3), new DegradingQuality(startQuality));
 		Inn inn = new Inn(asList(conjured));
 
 		// When
@@ -205,7 +207,7 @@ public class ItemTest {
 	public void increaseQuality_ShouldIncreaseQualityByTheGivenValue(){
 		// Given
 		int startQuality = random.nextInt(51);
-		Item item = new Item(null, new SellIn(0), new Quality(startQuality));
+		Item item = new Item(null, new SellIn(0), new DegradingQuality(startQuality));
 		
 		int value = random.nextInt();
 		
@@ -222,7 +224,7 @@ public class ItemTest {
 	public void decreaseQuality_ShouldDecreaseQualityByTheGivenValue(){
 		// Given
 		int startQuality = random.nextInt(51);
-		Item item = new Item(null, new SellIn(0), new Quality(startQuality));
+		Item item = new Item(null, new SellIn(0), new DegradingQuality(startQuality));
 		
 		int value = random.nextInt();
 		
@@ -239,7 +241,7 @@ public class ItemTest {
 	public void decreaseSellIn_IsAlwaysByOne(){
 		// Given
 		int startSellIn = random.nextInt();
-		Item item = new Item(null, new SellIn(startSellIn), new Quality(0));
+		Item item = new Item(null, new SellIn(startSellIn), new DegradingQuality(0));
 		
 		// When
 		item.sellIn.decreaseSellIn();
@@ -255,7 +257,7 @@ public class ItemTest {
 	{
 		// Given
 		int startQuality = random.nextInt();
-		Item item = new Item(null, new SellIn(0), new Quality(startQuality));
+		Item item = new Item(null, new SellIn(0), new DegradingQuality(startQuality));
 		
 		// When
 		item.quality.resetToZero();
@@ -271,23 +273,23 @@ public class ItemTest {
 		int ran = random.nextInt(6);
 		switch (ran) {
 		case 0:
-			item = new Item("+5 Dexterity Vest", new SellIn(10), new Quality(quality));
+			item = new Item("+5 Dexterity Vest", new SellIn(10), new DegradingQuality(quality));
 			break;
 		case 1:
-			item = new Item("Aged Brie", new SellIn(2), new Quality(quality));
+			item = new Item("Aged Brie", new SellIn(2), new DegradingQuality(quality));
 			break;
 		case 2:
-			item = new Item("Elixir of the Mongoose", new SellIn(5), new Quality(quality));
+			item = new Item("Elixir of the Mongoose", new SellIn(5), new DegradingQuality(quality));
 			break;
 		case 3:
-			item = new Item("Sulfuras, Hand of Ragnaros", new SellIn(0), new Quality(quality));
+			item = new Item("Sulfuras, Hand of Ragnaros", new SellIn(0), new DegradingQuality(quality));
 			break;
 		case 4:
 			item = new Item("Backstage passes to a TAFKAL80ETC concert", new SellIn(15),
-					new Quality(quality));
+					new DegradingQuality(quality));
 			break;
 		case 5:
-			item = new Item("Conjured Mana Cake", new SellIn(3), new Quality(quality));
+			item = new Item("Conjured Mana Cake", new SellIn(3), new DegradingQuality(quality));
 			break;
 		}
 

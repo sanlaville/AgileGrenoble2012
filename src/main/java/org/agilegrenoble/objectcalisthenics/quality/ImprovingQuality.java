@@ -1,7 +1,8 @@
-package org.agilegrenoble.objectcalisthenics;
+package org.agilegrenoble.objectcalisthenics.quality;
 
-public final class IncreasingQuality extends Cuality {
-    public IncreasingQuality(int quality) {
+
+public final class ImprovingQuality extends Quality {
+    public ImprovingQuality(int quality) {
         super(quality);
     }
 
