@@ -12,36 +12,43 @@ public class NormalItem extends Item {
 	 * Update quality for the item
 	 * 
 	 */
-	public void updateQuality() {
-		if (!name.equals("Aged Brie")
-				&& !name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-			quality.decrease();
-		} else {
-			quality.increase();
-
-            if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-            	if (sellIn.getSellIn() < 11) {
-            		quality.increase();
-            	}
-
-            	if (sellIn.getSellIn() < 6) {
-            		quality.increase();
-            	}
+    public void updateQuality() {
+        if (name.equals("Aged Brie")) {
+            quality.increase();
+            sellIn.decreaseSellIn();
+            if (sellIn.getSellIn() < 0) {
+                quality.increase();
             }
-		}
+        } else {
+            if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                quality.decrease();
+            } else {
+                quality.increase();
 
-		sellIn.decreaseSellIn();
+                if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                    if (sellIn.getSellIn() < 11) {
+                        quality.increase();
+                    }
 
-		if (sellIn.getSellIn() < 0) {
-			if (!name.equals("Aged Brie")) {
-				if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-					quality.decrease();
-				} else {
-					quality.resetToZero();
-				}
-			} else {
-				quality.increase();
-			}
-		}
-	}
+                    if (sellIn.getSellIn() < 6) {
+                        quality.increase();
+                    }
+                }
+            }
+
+            sellIn.decreaseSellIn();
+
+            if (sellIn.getSellIn() < 0) {
+                if (true) {
+                    if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                        quality.decrease();
+                    } else {
+                        quality.resetToZero();
+                    }
+                } else {
+                    quality.increase();
+                }
+            }
+        }
+    }
 }
