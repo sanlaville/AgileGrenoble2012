@@ -3,12 +3,12 @@ package org.agilegrenoble.objectcalisthenics;
 public class Item {
 	protected String name;
 	public SellIn sellIn;
-    protected Quality quality;
+    protected Cuality quality;
 
-    public Item(String name, int sellIn, int quality, SellIn sellIn3, Quality quality2) {
+    public Item(String name, SellIn sellIn, Cuality quality) {
 		this.name = name;
-		this.quality = quality2;
-		this.sellIn = sellIn3;
+		this.quality = quality;
+		this.sellIn = sellIn;
 	}
 
 	/**
