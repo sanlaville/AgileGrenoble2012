@@ -3,9 +3,9 @@ package org.agilegrenoble.objectcalisthenics;
 import java.util.List;
 
 public class Inn {
-	private List<Item> items;
+	private List<NormalItem> items;
 
-	public Inn(List<Item> initialItems) {
+	public Inn(List<NormalItem> initialItems) {
 		items = initialItems;
 	}
 
