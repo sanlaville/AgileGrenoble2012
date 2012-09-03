@@ -28,7 +28,8 @@ public class Quality {
      *            integer by which the quality should be increased.
      */
     protected void increase(int value) {
-        quality += value;
+        if (quality < 50)
+            quality += value;
     }
 
     /**

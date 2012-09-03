@@ -24,23 +24,17 @@ public class Item {
 				}
 			}
 		} else {
-			if (quality.getQuality() < 50) {
-				quality.increase(1);
+			quality.increase(1);
 
-				if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-					if (sellIn.getSellIn() < 11) {
-						if (quality.getQuality() < 50) {
-							quality.increase(1);
-						}
-					}
+            if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            	if (sellIn.getSellIn() < 11) {
+            		quality.increase(1);
+            	}
 
-					if (sellIn.getSellIn() < 6) {
-						if (quality.getQuality() < 50) {
-							quality.increase(1);
-						}
-					}
-				}
-			}
+            	if (sellIn.getSellIn() < 6) {
+            		quality.increase(1);
+            	}
+            }
 		}
 
 		if (!name.equals("Sulfuras, Hand of Ragnaros")) {
@@ -59,9 +53,7 @@ public class Item {
 					quality.resetToZero();
 				}
 			} else {
-				if (quality.getQuality() < 50) {
-					quality.increase(1);
-				}
+				quality.increase(1);
 			}
 		}
 	}
