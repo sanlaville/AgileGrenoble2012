@@ -5,10 +5,10 @@ public class Item {
 	public SellIn sellIn;
     protected Quality quality;
 
-    public Item(String name, int sellIn, int quality) {
+    public Item(String name, int sellIn, int quality, SellIn sellIn3, Quality quality2) {
 		this.name = name;
-		this.quality = new Quality(quality);
-		this.sellIn = new SellIn(sellIn);
+		this.quality = quality2;
+		this.sellIn = sellIn3;
 	}
 
 	/**
