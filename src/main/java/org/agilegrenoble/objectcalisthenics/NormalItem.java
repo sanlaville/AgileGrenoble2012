@@ -19,35 +19,30 @@ public class NormalItem extends Item {
             if (sellIn.getSellIn() < 0) {
                 quality.increase();
             }
-        } else {
-            if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+        } else if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) { 
+            quality.decrease();
+            sellIn.decreaseSellIn();
+            if (sellIn.getSellIn() < 0) {
                 quality.decrease();
-            } else {
-                quality.increase();
+            }
+        } else { // backstage pass
+            
+            quality.increase();
 
-                if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                    if (sellIn.getSellIn() < 11) {
-                        quality.increase();
-                    }
+            if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                if (sellIn.getSellIn() < 11) {
+                    quality.increase();
+                }
 
-                    if (sellIn.getSellIn() < 6) {
-                        quality.increase();
-                    }
+                if (sellIn.getSellIn() < 6) {
+                    quality.increase();
                 }
             }
 
             sellIn.decreaseSellIn();
 
             if (sellIn.getSellIn() < 0) {
-                if (true) {
-                    if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        quality.decrease();
-                    } else {
-                        quality.resetToZero();
-                    }
-                } else {
-                    quality.increase();
-                }
+                quality.resetToZero();
             }
         }
     }
