@@ -15,7 +15,7 @@ public class InnTest {
 	@Test
 	public void updateQuality_WithAnEmptyList_ShouldDoNothing() {
 		// Given
-		List<NormalItem> items = Mockito.mock(List.class);
+		List<Item> items = Mockito.mock(List.class);
 		Mockito.when(items.size()).thenReturn(0);
 
 		Inn inn = new Inn(items);
@@ -33,8 +33,8 @@ public class InnTest {
 		// Given
 		Random random = new Random();
 		int nbItems = random.nextInt(20) + 1; 
-		List<NormalItem> items = Mockito.mock(List.class);
-		List<NormalItem> itemsForVerify = new ArrayList<NormalItem>(nbItems);
+		List<Item> items = Mockito.mock(List.class);
+		List<Item> itemsForVerify = new ArrayList<Item>(nbItems);
 		NormalItem currentItem = null;
 		Mockito.when(items.size()).thenReturn(nbItems);
 		for (int i = 0; i < nbItems; i++) {
