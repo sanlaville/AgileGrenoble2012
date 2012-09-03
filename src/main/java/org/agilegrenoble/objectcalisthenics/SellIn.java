@@ -13,11 +13,8 @@ public class SellIn {
 
     /**
      * Decrease sellIn by the given value
-     * 
-     * @param value
-     *            integer by which the sellIn should be increased.
      */
-    protected void decreaseSellIn(int value) {
-    	sellIn -= value;
+    protected void decreaseSellIn() {
+    	sellIn -= 1;
     }
 }

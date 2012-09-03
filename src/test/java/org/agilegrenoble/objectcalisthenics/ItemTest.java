@@ -236,19 +236,17 @@ public class ItemTest {
 	}
 	
 	@Test
-	public void decreaseSellIn_ShouldDecreaseSellInByTheGivenValue(){
+	public void decreaseSellIn_IsAlwaysByOne(){
 		// Given
 		int startSellIn = random.nextInt();
 		Item item = new Item(null, startSellIn, 0);
 		
-		int value = random.nextInt();
-		
 		// When
-		item.sellIn.decreaseSellIn(value);
+		item.sellIn.decreaseSellIn();
 		int actualSelIn = item.sellIn.getSellIn();
 		
 		// Then
-		int expectedSellIn = startSellIn - value;
+		int expectedSellIn = startSellIn - 1;
 		Assertions.assertThat(actualSelIn).isEqualTo(expectedSellIn);
 	}
 	

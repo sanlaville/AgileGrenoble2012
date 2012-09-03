@@ -44,7 +44,7 @@ public class Item {
 		}
 
 		if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-			sellIn.decreaseSellIn(1);
+			sellIn.decreaseSellIn();
 		}
 
 		if (sellIn.getSellIn() < 0) {
