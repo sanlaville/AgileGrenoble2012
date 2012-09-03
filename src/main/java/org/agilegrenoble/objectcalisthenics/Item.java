@@ -7,10 +7,6 @@ public abstract class Item {
     public SellIn sellIn;
     protected Quality quality;
 
-    public Item() {
-        super();
-    }
-
     public Item(String name, Quality quality, SellIn sellIn) {
         this.name = name;
         this.quality = quality;

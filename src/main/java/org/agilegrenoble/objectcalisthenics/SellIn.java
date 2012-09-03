@@ -14,7 +14,7 @@ public class SellIn {
     /**
      * Decrease sellIn by the given value
      */
-    protected void decreaseSellIn() {
+    protected void decrease() {
     	sellIn -= 1;
     }
 }

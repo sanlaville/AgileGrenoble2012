@@ -244,7 +244,7 @@ public class NormalItemTest {
 		NormalItem item = new NormalItem(null, new SellIn(startSellIn), new DegradingQuality(0));
 		
 		// When
-		item.sellIn.decreaseSellIn();
+		item.sellIn.decrease();
 		int actualSelIn = item.sellIn.getSellIn();
 		
 		// Then
