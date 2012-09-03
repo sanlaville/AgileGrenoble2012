@@ -42,9 +42,6 @@ public abstract class Quality {
         quality = 0;
     }
     
-    public abstract void decrease();
-    
-    public abstract void increase();
     public abstract void update();
 
 

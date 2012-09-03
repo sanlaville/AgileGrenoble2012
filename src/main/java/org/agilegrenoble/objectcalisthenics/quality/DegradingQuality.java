@@ -7,14 +7,6 @@ public class DegradingQuality extends Quality {
         super(quality);
     }
 
-    public void decrease() {
-        decrease(1);
-    }
-    
-    public void increase() {
-        decrease(1);
-    }
-
     @Override
     public void update() {
         decrease(1);

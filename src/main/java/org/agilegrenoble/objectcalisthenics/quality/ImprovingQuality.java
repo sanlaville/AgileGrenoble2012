@@ -7,16 +7,6 @@ public final class ImprovingQuality extends Quality {
     }
 
     @Override
-    public void decrease() {
-        increase(1);
-    }
-
-    @Override
-    public void increase() {
-        increase(1);
-    }
-
-    @Override
     public void update() {
         increase(1);
         
