@@ -5,7 +5,11 @@ import org.agilegrenoble.objectcalisthenics.quality.DegradingQuality;
 public class Sulfuras extends Item {
 
     public Sulfuras() {
-        super("Sulfuras, Hand of Ragnaros", null, null);
+        //TODO could use a ConstantQuality instead
+        this(new SellIn(0));
+    }
+    public Sulfuras(SellIn sellIn) {
+        super("Sulfuras, Hand of Ragnaros", new DegradingQuality(80), sellIn);
     }
     @Override
     public void updateQuality() {

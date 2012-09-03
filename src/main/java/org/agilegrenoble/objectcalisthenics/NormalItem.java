@@ -15,9 +15,7 @@ public class NormalItem extends Item {
 	public void updateQuality() {
 		if (!name.equals("Aged Brie")
 				&& !name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-			if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-            	quality.decrease();
-            }
+			quality.decrease();
 		} else {
 			quality.increase();
 
@@ -32,16 +30,12 @@ public class NormalItem extends Item {
             }
 		}
 
-		if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-			sellIn.decreaseSellIn();
-		}
+		sellIn.decreaseSellIn();
 
 		if (sellIn.getSellIn() < 0) {
 			if (!name.equals("Aged Brie")) {
 				if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-					if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-                    	quality.decrease();
-                    }
+					quality.decrease();
 				} else {
 					quality.resetToZero();
 				}

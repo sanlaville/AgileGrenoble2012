@@ -84,7 +84,7 @@ public class NormalItemTest {
 	public void sulfuras_never_decreases_in_quality() {
 		// Given
 		int startQuality = 40;
-		NormalItem sulfuras = new NormalItem("Sulfuras, Hand of Ragnaros", new SellIn(0), new DegradingQuality(startQuality));
+		Item sulfuras = new Sulfuras();
 
 		// When
 		repeatUpdateQuality(sulfuras, random.nextInt(10));
@@ -97,7 +97,7 @@ public class NormalItemTest {
 	public void sulfuras_never_has_to_be_sold() {
 		// Given
 		int startSellIn = 10;
-		NormalItem sulfuras = new NormalItem("Sulfuras, Hand of Ragnaros", new SellIn(startSellIn), new DegradingQuality(0));
+		Item sulfuras = new Sulfuras(new SellIn(startSellIn));
 
 		// When
 		repeatUpdateQuality(sulfuras, random.nextInt(10));
@@ -296,7 +296,7 @@ public class NormalItemTest {
 		return item;
 	}
 
-	private void repeatUpdateQuality(NormalItem item, int times) {
+	private void repeatUpdateQuality(Item item, int times) {
 		for (int i = 0; i < times; i++) {
 			item.updateQuality();
 		}
