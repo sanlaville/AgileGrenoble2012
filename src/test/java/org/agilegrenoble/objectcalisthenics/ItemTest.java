@@ -204,7 +204,7 @@ public class ItemTest {
 	@Test
 	public void increaseQuality_ShouldIncreaseQualityByTheGivenValue(){
 		// Given
-		int startQuality = random.nextInt();
+		int startQuality = random.nextInt(51);
 		Item item = new Item(null, 0, startQuality);
 		
 		int value = random.nextInt();
@@ -221,7 +221,7 @@ public class ItemTest {
 	@Test
 	public void decreaseQuality_ShouldDecreaseQualityByTheGivenValue(){
 		// Given
-		int startQuality = random.nextInt();
+		int startQuality = random.nextInt(51);
 		Item item = new Item(null, 0, startQuality);
 		
 		int value = random.nextInt();
