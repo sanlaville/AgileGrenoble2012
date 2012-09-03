@@ -22,6 +22,10 @@ public class Quality {
             quality -= value;
     }
 
+    public void decrease() {
+        decrease(1);
+    }
+    
     /**
      * Increase quality by the given value
      * 
@@ -32,11 +36,16 @@ public class Quality {
         if (quality < 50)
             quality += value;
     }
+    
+    public void increase() {
+        increase(1);
+    }
 
     /**
      * Reset quality to zero
      */
-    protected void resetToZero() {
+    public void resetToZero() {
         quality = 0;
     }
+
 }
