@@ -3,11 +3,11 @@ package org.agilegrenoble.objectcalisthenics;
 public class Item {
 	protected String name;
 	protected int sellIn;
-	protected int quality;
+	public Quality data;
 
-	public Item(String name, int sellIn, int quality) {
+    public Item(String name, int sellIn, int quality) {
 		this.name = name;
-		this.quality = quality;
+		this.data = new Quality(quality);
 		this.sellIn = sellIn;
 	}
 
@@ -18,25 +18,25 @@ public class Item {
 	public void updateQuality() {
 		if (!name.equals("Aged Brie")
 				&& !name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-			if (quality > 0) {
+			if (data.getQuality() > 0) {
 				if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-					decreaseQuality(1);
+					data.decrease(1);
 				}
 			}
 		} else {
-			if (quality < 50) {
-				increaseQuality(1);
+			if (data.getQuality() < 50) {
+				data.increase(1);
 
 				if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
 					if (sellIn < 11) {
-						if (quality < 50) {
-							increaseQuality(1);
+						if (data.getQuality() < 50) {
+							data.increase(1);
 						}
 					}
 
 					if (sellIn < 6) {
-						if (quality < 50) {
-							increaseQuality(1);
+						if (data.getQuality() < 50) {
+							data.increase(1);
 						}
 					}
 				}
@@ -50,27 +50,20 @@ public class Item {
 		if (sellIn < 0) {
 			if (!name.equals("Aged Brie")) {
 				if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-					if (quality > 0) {
+					if (data.getQuality() > 0) {
 						if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-							decreaseQuality(1);
+							data.decrease(1);
 						}
 					}
 				} else {
-					resetQualityToZero();
+					data.resetToZero();
 				}
 			} else {
-				if (quality < 50) {
-					increaseQuality(1);
+				if (data.getQuality() < 50) {
+					data.increase(1);
 				}
 			}
 		}
-	}
-
-	/**
-	 * Reset quality to zero
-	 */
-	protected void resetQualityToZero() {
-		quality = 0;
 	}
 
 	/**
@@ -81,26 +74,5 @@ public class Item {
 	 */
 	protected void decreaseSellIn(int value) {
 		sellIn -= value;
-	}
-
-	/**
-	 * Increase quality by the given value
-	 * 
-	 * @param value
-	 *            integer by which the quality should be increased.
-	 */
-	protected void increaseQuality(int value) {
-		quality += value;
-
-	}
-
-	/**
-	 * Decrease quality by the given value
-	 * 
-	 * @param value
-	 *            integer by which the quality should be increased.
-	 */
-	protected void decreaseQuality(int value) {
-		quality -= value;
 	}
 }
