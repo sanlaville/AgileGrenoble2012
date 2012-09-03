@@ -56,17 +56,7 @@ public class ItemTest {
 	public void brie_quality_increases_with_time() {
 		// Given
 		int startQuality = 20;
-		Item brie = new Item("Aged Brie", new SellIn(10), new Cuality(startQuality) {
-
-            @Override
-            public void decrease() {
-                decrease(1);
-            }
-    
-            @Override
-            public void increase() {
-                increase(1);
-            }});
+		Item brie = new Item("Aged Brie", new SellIn(10), new IncreasingQuality(startQuality));
 
 		// When
 		brie.updateQuality();
