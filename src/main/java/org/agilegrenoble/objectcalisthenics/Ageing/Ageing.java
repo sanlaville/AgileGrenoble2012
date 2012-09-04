@@ -1,4 +1,4 @@
-package org.agilegrenoble.objectcalisthenics;
+package org.agilegrenoble.objectcalisthenics.Ageing;
 
 import org.agilegrenoble.objectcalisthenics.quality.Quality;
 
@@ -17,7 +17,7 @@ public abstract class Ageing {
     /**
      * Decrease sellIn by the given value
      */
-    protected void advanceOneDay() {
+    public void advanceOneDay() {
     	sellIn -= 1;
     }
 

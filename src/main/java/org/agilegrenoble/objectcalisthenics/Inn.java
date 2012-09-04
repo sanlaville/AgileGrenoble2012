@@ -2,6 +2,8 @@ package org.agilegrenoble.objectcalisthenics;
 
 import java.util.List;
 
+import org.agilegrenoble.objectcalisthenics.items.Item;
+
 public class Inn {
 	private List<Item> items;
 

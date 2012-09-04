@@ -1,4 +1,4 @@
-package org.agilegrenoble.objectcalisthenics;
+package org.agilegrenoble.objectcalisthenics.items;
 
 import static java.util.Arrays.asList;
 import static org.fest.assertions.Assertions.assertThat;
@@ -7,8 +7,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import org.agilegrenoble.objectcalisthenics.quality.ImprovingQuality;
+import org.agilegrenoble.objectcalisthenics.Inn;
+import org.agilegrenoble.objectcalisthenics.ItemForge;
+import org.agilegrenoble.objectcalisthenics.Ageing.BackStagePassAgeing;
+import org.agilegrenoble.objectcalisthenics.Ageing.SellIn;
 import org.agilegrenoble.objectcalisthenics.quality.DegradingQuality;
+import org.agilegrenoble.objectcalisthenics.quality.ImprovingQuality;
 import org.fest.assertions.Assertions;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -17,6 +21,7 @@ import org.junit.Test;
 public class NormalItemTest {
 
 	private Random random = null;
+	private ItemForge forge = new ItemForge();
 
 	@Before
 	public void setup() {
@@ -27,8 +32,8 @@ public class NormalItemTest {
 	public void quality_degrades_twice_as_fast_after_the_sell_date_has_passed() {
 		// Given
 		int startquality = 10;
-		NormalItem freshItem = new NormalItem("freshItem", new SellIn(2), new DegradingQuality(startquality));
-		NormalItem passedItem = new NormalItem("passedItem", new SellIn(0), new DegradingQuality(startquality));
+		Item freshItem = forge.aNormalItem("freshItem", 2, startquality);
+		Item passedItem = forge.aNormalItem("passedItem", 0, startquality);
 
 		// When
 		freshItem.updateQuality();
@@ -45,7 +50,7 @@ public class NormalItemTest {
 	public void quality_is_never_negative() {
 		// Given
 		int quality = 0;
-		NormalItem item = buildRandomItem(quality);
+		Item item = buildRandomItem(quality);
 
 		// When
 		repeatUpdateQuality(item, random.nextInt(10));
@@ -58,7 +63,7 @@ public class NormalItemTest {
 	public void brie_quality_increases_with_time() {
 		// Given
 		int startQuality = 20;
-		NormalItem brie = new NormalItem("Aged Brie", new SellIn(10), new ImprovingQuality(startQuality));
+		Item brie = forge.agedBrieThatImprovesWithTime(10, startQuality);
 
 		// When
 		brie.updateQuality();
@@ -68,16 +73,19 @@ public class NormalItemTest {
 	}
 
 	@Test
-	public void quality_never_exceeds_50() {
+	public void quality_never_exceeds_50_or_is_80_in_the_case_of_sulfuras() {
 		// Given
 		int maxQuality = 50;
-		NormalItem item = buildRandomItem(maxQuality);
+		Item item = buildRandomItem(maxQuality);
 
 		// When
 		repeatUpdateQuality(item, random.nextInt(10));
 
 		// Then
-		assertThat(item.quality.getQuality()).isLessThanOrEqualTo(maxQuality);
+		if (item instanceof Sulfuras) 
+		    assertThat(item.quality.getQuality()).isLessThanOrEqualTo(80);
+		else 
+		    assertThat(item.quality.getQuality()).isLessThanOrEqualTo(maxQuality);
 	}
 
 	@Test
@@ -111,8 +119,7 @@ public class NormalItemTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 10;
-		NormalItem backstage = new NormalItem("Backstage passes to a TAFKAL80ETC concert",
-				new BackStagePassAgeing(sellIn), new ImprovingQuality(startQuality));
+		Item backstage = forge.backstagePassThatImprovesUntilTheConcertDate(startQuality, sellIn);
 
 		// When
 		int startOfPeriod = sellIn;
@@ -133,8 +140,7 @@ public class NormalItemTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 5;
-		NormalItem backstage = new NormalItem("Backstage passes to a TAFKAL80ETC concert",
-				new BackStagePassAgeing(sellIn), new ImprovingQuality(startQuality));
+		Item backstage = forge.backstagePassThatImprovesUntilTheConcertDate(startQuality, sellIn);
 
 		// Then
 		int startOfPeriod = sellIn;
@@ -155,8 +161,7 @@ public class NormalItemTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 15;
-		NormalItem backstage = new NormalItem("Backstage passes to a TAFKAL80ETC concert",
-				new BackStagePassAgeing(sellIn), new ImprovingQuality(startQuality));
+		Item backstage = forge.backstagePassThatImprovesUntilTheConcertDate(startQuality, sellIn);
 
 		// Then
 		int startOfPeriod = sellIn;
@@ -177,8 +182,7 @@ public class NormalItemTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 0;
-		NormalItem backstage = new NormalItem("Backstage passes to a TAFKAL80ETC concert",
-				new BackStagePassAgeing(sellIn), new ImprovingQuality(startQuality));
+		Item backstage = forge.backstagePassThatImprovesUntilTheConcertDate(startQuality, sellIn);
 
 		// When
 		backstage.updateQuality();
@@ -193,7 +197,7 @@ public class NormalItemTest {
 	public void conjured_degrade_in_quality_twice_as_fast_as_normal_items() {
 		// Given
 		int startQuality = 6;
-		Item conjured = new NormalItem("Conjured Mana Cake", new SellIn(3), new DegradingQuality(startQuality));
+		Item conjured = forge.aNormalItem("Conjured Mana Cake", 3, startQuality);
 		Inn inn = new Inn(asList(conjured));
 
 		// When
@@ -207,7 +211,7 @@ public class NormalItemTest {
 	public void increaseQuality_ShouldIncreaseQualityByTheGivenValue(){
 		// Given
 		int startQuality = random.nextInt(51);
-		NormalItem item = new NormalItem(null, new SellIn(0), new DegradingQuality(startQuality));
+		Item item = forge.aNormalItem(null, 0, startQuality);
 		
 		int value = random.nextInt();
 		
@@ -224,7 +228,7 @@ public class NormalItemTest {
 	public void decreaseQuality_ShouldDecreaseQualityByTheGivenValue(){
 		// Given
 		int startQuality = random.nextInt(51);
-		NormalItem item = new NormalItem(null, new SellIn(0), new DegradingQuality(startQuality));
+		Item item = forge.aNormalItem(null, 0, startQuality);
 		
 		int value = random.nextInt();
 		
@@ -241,7 +245,7 @@ public class NormalItemTest {
 	public void decreaseSellIn_IsAlwaysByOne(){
 		// Given
 		int startSellIn = random.nextInt();
-		NormalItem item = new NormalItem(null, new SellIn(startSellIn), new DegradingQuality(0));
+		Item item = forge.aNormalItem(null, startSellIn, 0);
 		
 		// When
 		item.sellIn.advanceOneDay();
@@ -257,7 +261,7 @@ public class NormalItemTest {
 	{
 		// Given
 		int startQuality = random.nextInt();
-		NormalItem item = new NormalItem(null, new SellIn(0), new DegradingQuality(startQuality));
+		Item item = forge.aNormalItem(null, 0, startQuality);
 		
 		// When
 		item.quality.resetToZero();
@@ -267,29 +271,28 @@ public class NormalItemTest {
 		Assertions.assertThat(actualQuality).isEqualTo(0);
 	}
 
-	private NormalItem buildRandomItem(int quality) {
-		NormalItem item = null;
+	private Item buildRandomItem(int quality) {
+		Item item = null;
 
 		int ran = random.nextInt(6);
 		switch (ran) {
 		case 0:
-			item = new NormalItem("+5 Dexterity Vest", new SellIn(10), new DegradingQuality(quality));
+			item = forge.aNormalItem("+5 Dexterity Vest", 10, quality);
 			break;
 		case 1:
-			item = new NormalItem("Aged Brie", new SellIn(2), new DegradingQuality(quality));
+			item = forge.agedBrieThatImprovesWithTime(2, 0);
 			break;
 		case 2:
-			item = new NormalItem("Elixir of the Mongoose", new SellIn(5), new DegradingQuality(quality));
+			item = forge.aNormalItem("Elixir of the Mongoose", 5, quality);
 			break;
 		case 3:
-			item = new NormalItem("Sulfuras, Hand of Ragnaros", new SellIn(0), new DegradingQuality(quality));
+			item = forge.aSulfuras_isAMagicItemThatNeverChanges();
 			break;
 		case 4:
-			item = new NormalItem("Backstage passes to a TAFKAL80ETC concert", new BackStagePassAgeing(15),
-					new ImprovingQuality(quality));
+			item = forge.backstagePassThatImprovesUntilTheConcertDate(quality, 15);
 			break;
 		case 5:
-			item = new NormalItem("Conjured Mana Cake", new SellIn(3), new DegradingQuality(quality));
+			item = forge.aNormalItem("Conjured Mana Cake", 3, quality);
 			break;
 		}
 
@@ -311,7 +314,7 @@ public class NormalItemTest {
 	}
 
 	private List<Integer> backstageQualityInThePeriod(int startOfPeriod,
-			int endOfPeriod, NormalItem backstage) {
+			int endOfPeriod, Item backstage) {
 		List<Integer> qualityInThePeriod = new LinkedList<Integer>();
 
 		for (int day = startOfPeriod; day > endOfPeriod; --day) {

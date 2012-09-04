@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.agilegrenoble.objectcalisthenics.items.Item;
+import org.agilegrenoble.objectcalisthenics.items.NormalItem;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
