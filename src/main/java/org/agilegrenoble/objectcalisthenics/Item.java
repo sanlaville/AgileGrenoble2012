@@ -4,10 +4,10 @@ import org.agilegrenoble.objectcalisthenics.quality.Quality;
 
 public abstract class Item {
     protected String name;
-    public SellIn sellIn;
+    public Ageing sellIn;
     protected Quality quality;
 
-    public Item(String name, Quality quality, SellIn sellIn) {
+    public Item(String name, Quality quality, Ageing sellIn) {
         this.name = name;
         this.quality = quality;
         this.sellIn = sellIn;

@@ -1,30 +1,29 @@
 package org.agilegrenoble.objectcalisthenics;
 
-import org.agilegrenoble.objectcalisthenics.NormalItem.SelllIn;
 import org.agilegrenoble.objectcalisthenics.quality.Quality;
 
-public class EventSellIn extends SellIn implements SelllIn {
+public class BackStagePassAgeing extends Ageing {
 
-    public EventSellIn(int sellIn) {
+    public BackStagePassAgeing(int sellIn) {
         super(sellIn);
     }
 
     public void oneDayPassed(Quality quality) {
         quality.update();
     
-        if (getSellIn() < 11) {
+        if (sellIn < 11) {
             quality.update();
         }
     
-        if (getSellIn() < 6) {
+        if (sellIn < 6) {
             quality.update();
         }
     
     
-        if (getSellIn() < 1) {
+        if (sellIn < 1) {
             quality.resetToZero();
         }
         
-        decrease();
+        advanceOneDay();
     }
 }

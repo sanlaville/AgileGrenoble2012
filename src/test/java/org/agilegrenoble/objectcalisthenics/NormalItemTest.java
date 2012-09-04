@@ -112,7 +112,7 @@ public class NormalItemTest {
 		int startQuality = 20;
 		int sellIn = 10;
 		NormalItem backstage = new NormalItem("Backstage passes to a TAFKAL80ETC concert",
-				new EventSellIn(sellIn), new ImprovingQuality(startQuality));
+				new BackStagePassAgeing(sellIn), new ImprovingQuality(startQuality));
 
 		// When
 		int startOfPeriod = sellIn;
@@ -134,7 +134,7 @@ public class NormalItemTest {
 		int startQuality = 20;
 		int sellIn = 5;
 		NormalItem backstage = new NormalItem("Backstage passes to a TAFKAL80ETC concert",
-				new EventSellIn(sellIn), new ImprovingQuality(startQuality));
+				new BackStagePassAgeing(sellIn), new ImprovingQuality(startQuality));
 
 		// Then
 		int startOfPeriod = sellIn;
@@ -156,7 +156,7 @@ public class NormalItemTest {
 		int startQuality = 20;
 		int sellIn = 15;
 		NormalItem backstage = new NormalItem("Backstage passes to a TAFKAL80ETC concert",
-				new EventSellIn(sellIn), new ImprovingQuality(startQuality));
+				new BackStagePassAgeing(sellIn), new ImprovingQuality(startQuality));
 
 		// Then
 		int startOfPeriod = sellIn;
@@ -178,7 +178,7 @@ public class NormalItemTest {
 		int startQuality = 20;
 		int sellIn = 0;
 		NormalItem backstage = new NormalItem("Backstage passes to a TAFKAL80ETC concert",
-				new EventSellIn(sellIn), new ImprovingQuality(startQuality));
+				new BackStagePassAgeing(sellIn), new ImprovingQuality(startQuality));
 
 		// When
 		backstage.updateQuality();
@@ -244,7 +244,7 @@ public class NormalItemTest {
 		NormalItem item = new NormalItem(null, new SellIn(startSellIn), new DegradingQuality(0));
 		
 		// When
-		item.sellIn.decrease();
+		item.sellIn.advanceOneDay();
 		int actualSelIn = item.sellIn.getSellIn();
 		
 		// Then
@@ -285,7 +285,7 @@ public class NormalItemTest {
 			item = new NormalItem("Sulfuras, Hand of Ragnaros", new SellIn(0), new DegradingQuality(quality));
 			break;
 		case 4:
-			item = new NormalItem("Backstage passes to a TAFKAL80ETC concert", new EventSellIn(15),
+			item = new NormalItem("Backstage passes to a TAFKAL80ETC concert", new BackStagePassAgeing(15),
 					new ImprovingQuality(quality));
 			break;
 		case 5:

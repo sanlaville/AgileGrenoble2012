@@ -4,13 +4,10 @@ import org.agilegrenoble.objectcalisthenics.quality.Quality;
 
 public class NormalItem extends Item {
 
-    public NormalItem(String name, SellIn sellIn, Quality quality) {
+    public NormalItem(String name, Ageing sellIn, Quality quality) {
         super(name, quality, sellIn);
 	}
 
-    public interface SelllIn {
-        
-    }
     /**
 	 * Update quality for the item
 	 * 
