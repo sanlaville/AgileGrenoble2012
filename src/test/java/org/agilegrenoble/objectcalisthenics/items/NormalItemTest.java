@@ -10,6 +10,8 @@ import java.util.Random;
 import org.agilegrenoble.objectcalisthenics.Inn;
 import org.agilegrenoble.objectcalisthenics.ItemForge;
 import org.agilegrenoble.objectcalisthenics.Ageing.DecayWithAge;
+import org.agilegrenoble.objectcalisthenics.items.Item;
+import org.agilegrenoble.objectcalisthenics.items.Sulfuras;
 import org.fest.assertions.Assertions;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -108,7 +110,7 @@ public class NormalItemTest {
 		repeatUpdateQuality(sulfuras, random.nextInt(10));
 
 		// Then
-		assertThat(sulfuras.sellIn.getSellIn()).isEqualTo(startSellIn);
+		assertThat(sulfuras.sellIn.getDayCountDown()).isEqualTo(startSellIn);
 	}
 
 	@Test
@@ -246,7 +248,7 @@ public class NormalItemTest {
 		
 		// When
 		item.sellIn.advanceOneDay();
-		int actualSelIn = item.sellIn.getSellIn();
+		int actualSelIn = item.sellIn.getDayCountDown();
 		
 		// Then
 		int expectedSellIn = startSellIn - 1;

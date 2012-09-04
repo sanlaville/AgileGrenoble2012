@@ -10,7 +10,7 @@ public abstract class Ageing {
         this.daysBefore = sellIn;
     }
 
-    public int getSellIn() {
+    public int getDayCountDown() {
         return daysBefore;
     }
 
