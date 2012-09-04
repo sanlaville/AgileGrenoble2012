@@ -4,21 +4,21 @@ import org.agilegrenoble.objectcalisthenics.quality.Quality;
 
 public abstract class Ageing {
 
-    protected int sellIn;
+    protected int daysBefore;
 
     public Ageing(int sellIn) {
-        this.sellIn = sellIn;
+        this.daysBefore = sellIn;
     }
 
     public int getSellIn() {
-        return sellIn;
+        return daysBefore;
     }
 
     /**
      * Decrease sellIn by the given value
      */
     public void advanceOneDay() {
-    	sellIn -= 1;
+    	daysBefore -= 1;
     }
 
     public abstract void oneDayPassed(Quality quality);

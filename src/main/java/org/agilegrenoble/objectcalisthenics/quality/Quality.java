@@ -1,6 +1,6 @@
 package org.agilegrenoble.objectcalisthenics.quality;
 
-public abstract class Quality {
+public class Quality {
 
     protected int quality;
 
@@ -50,7 +50,5 @@ public abstract class Quality {
         quality = 0;
     }
     
-    public abstract void update();
-
 
 }

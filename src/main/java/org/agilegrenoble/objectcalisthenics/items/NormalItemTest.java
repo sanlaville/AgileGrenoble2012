@@ -9,10 +9,7 @@ import java.util.Random;
 
 import org.agilegrenoble.objectcalisthenics.Inn;
 import org.agilegrenoble.objectcalisthenics.ItemForge;
-import org.agilegrenoble.objectcalisthenics.Ageing.BackStagePassAgeing;
 import org.agilegrenoble.objectcalisthenics.Ageing.DecayWithAge;
-import org.agilegrenoble.objectcalisthenics.quality.DegradingQuality;
-import org.agilegrenoble.objectcalisthenics.quality.ImprovingQuality;
 import org.fest.assertions.Assertions;
 import org.junit.Before;
 import org.junit.Ignore;

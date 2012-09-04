@@ -1,7 +1,7 @@
 package org.agilegrenoble.objectcalisthenics.items;
 
 import org.agilegrenoble.objectcalisthenics.Ageing.DecayWithAge;
-import org.agilegrenoble.objectcalisthenics.quality.DegradingQuality;
+import org.agilegrenoble.objectcalisthenics.quality.Quality;
 
 public class Sulfuras extends Item {
 
@@ -10,7 +10,7 @@ public class Sulfuras extends Item {
         this(new DecayWithAge(0));
     }
     public Sulfuras(DecayWithAge sellIn) {
-        super("Sulfuras, Hand of Ragnaros", new DegradingQuality(80), sellIn);
+        super("Sulfuras, Hand of Ragnaros", new Quality(80), sellIn);
     }
     @Override
     public void updateQuality() {
