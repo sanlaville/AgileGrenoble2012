@@ -104,7 +104,7 @@ public class NormalItemTest {
 	public void sulfuras_never_has_to_be_sold() {
 		// Given
 		int startSellIn = 10;
-		Item sulfuras = new Sulfuras(new DecayWithAge(startSellIn));
+		Item sulfuras = new Sulfuras(10);
 
 		// When
 		repeatUpdateQuality(sulfuras, random.nextInt(10));
