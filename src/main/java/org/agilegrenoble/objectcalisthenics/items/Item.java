@@ -15,4 +15,12 @@ public abstract class Item {
     }
 
     public abstract void updateQuality();
+
+    public int getQuality() {
+        return quality.getQuality();
+    }
+
+    public int getDayCountDown() {
+        return sellIn.getDayCountDown();
+    }
 }

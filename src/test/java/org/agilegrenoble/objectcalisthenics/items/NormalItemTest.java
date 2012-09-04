@@ -36,9 +36,9 @@ public class NormalItemTest {
 
 		// When
 		freshItem.updateQuality();
-		int actualFreshItemQuality = startquality - freshItem.quality.getQuality();
+		int actualFreshItemQuality = startquality - freshItem.getQuality();
 		passedItem.updateQuality();
-		int actualPassedItemQuality = startquality - passedItem.quality.getQuality();
+		int actualPassedItemQuality = startquality - passedItem.getQuality();
 
 		// Then
 		assertThat(actualFreshItemQuality).isEqualTo(
@@ -55,7 +55,7 @@ public class NormalItemTest {
 		repeatUpdateQuality(item, random.nextInt(10));
 
 		// Then
-		assertThat(item.quality.getQuality()).isGreaterThanOrEqualTo(0);
+		assertThat(item.getQuality()).isGreaterThanOrEqualTo(0);
 	}
 
 	@Test
@@ -68,7 +68,7 @@ public class NormalItemTest {
 		brie.updateQuality();
 
 		// Then
-		assertThat(brie.quality.getQuality()).isEqualTo(startQuality + 1);
+		assertThat(brie.getQuality()).isEqualTo(startQuality + 1);
 	}
 
 	@Test
@@ -82,12 +82,12 @@ public class NormalItemTest {
 
 		// Then
 		if (item instanceof Sulfuras) 
-		    assertThat(item.quality.getQuality()).isLessThanOrEqualTo(80);
+		    assertThat(item.getQuality()).isLessThanOrEqualTo(80);
 		else 
-		    assertThat(item.quality.getQuality()).isLessThanOrEqualTo(maxQuality);
+		    assertThat(item.getQuality()).isLessThanOrEqualTo(maxQuality);
 	}
 
-	@Test
+    @Test
 	public void sulfuras_never_decreases_in_quality() {
 		// Given
 		int startQuality = 40;
@@ -97,7 +97,7 @@ public class NormalItemTest {
 		repeatUpdateQuality(sulfuras, random.nextInt(10));
 
 		// Then
-		assertThat(sulfuras.quality.getQuality()).isGreaterThanOrEqualTo(startQuality);
+		assertThat(sulfuras.getQuality()).isGreaterThanOrEqualTo(startQuality);
 	}
 
 	@Test
@@ -110,10 +110,10 @@ public class NormalItemTest {
 		repeatUpdateQuality(sulfuras, random.nextInt(10));
 
 		// Then
-		assertThat(sulfuras.sellIn.getDayCountDown()).isEqualTo(startSellIn);
+		assertThat(sulfuras.getDayCountDown()).isEqualTo(startSellIn);
 	}
 
-	@Test
+    @Test
 	public void backstage_passes_increases_by2_from_day_10_to_6_before_the_concert() {
 		// Given
 		int startQuality = 20;
@@ -187,7 +187,7 @@ public class NormalItemTest {
 		backstage.updateQuality();
 
 		// Then
-		assertThat(backstage.quality.getQuality()).isEqualTo(0);
+		assertThat(backstage.getQuality()).isEqualTo(0);
 	}
 
 	@Test
@@ -203,7 +203,7 @@ public class NormalItemTest {
 		inn.updateQuality();
 
 		// Then
-		assertThat(conjured.quality.getQuality()).isEqualTo(4);
+		assertThat(conjured.getQuality()).isEqualTo(4);
 	}
 	
 	@Test
@@ -216,7 +216,7 @@ public class NormalItemTest {
 		
 		// When
 		item.quality.increase(value);
-		int actualQuality = item.quality.getQuality();
+		int actualQuality = item.getQuality();
 		
 		// Then
 		int expectedQuality = startQuality + value;
@@ -233,7 +233,7 @@ public class NormalItemTest {
 		
 		// When
 		item.quality.decrease(value);
-		int actualQuality = item.quality.getQuality();
+		int actualQuality = item.getQuality();
 		
 		// Then
 		int expectedQuality = startQuality - value;
@@ -247,8 +247,8 @@ public class NormalItemTest {
 		Item item = forge.anItem_thatDecaysWithTime(null, startSellIn, 0);
 		
 		// When
-		item.sellIn.advanceOneDay();
-		int actualSelIn = item.sellIn.getDayCountDown();
+		item.sellIn.updateDaysBefore();
+		int actualSelIn = item.getDayCountDown();
 		
 		// Then
 		int expectedSellIn = startSellIn - 1;
@@ -264,7 +264,7 @@ public class NormalItemTest {
 		
 		// When
 		item.quality.resetToZero();
-		int actualQuality = item.quality.getQuality();
+		int actualQuality = item.getQuality();
 		
 		// Then
 		Assertions.assertThat(actualQuality).isEqualTo(0);
@@ -318,7 +318,7 @@ public class NormalItemTest {
 
 		for (int day = startOfPeriod; day > endOfPeriod; --day) {
 			backstage.updateQuality();
-			qualityInThePeriod.add(backstage.quality.getQuality());
+			qualityInThePeriod.add(backstage.getQuality());
 		}
 
 		return qualityInThePeriod;

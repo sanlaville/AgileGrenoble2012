@@ -6,8 +6,8 @@ public abstract class Ageing {
 
     protected int daysBefore;
 
-    public Ageing(int sellIn) {
-        this.daysBefore = sellIn;
+    public Ageing(int daysBefore) {
+        this.daysBefore = daysBefore;
     }
 
     public int getDayCountDown() {
@@ -17,10 +17,10 @@ public abstract class Ageing {
     /**
      * Decrease sellIn by the given value
      */
-    public void advanceOneDay() {
+    public void updateDaysBefore() {
     	daysBefore -= 1;
     }
 
-    public abstract void oneDayPassed(Quality quality);
+    public abstract void advanceOneDay(Quality quality);
 
 }

@@ -8,7 +8,7 @@ public class BackStagePassAgeing extends Ageing {
         super(daysBeforeConcert);
     }
 
-    public void oneDayPassed(Quality quality) {
+    public void advanceOneDay(Quality quality) {
         quality.increase();
     
         if (daysBefore < 11) {
@@ -24,6 +24,6 @@ public class BackStagePassAgeing extends Ageing {
             quality.resetToZero();
         }
         
-        advanceOneDay();
+        updateDaysBefore();
     }
 }

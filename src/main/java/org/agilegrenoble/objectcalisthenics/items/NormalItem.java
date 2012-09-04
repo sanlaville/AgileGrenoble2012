@@ -14,6 +14,6 @@ public class NormalItem extends Item {
 	 * 
 	 */
     public void updateQuality() {
-        sellIn.oneDayPassed(quality);
+        sellIn.advanceOneDay(quality);
     }
 }

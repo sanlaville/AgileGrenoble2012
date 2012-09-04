@@ -12,6 +12,7 @@ public class Sulfuras extends Item {
     public Sulfuras(DecayWithAge sellIn) {
         super("Sulfuras, Hand of Ragnaros", new Quality(80), sellIn);
     }
+    
     @Override
     public void updateQuality() {
         

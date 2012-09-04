@@ -9,12 +9,12 @@ public class ImproveWithAge extends Ageing {
     }
 
     @Override
-    public void oneDayPassed(Quality quality) {
+    public void advanceOneDay(Quality quality) {
         quality.increase();
         if (daysBefore < 1) {
             quality.increase();
         }
-        advanceOneDay(); 
+        updateDaysBefore(); 
 
     }
 
