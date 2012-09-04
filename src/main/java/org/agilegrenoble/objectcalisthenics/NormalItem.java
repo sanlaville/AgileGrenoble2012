@@ -16,12 +16,6 @@ public class NormalItem extends Item {
 	 * 
 	 */
     public void updateQuality() {
-        if (name.equals("Backstage passes to a TAFKAL80ETC concert")) { // backstage pass
-            SellIn sellIn = new EventSellIn(this.sellIn.getSellIn());
-            
-            sellIn.oneDayPassed(quality);
-        } else {
-            sellIn.oneDayPassed(quality);
-        }
+        sellIn.oneDayPassed(quality);
     }
 }
