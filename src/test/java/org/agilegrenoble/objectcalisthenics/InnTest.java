@@ -1,7 +1,5 @@
 package org.agilegrenoble.objectcalisthenics;
 
-import static java.util.Arrays.asList;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -9,7 +7,6 @@ import java.util.Random;
 import org.agilegrenoble.objectcalisthenics.items.Item;
 import org.agilegrenoble.objectcalisthenics.items.NormalItem;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 public class InnTest {
@@ -17,8 +14,7 @@ public class InnTest {
 	@Test
 	public void updateQuality_WithAnEmptyList_ShouldDoNothing() {
 		// Given
-		List<Item> items = Mockito.mock(List.class);
-		Mockito.when(items.size()).thenReturn(0);
+		List<Item> items = new ArrayList<Item>();
 
 		Inn inn = new Inn(items);
 
@@ -26,8 +22,6 @@ public class InnTest {
 		inn.updateQuality();
 
 		// Then
-		Mockito.verify(items).size();
-		Mockito.verifyNoMoreInteractions(items);
 	}
 
 	@Test
@@ -35,14 +29,11 @@ public class InnTest {
 		// Given
 		Random random = new Random();
 		int nbItems = random.nextInt(20) + 1; 
-		List<Item> items = Mockito.mock(List.class);
-		List<Item> itemsForVerify = new ArrayList<Item>(nbItems);
+		List<Item> items = new ArrayList<Item>();
 		NormalItem currentItem = null;
-		Mockito.when(items.size()).thenReturn(nbItems);
 		for (int i = 0; i < nbItems; i++) {
 			currentItem = Mockito.mock(NormalItem.class);
-			itemsForVerify.add(currentItem);
-			Mockito.when(items.get(i)).thenReturn(currentItem);
+			items.add(currentItem);
 		}
 		
 		Inn inn = new Inn(items);
@@ -51,11 +42,8 @@ public class InnTest {
 		inn.updateQuality();
 
 		// Then
-		for (int i = 0; i < nbItems; i++) {
-			Mockito.verify(items).get(i);
-			Mockito.verify(itemsForVerify.get(i)).updateQuality();
-		}
-		Mockito.verify(items).size();
-		Mockito.verifyNoMoreInteractions(items);
+		for (Item item : items) {
+		    Mockito.verify(item).updateQuality();
+        }
 	}
 }

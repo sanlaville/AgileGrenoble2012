@@ -12,10 +12,9 @@ public class Inn {
 	}
 
 	public void updateQuality() {
-		int nbitems = items.size();
-		for (int i = 0; i < nbitems; i++) {
-			items.get(i).updateQuality();
-		}
+	    for (Item item : items) {
+            item.updateQuality();
+        }
 	}
 
 }
