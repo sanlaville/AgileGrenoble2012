@@ -8,35 +8,20 @@ public class NormalItem extends Item {
         super(name, quality, sellIn);
 	}
 
-	/**
+    public interface SelllIn {
+        
+    }
+    /**
 	 * Update quality for the item
 	 * 
 	 */
     public void updateQuality() {
         if (name.equals("Backstage passes to a TAFKAL80ETC concert")) { // backstage pass
+            SellIn sellIn = new EventSellIn(this.sellIn.getSellIn());
             
-            quality.update();
-
-            if (sellIn.getSellIn() < 11) {
-                quality.update();
-            }
-
-            if (sellIn.getSellIn() < 6) {
-                quality.update();
-            }
-
-
-            if (sellIn.getSellIn() < 1) {
-                quality.resetToZero();
-            }
-            
-            sellIn.decrease();
+            sellIn.oneDayPassed(quality);
         } else {
-            quality.update();
-            if (sellIn.getSellIn() < 1) {
-                quality.update();
-            }
-            sellIn.decrease();
+            sellIn.oneDayPassed(quality);
         }
     }
 }
