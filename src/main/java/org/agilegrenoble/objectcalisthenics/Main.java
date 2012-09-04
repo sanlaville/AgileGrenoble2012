@@ -14,11 +14,11 @@ public class Main {
 		System.out.println("OMGHAI!");
 		ItemForge forge = new ItemForge();
 		List<Item> items = new ArrayList<Item>();
-		items.add(forge.agedBrieThatImprovesWithTime(2, 0));
+		items.add(forge.anAgedBrie_thatImprovesWithTime(2, 0));
 		items.add(forge.aSulfuras_isAMagicItemThatNeverChanges());
-		items.add(forge.backstagePassThatImprovesUntilTheConcertDate());
-		items.add(forge.aNormalItem("+5 Dexterity Vest", 10, 20));
-		items.add(forge.aNormalItem("Elixir of the Mongoose", 5, 7));
+		items.add(forge.aBackstagePass_thatImprovesUntilTheConcertDate(15, 20));
+		items.add(forge.anItem_thatDecaysWithTime("+5 Dexterity Vest", 10, 20));
+		items.add(forge.anItem_thatDecaysWithTime("Elixir of the Mongoose", 5, 7));
 		items.add(new NormalItem("Conjured Mana Cake", new SellIn(3), new DegradingQuality(6)));
 		new Inn(items).updateQuality();
 	}

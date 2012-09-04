@@ -32,8 +32,8 @@ public class NormalItemTest {
 	public void quality_degrades_twice_as_fast_after_the_sell_date_has_passed() {
 		// Given
 		int startquality = 10;
-		Item freshItem = forge.aNormalItem("freshItem", 2, startquality);
-		Item passedItem = forge.aNormalItem("passedItem", 0, startquality);
+		Item freshItem = forge.anItem_thatDecaysWithTime("freshItem", 2, startquality);
+		Item passedItem = forge.anItem_thatDecaysWithTime("passedItem", 0, startquality);
 
 		// When
 		freshItem.updateQuality();
@@ -63,7 +63,7 @@ public class NormalItemTest {
 	public void brie_quality_increases_with_time() {
 		// Given
 		int startQuality = 20;
-		Item brie = forge.agedBrieThatImprovesWithTime(10, startQuality);
+		Item brie = forge.anAgedBrie_thatImprovesWithTime(10, startQuality);
 
 		// When
 		brie.updateQuality();
@@ -119,7 +119,7 @@ public class NormalItemTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 10;
-		Item backstage = forge.backstagePassThatImprovesUntilTheConcertDate(startQuality, sellIn);
+		Item backstage = forge.aBackstagePass_thatImprovesUntilTheConcertDate(sellIn, startQuality);
 
 		// When
 		int startOfPeriod = sellIn;
@@ -140,7 +140,7 @@ public class NormalItemTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 5;
-		Item backstage = forge.backstagePassThatImprovesUntilTheConcertDate(startQuality, sellIn);
+		Item backstage = forge.aBackstagePass_thatImprovesUntilTheConcertDate(sellIn, startQuality);
 
 		// Then
 		int startOfPeriod = sellIn;
@@ -161,7 +161,7 @@ public class NormalItemTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 15;
-		Item backstage = forge.backstagePassThatImprovesUntilTheConcertDate(startQuality, sellIn);
+		Item backstage = forge.aBackstagePass_thatImprovesUntilTheConcertDate(sellIn, startQuality);
 
 		// Then
 		int startOfPeriod = sellIn;
@@ -182,7 +182,7 @@ public class NormalItemTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 0;
-		Item backstage = forge.backstagePassThatImprovesUntilTheConcertDate(startQuality, sellIn);
+		Item backstage = forge.aBackstagePass_thatImprovesUntilTheConcertDate(sellIn, startQuality);
 
 		// When
 		backstage.updateQuality();
@@ -197,7 +197,7 @@ public class NormalItemTest {
 	public void conjured_degrade_in_quality_twice_as_fast_as_normal_items() {
 		// Given
 		int startQuality = 6;
-		Item conjured = forge.aNormalItem("Conjured Mana Cake", 3, startQuality);
+		Item conjured = forge.anItem_thatDecaysWithTime("Conjured Mana Cake", 3, startQuality);
 		Inn inn = new Inn(asList(conjured));
 
 		// When
@@ -211,7 +211,7 @@ public class NormalItemTest {
 	public void increaseQuality_ShouldIncreaseQualityByTheGivenValue(){
 		// Given
 		int startQuality = random.nextInt(51);
-		Item item = forge.aNormalItem(null, 0, startQuality);
+		Item item = forge.anItem_thatDecaysWithTime(null, 0, startQuality);
 		
 		int value = random.nextInt();
 		
@@ -228,7 +228,7 @@ public class NormalItemTest {
 	public void decreaseQuality_ShouldDecreaseQualityByTheGivenValue(){
 		// Given
 		int startQuality = random.nextInt(51);
-		Item item = forge.aNormalItem(null, 0, startQuality);
+		Item item = forge.anItem_thatDecaysWithTime(null, 0, startQuality);
 		
 		int value = random.nextInt();
 		
@@ -245,7 +245,7 @@ public class NormalItemTest {
 	public void decreaseSellIn_IsAlwaysByOne(){
 		// Given
 		int startSellIn = random.nextInt();
-		Item item = forge.aNormalItem(null, startSellIn, 0);
+		Item item = forge.anItem_thatDecaysWithTime(null, startSellIn, 0);
 		
 		// When
 		item.sellIn.advanceOneDay();
@@ -261,7 +261,7 @@ public class NormalItemTest {
 	{
 		// Given
 		int startQuality = random.nextInt();
-		Item item = forge.aNormalItem(null, 0, startQuality);
+		Item item = forge.anItem_thatDecaysWithTime(null, 0, startQuality);
 		
 		// When
 		item.quality.resetToZero();
@@ -277,22 +277,22 @@ public class NormalItemTest {
 		int ran = random.nextInt(6);
 		switch (ran) {
 		case 0:
-			item = forge.aNormalItem("+5 Dexterity Vest", 10, quality);
+			item = forge.anItem_thatDecaysWithTime("+5 Dexterity Vest", 10, quality);
 			break;
 		case 1:
-			item = forge.agedBrieThatImprovesWithTime(2, 0);
+			item = forge.anAgedBrie_thatImprovesWithTime(2, 0);
 			break;
 		case 2:
-			item = forge.aNormalItem("Elixir of the Mongoose", 5, quality);
+			item = forge.anItem_thatDecaysWithTime("Elixir of the Mongoose", 5, quality);
 			break;
 		case 3:
 			item = forge.aSulfuras_isAMagicItemThatNeverChanges();
 			break;
 		case 4:
-			item = forge.backstagePassThatImprovesUntilTheConcertDate(quality, 15);
+			item = forge.aBackstagePass_thatImprovesUntilTheConcertDate(15, quality);
 			break;
 		case 5:
-			item = forge.aNormalItem("Conjured Mana Cake", 3, quality);
+			item = forge.anItem_thatDecaysWithTime("Conjured Mana Cake", 3, quality);
 			break;
 		}
 

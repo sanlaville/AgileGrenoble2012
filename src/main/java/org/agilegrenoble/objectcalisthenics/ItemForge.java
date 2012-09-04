@@ -10,24 +10,20 @@ import org.agilegrenoble.objectcalisthenics.quality.ImprovingQuality;
 
 public class ItemForge {
 
-    public Item agedBrieThatImprovesWithTime(int daysUntilBestBeforeDate, int startQuality) {
+    public Item anAgedBrie_thatImprovesWithTime(int daysUntilBestBeforeDate, int startQuality) {
         return new NormalItem("Aged Brie", new SellIn(daysUntilBestBeforeDate), new ImprovingQuality(startQuality));
-    }
-
-    public Item backstagePassThatImprovesUntilTheConcertDate() {
-        return new NormalItem("Backstage passes to a TAFKAL80ETC concert", new BackStagePassAgeing(15), new DegradingQuality(20));
     }
 
     public Item aSulfuras_isAMagicItemThatNeverChanges() {
         return new Sulfuras();
     }
 
-    public Item aNormalItem(String string, int daysUntilBestBeforeDate, int startQuality) {
-        return new NormalItem("+5 Dexterity Vest", new SellIn(daysUntilBestBeforeDate), new DegradingQuality(startQuality));
+    public Item anItem_thatDecaysWithTime(String name, int daysUntilBestBeforeDate, int startQuality) {
+        return new NormalItem(name, new SellIn(daysUntilBestBeforeDate), new DegradingQuality(startQuality));
     }
 
-    public Item backstagePassThatImprovesUntilTheConcertDate(int quality, int daysUntilConcert) {
-        return new NormalItem("Backstage passes to a TAFKAL80ETC concert", new BackStagePassAgeing(daysUntilConcert), new ImprovingQuality(quality));
+    public Item aBackstagePass_thatImprovesUntilTheConcertDate(int daysUntilConcert, int startQuality) {
+        return new NormalItem("Backstage passes to a TAFKAL80ETC concert", new BackStagePassAgeing(daysUntilConcert), new ImprovingQuality(startQuality));
     }
 
 }
