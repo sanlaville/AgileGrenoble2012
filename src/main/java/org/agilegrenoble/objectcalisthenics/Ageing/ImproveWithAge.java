@@ -2,18 +2,20 @@ package org.agilegrenoble.objectcalisthenics.Ageing;
 
 import org.agilegrenoble.objectcalisthenics.quality.Quality;
 
+public class ImproveWithAge extends Ageing {
 
-public class SellIn extends Ageing {
-    public SellIn(int sellIn) {
-        super(sellIn);
+    public ImproveWithAge(int daysUntilBestAfterDate) {
+        super(daysUntilBestAfterDate);
     }
 
+    @Override
     public void oneDayPassed(Quality quality) {
-        quality.update();
+        quality.increase();
         if (sellIn < 1) {
-            quality.update();
+            quality.increase();
         }
         advanceOneDay(); 
 
     }
+
 }

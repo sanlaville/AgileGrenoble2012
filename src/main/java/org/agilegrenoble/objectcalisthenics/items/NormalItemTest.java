@@ -10,7 +10,7 @@ import java.util.Random;
 import org.agilegrenoble.objectcalisthenics.Inn;
 import org.agilegrenoble.objectcalisthenics.ItemForge;
 import org.agilegrenoble.objectcalisthenics.Ageing.BackStagePassAgeing;
-import org.agilegrenoble.objectcalisthenics.Ageing.SellIn;
+import org.agilegrenoble.objectcalisthenics.Ageing.DecayWithAge;
 import org.agilegrenoble.objectcalisthenics.quality.DegradingQuality;
 import org.agilegrenoble.objectcalisthenics.quality.ImprovingQuality;
 import org.fest.assertions.Assertions;
@@ -105,7 +105,7 @@ public class NormalItemTest {
 	public void sulfuras_never_has_to_be_sold() {
 		// Given
 		int startSellIn = 10;
-		Item sulfuras = new Sulfuras(new SellIn(startSellIn));
+		Item sulfuras = new Sulfuras(new DecayWithAge(startSellIn));
 
 		// When
 		repeatUpdateQuality(sulfuras, random.nextInt(10));

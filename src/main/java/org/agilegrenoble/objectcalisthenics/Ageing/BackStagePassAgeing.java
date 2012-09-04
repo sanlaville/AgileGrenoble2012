@@ -9,14 +9,14 @@ public class BackStagePassAgeing extends Ageing {
     }
 
     public void oneDayPassed(Quality quality) {
-        quality.update();
+        quality.increase();
     
         if (sellIn < 11) {
-            quality.update();
+            quality.increase();
         }
     
         if (sellIn < 6) {
-            quality.update();
+            quality.increase();
         }
     
     

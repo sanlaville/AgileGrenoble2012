@@ -34,6 +34,14 @@ public abstract class Quality {
         if (quality < 50)
             quality += value;
     }
+    
+    public void increase() {
+        increase(1);
+    }
+    
+    public void decrease() {
+        decrease(1);
+    }
 
     /**
      * Reset quality to zero
