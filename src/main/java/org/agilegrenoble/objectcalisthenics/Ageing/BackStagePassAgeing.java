@@ -20,7 +20,7 @@ public class BackStagePassAgeing extends Ageing {
         }
     
     
-        if (daysBefore < 1) {
+        if (isPastDaysBefore()) {
             quality.resetToZero();
         }
         

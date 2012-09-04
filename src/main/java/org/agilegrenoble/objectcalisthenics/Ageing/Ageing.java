@@ -23,4 +23,8 @@ public abstract class Ageing {
 
     public abstract void advanceOneDay(Quality quality);
 
+    protected boolean isPastDaysBefore() {
+        return daysBefore < 1;
+    }
+
 }

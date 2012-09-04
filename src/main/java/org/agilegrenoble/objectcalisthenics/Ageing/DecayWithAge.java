@@ -10,7 +10,7 @@ public class DecayWithAge extends Ageing {
 
     public void advanceOneDay(Quality quality) {
         quality.decrease();
-        if (daysBefore < 1) {
+        if (isPastDaysBefore()) {
             quality.decrease();
         }
         updateDaysBefore(); 
