@@ -10,19 +10,16 @@ public abstract class Ageing {
         this.daysBefore = daysBefore;
     }
 
+    public abstract void advanceOneDay(Quality quality);
+
     public int getDayCountDown() {
         return daysBefore;
     }
-
-    /**
-     * Decrease sellIn by the given value
-     */
+    
     public void updateDaysBefore() {
-    	daysBefore -= 1;
+        daysBefore -= 1;
     }
-
-    public abstract void advanceOneDay(Quality quality);
-
+    
     protected boolean isPastDaysBefore() {
         return daysBefore < 1;
     }

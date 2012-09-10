@@ -1,17 +1,8 @@
 package org.agilegrenoble.objectcalisthenics.quality;
 
-public class Quality {
+public interface Quality {
 
-    protected int quality;
-
-    public Quality(int quality) {
-        this.quality = quality;
-    }
-
-
-    public int getQuality() {
-        return quality;
-    }
+    int getQuality();
 
     /**
      * Decrease quality by the given value
@@ -19,10 +10,7 @@ public class Quality {
      * @param value
      *            integer by which the quality should be increased.
      */
-    public void decrease(int value) {
-        if (quality > 0)
-            quality -= value;
-    }
+    void decrease(int value);
 
     /**
      * Increase quality by the given value
@@ -30,25 +18,15 @@ public class Quality {
      * @param value
      *            integer by which the quality should be increased.
      */
-    public void increase(int value) {
-        if (quality < 50)
-            quality += value;
-    }
-    
-    public void increase() {
-        increase(1);
-    }
-    
-    public void decrease() {
-        decrease(1);
-    }
+    void increase(int value);
+
+    void increase();
+
+    void decrease();
 
     /**
      * Reset quality to zero
      */
-    public void resetToZero() {
-        quality = 0;
-    }
-    
+    void resetToZero();
 
 }

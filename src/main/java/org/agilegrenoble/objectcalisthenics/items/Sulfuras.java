@@ -2,7 +2,7 @@ package org.agilegrenoble.objectcalisthenics.items;
 
 import org.agilegrenoble.objectcalisthenics.Ageing.Ageing;
 import org.agilegrenoble.objectcalisthenics.Ageing.NoAgeing;
-import org.agilegrenoble.objectcalisthenics.quality.Quality;
+import org.agilegrenoble.objectcalisthenics.quality.Between0and50Quality;
 
 public class Sulfuras extends NormalItem {
 
@@ -15,7 +15,7 @@ public class Sulfuras extends NormalItem {
     }
     
     private Sulfuras(Ageing sellIn) {
-        super("Sulfuras, Hand of Ragnaros", sellIn, new Quality(80));
+        super("Sulfuras, Hand of Ragnaros", sellIn, new Between0and50Quality(80));
     }
     
 

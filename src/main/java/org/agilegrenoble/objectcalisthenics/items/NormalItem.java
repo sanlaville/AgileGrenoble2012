@@ -5,8 +5,8 @@ import org.agilegrenoble.objectcalisthenics.quality.Quality;
 
 public class NormalItem extends Item {
 
-    public NormalItem(String name, Ageing sellIn, Quality quality) {
-        super(name, quality, sellIn);
+    public NormalItem(String name, Ageing ageing, Quality quality) {
+        super(name, quality, ageing);
 	}
 
     /**

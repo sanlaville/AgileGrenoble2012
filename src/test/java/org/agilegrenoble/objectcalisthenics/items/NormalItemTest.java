@@ -12,6 +12,8 @@ import org.agilegrenoble.objectcalisthenics.ItemForge;
 import org.agilegrenoble.objectcalisthenics.Ageing.DecayWithAge;
 import org.agilegrenoble.objectcalisthenics.items.Item;
 import org.agilegrenoble.objectcalisthenics.items.Sulfuras;
+import org.agilegrenoble.objectcalisthenics.quality.Between0and50Quality;
+import org.agilegrenoble.objectcalisthenics.quality.Quality;
 import org.fest.assertions.Assertions;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -31,7 +33,7 @@ public class NormalItemTest {
 	public void quality_degrades_twice_as_fast_after_the_sell_date_has_passed() {
 		// Given
 		int startquality = 10;
-		Item freshItem = forge.anItem_thatDecaysWithTime("freshItem", 2, startquality);
+        Item freshItem = forge.anItem_thatDecaysWithTime("freshItem", 2, startquality);
 		Item passedItem = forge.anItem_thatDecaysWithTime("passedItem", 0, startquality);
 
 		// When
@@ -40,6 +42,7 @@ public class NormalItemTest {
 		passedItem.updateQuality();
 		int actualPassedItemQuality = startquality - passedItem.getQuality();
 
+		
 		// Then
 		assertThat(actualFreshItemQuality).isEqualTo(
 				actualPassedItemQuality / 2);

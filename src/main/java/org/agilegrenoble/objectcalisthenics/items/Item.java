@@ -20,7 +20,7 @@ public abstract class Item {
         return quality.getQuality();
     }
 
-    public int getDayCountDown() {
+    protected int getDayCountDown() {
         return sellIn.getDayCountDown();
     }
 }
