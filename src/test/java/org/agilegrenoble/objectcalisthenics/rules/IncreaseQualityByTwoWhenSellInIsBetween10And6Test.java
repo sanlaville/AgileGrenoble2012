@@ -1,6 +1,7 @@
 package org.agilegrenoble.objectcalisthenics.rules;
 
 import org.agilegrenoble.objectcalisthenics.Item;
+import org.agilegrenoble.objectcalisthenics.Quality;
 import org.agilegrenoble.objectcalisthenics.rules.IncreaseQualityByTwoWhenSellInIsBetween10And6;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -13,15 +14,16 @@ public class IncreaseQualityByTwoWhenSellInIsBetween10And6Test {
 		// Given
 		Item item = Mockito.mock(Item.class);
 		Mockito.when(item.hasSellInBetween10And6()).thenReturn(true);
+		Quality quality = Mockito.mock(Quality.class);
 		IncreaseQualityByTwoWhenSellInIsBetween10And6 increaseQualityByTwoWhenSellInIsBetween10And6 = new IncreaseQualityByTwoWhenSellInIsBetween10And6(
-				item);
+				item, quality);
 
 		// When
 		increaseQualityByTwoWhenSellInIsBetween10And6.execute();
 
 		// Then
 		Mockito.verify(item).hasSellInBetween10And6();
-		Mockito.verify(item).increaseQuality(2);
+		Mockito.verify(quality).increaseQuality(2);
 		Mockito.verifyNoMoreInteractions(item);
 	}
 
@@ -31,8 +33,9 @@ public class IncreaseQualityByTwoWhenSellInIsBetween10And6Test {
 		// Given
 		Item item = Mockito.mock(Item.class);
 		Mockito.when(item.hasSellInBetween10And6()).thenReturn(false);
+		Quality quality = Mockito.mock(Quality.class);
 		IncreaseQualityByTwoWhenSellInIsBetween10And6 increaseQualityByTwoWhenSellInIsBetween10And6 = new IncreaseQualityByTwoWhenSellInIsBetween10And6(
-				item);
+				item, quality);
 
 		// When
 		increaseQualityByTwoWhenSellInIsBetween10And6.execute();
@@ -48,8 +51,9 @@ public class IncreaseQualityByTwoWhenSellInIsBetween10And6Test {
 		// Given
 		Item item = Mockito.mock(Item.class);
 		Mockito.when(item.hasSellInBetween10And6()).thenReturn(false);
+		Quality quality = Mockito.mock(Quality.class);
 		IncreaseQualityByTwoWhenSellInIsBetween10And6 increaseQualityByTwoWhenSellInIsBetween10And6 = new IncreaseQualityByTwoWhenSellInIsBetween10And6(
-				item);
+				item, quality);
 		
 		// When
 		increaseQualityByTwoWhenSellInIsBetween10And6.execute();

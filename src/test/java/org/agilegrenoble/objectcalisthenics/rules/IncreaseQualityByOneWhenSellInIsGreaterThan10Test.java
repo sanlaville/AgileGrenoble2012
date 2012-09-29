@@ -1,6 +1,7 @@
 package org.agilegrenoble.objectcalisthenics.rules;
 
 import org.agilegrenoble.objectcalisthenics.Item;
+import org.agilegrenoble.objectcalisthenics.Quality;
 import org.agilegrenoble.objectcalisthenics.rules.IncreaseQualityByOneWhenSellInIsGreaterThan10;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -13,15 +14,16 @@ public class IncreaseQualityByOneWhenSellInIsGreaterThan10Test {
 		// Given
 		Item item = Mockito.mock(Item.class);
 		Mockito.when(item.hasSellInGreaterThan10()).thenReturn(true);
+		Quality quality = Mockito.mock(Quality.class);
 		IncreaseQualityByOneWhenSellInIsGreaterThan10 increaseQualityByOneWhenSellInIsGreaterThan10 = new IncreaseQualityByOneWhenSellInIsGreaterThan10(
-				item);
+				item,quality);
 
 		// When
 		increaseQualityByOneWhenSellInIsGreaterThan10.execute();
 
 		// Then
 		Mockito.verify(item).hasSellInGreaterThan10();
-		Mockito.verify(item).increaseQuality(1);
+		Mockito.verify(quality).increaseQuality(1);
 		Mockito.verifyNoMoreInteractions(item);
 	}
 
@@ -31,8 +33,9 @@ public class IncreaseQualityByOneWhenSellInIsGreaterThan10Test {
 		// Given
 		Item item = Mockito.mock(Item.class);
 		Mockito.when(item.hasSellInGreaterThan10()).thenReturn(false);
+		Quality quality = Mockito.mock(Quality.class);
 		IncreaseQualityByOneWhenSellInIsGreaterThan10 increaseQualityByOneWhenSellInIsGreaterThan10 = new IncreaseQualityByOneWhenSellInIsGreaterThan10(
-				item);
+				item,quality);
 
 		// When
 		increaseQualityByOneWhenSellInIsGreaterThan10.execute();

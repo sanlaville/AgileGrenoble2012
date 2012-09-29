@@ -1,7 +1,6 @@
 package org.agilegrenoble.objectcalisthenics;
 
-import static org.fest.assertions.Assertions.assertThat;
-
+import org.agilegrenoble.objectcalisthenics.assertions.QualityAssert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,24 +15,24 @@ public class BrieItemTest extends ItemTest {
 	@Test
 	public void brie_quality_increases_with_time() {
 		// Given
-		int startQuality = 20;
+		Quality startQuality = new Quality(20);
 		Item brie = buildItem(startQuality);
 
 		// When
 		brie.updateQuality();
 
 		// Then
-		assertThat(brie.quality).isEqualTo(startQuality + 1);
+		QualityAssert.assertThat(brie.quality()).isGreaterThan( new Quality(20));
 	}
 
 
 	@Override
-	protected Item buildItem(int startQuality) {
+	protected Item buildItem(Quality startQuality) {
 		return buildItem(10, startQuality);
 	}
 
 	@Override
-	protected Item buildItem(int startSellIn, int startQuality) {
+	protected Item buildItem(int startSellIn, Quality startQuality) {
 		return new BrieItem(startSellIn, startQuality);
 	}
 }

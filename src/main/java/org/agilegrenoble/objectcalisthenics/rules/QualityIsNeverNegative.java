@@ -1,18 +1,18 @@
 package org.agilegrenoble.objectcalisthenics.rules;
 
-import org.agilegrenoble.objectcalisthenics.Item;
+import org.agilegrenoble.objectcalisthenics.Quality;
 
 public class QualityIsNeverNegative {
 
-	protected Item item = null;
+	protected Quality quality = null;
 	
-	public QualityIsNeverNegative(Item item) {
-		this.item = item;
+	public QualityIsNeverNegative(Quality quality) {
+		this.quality = quality;
 	}
 
 	public void execute() {
-		if (item.hasNegativeQuality())
-			item.dropQualityToZero();
+		if (quality.hasNegativeQuality())
+			quality.dropQualityToZero();
 	}
 
 }

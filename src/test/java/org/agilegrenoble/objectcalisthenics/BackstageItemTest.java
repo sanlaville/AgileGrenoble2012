@@ -1,6 +1,7 @@
 package org.agilegrenoble.objectcalisthenics;
 
-import static org.fest.assertions.Assertions.assertThat;
+import org.agilegrenoble.objectcalisthenics.assertions.QualityAssert;
+import org.fest.assertions.Assertions;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,70 +20,70 @@ public class BackstageItemTest extends ItemTest{
 	@Test
 	public void backstage_passes_increases_by2_from_day_10_to_6_before_the_concert() {
 		// Given
-		int startQuality = 20;
+		Quality startQuality =  new Quality(20);
 		int sellIn = 10;
 		BackstageItem backstage = new BackstageItem(sellIn, startQuality);
 
 		// When
 		int startOfPeriod = sellIn;
 		int endOfPeriod = 5;
-		List<Integer> actualBackstageQualityInThePeriod = backstageQualityInThePeriod(
+		List<Quality> actualBackstageQualityInThePeriod = backstageQualityInThePeriod(
 				startOfPeriod, endOfPeriod, backstage);
 
 		// Then
 		int qualityPerDayIncrease = 2;
-		List<Integer> expectedBackstageQualityInThePeriod = inclusiveRange(22,
+		Quality[] expectedBackstageQualityInThePeriod = inclusiveRange2(22,
 				30, qualityPerDayIncrease);
-		assertThat(actualBackstageQualityInThePeriod).isEqualTo(
-				expectedBackstageQualityInThePeriod);
+
+		Assertions.assertThat(actualBackstageQualityInThePeriod).containsExactly((Object[])expectedBackstageQualityInThePeriod);
 	}
 
 	@Test
 	public void backstage_passes_increases_by_3_from_day_5_to_0_before_the_concert() {
 		// Given
-		int startQuality = 20;
+		Quality startQuality =  new Quality(20);
 		int sellIn = 5;
 		BackstageItem backstage = new BackstageItem(sellIn, startQuality);
 
 		// Then
 		int startOfPeriod = sellIn;
 		int endOfPeriod = 0;
-		List<Integer> actualBackstageQualityInThePeriod = backstageQualityInThePeriod(
+		List<Quality> actualBackstageQualityInThePeriod = backstageQualityInThePeriod(
 				startOfPeriod, endOfPeriod, backstage);
 
 		// When
 		int qualityPerDayIncrease = 3;
-		List<Integer> expectedBackstageQualityInThePeriod = inclusiveRange(23,
+		List<Quality> expectedBackstageQualityInThePeriod = inclusiveRange(23,
 				35, qualityPerDayIncrease);
-		assertThat(actualBackstageQualityInThePeriod).isEqualTo(
+		Assertions.assertThat(actualBackstageQualityInThePeriod).isEqualTo(
 				expectedBackstageQualityInThePeriod);
 	}
 
 	@Test
 	public void backstage_passes_increases_by1_from_before_day_10_the_concert() {
 		// Given
-		int startQuality = 20;
+		Quality startQuality =  new Quality(20);
 		int sellIn = 15;
 		BackstageItem backstage = new BackstageItem(sellIn, startQuality);
 
 		// Then
 		int startOfPeriod = sellIn;
 		int endOfPeriod = 10;
-		List<Integer> actualBackstageQualityInThePeriod = backstageQualityInThePeriod(
+		List<Quality> actualBackstageQualityInThePeriod = backstageQualityInThePeriod(
 				startOfPeriod, endOfPeriod, backstage);
 
 		// When
 		int qualityPerDayIncrease = 1;
-		List<Integer> expectedBackstageQualityInThePeriod = inclusiveRange(21,
+		List<Quality> expectedBackstageQualityInThePeriod = inclusiveRange(21,
 				25, qualityPerDayIncrease);
-		assertThat(actualBackstageQualityInThePeriod).isEqualTo(
+		Assertions.assertThat(actualBackstageQualityInThePeriod).isEqualTo(
 				expectedBackstageQualityInThePeriod);
 	}
 
 	@Test
 	public void backstage_passes_is_0_after_the_concert() {
 		// Given
-		int startQuality = 20;
+		Quality startQuality =  new Quality(20);
 		int sellIn = 0;
 		BackstageItem backstage = new BackstageItem(sellIn, startQuality);
 
@@ -90,36 +91,47 @@ public class BackstageItemTest extends ItemTest{
 		backstage.updateQuality();
 
 		// Then
-		assertThat(backstage.quality).isEqualTo(0);
+		QualityAssert.assertThat(backstage.quality()).is(0);
 	}
 
-	private List<Integer> inclusiveRange(int min, int max, int step) {
-		List<Integer> inclusiveRange = new LinkedList<Integer>();
+	private List<Quality> inclusiveRange(int min, int max, int step) {
+		List<Quality> inclusiveRange = new LinkedList<Quality>();
 		for (int i = min; i <= max; i = i + step)
-			inclusiveRange.add(i);
+			inclusiveRange.add(new Quality(i));
+
+		return inclusiveRange;
+	}
+	private Quality[] inclusiveRange2(int min, int max, int step) {
+		Quality[] inclusiveRange = new Quality[(max-min)/step + 1];
+		int j=0;
+		for (int i = min; i <= max; i = i + step)
+			{
+			inclusiveRange[j] = new Quality(i);
+			j++;
+			}
 
 		return inclusiveRange;
 	}
 
-	private List<Integer> backstageQualityInThePeriod(int startOfPeriod,
+	private List<Quality> backstageQualityInThePeriod(int startOfPeriod,
 			int endOfPeriod, Item backstage) {
-		List<Integer> qualityInThePeriod = new LinkedList<Integer>();
+		List<Quality> qualityInThePeriod = new LinkedList<Quality>();
 
 		for (int day = startOfPeriod; day > endOfPeriod; --day) {
 			backstage.updateQuality();
-			qualityInThePeriod.add(backstage.quality);
+			qualityInThePeriod.add(backstage.quality());
 		}
 
 		return qualityInThePeriod;
 	}
 
 	@Override
-	protected Item buildItem(int quality) {
+	protected Item buildItem(Quality quality) {
 		return buildItem(15, quality);
 	}
 
 	@Override
-	protected Item buildItem(int sellIn, int quality) {
+	protected Item buildItem(int sellIn, Quality quality) {
 		return  new BackstageItem(sellIn, quality);
 	}
 }

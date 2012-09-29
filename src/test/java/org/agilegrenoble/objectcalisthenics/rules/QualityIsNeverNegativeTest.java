@@ -1,7 +1,6 @@
 package org.agilegrenoble.objectcalisthenics.rules;
 
-import org.agilegrenoble.objectcalisthenics.Item;
-import org.agilegrenoble.objectcalisthenics.rules.QualityIsNeverNegative;
+import org.agilegrenoble.objectcalisthenics.Quality;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -11,33 +10,33 @@ public class QualityIsNeverNegativeTest {
 	public void execute_whitNegativeQuality_ShouldCall_ResetQualityToZero() {
 		
 		// Given
-		Item item = Mockito.mock(Item.class);
-		Mockito.when(item.hasNegativeQuality()).thenReturn(true);
-		QualityIsNeverNegative qualityIsNeverNegative = new QualityIsNeverNegative(item);
+		Quality quality = Mockito.mock(Quality.class);
+		Mockito.when(quality.hasNegativeQuality()).thenReturn(true);
+		QualityIsNeverNegative qualityIsNeverNegative = new QualityIsNeverNegative(quality);
 		
 		// When
 		qualityIsNeverNegative.execute();
 		
 		// Then
-		Mockito.verify(item).hasNegativeQuality();
-		Mockito.verify(item).dropQualityToZero();
-		Mockito.verifyNoMoreInteractions(item);
+		Mockito.verify(quality).hasNegativeQuality();
+		Mockito.verify(quality).dropQualityToZero();
+		Mockito.verifyNoMoreInteractions(quality);
 	}
 	
 	@Test
 	public void execute_whitPositiveQuality_Should_DoNothing() {
 		
 		// Given
-		Item item = Mockito.mock(Item.class);
-		Mockito.when(item.hasNegativeQuality()).thenReturn(false);
-		QualityIsNeverNegative qualityIsNeverNegative = new QualityIsNeverNegative(item);
+		Quality quality = Mockito.mock(Quality.class);
+		Mockito.when(quality.hasNegativeQuality()).thenReturn(false);
+		QualityIsNeverNegative qualityIsNeverNegative = new QualityIsNeverNegative(quality);
 		
 		// When
 		qualityIsNeverNegative.execute();
 		
 		// Then
-		Mockito.verify(item).hasNegativeQuality();
-		Mockito.verifyNoMoreInteractions(item);
+		Mockito.verify(quality).hasNegativeQuality();
+		Mockito.verifyNoMoreInteractions(quality);
 	}
 
 }

@@ -1,6 +1,6 @@
 package org.agilegrenoble.objectcalisthenics;
 
-import static org.fest.assertions.Assertions.assertThat;
+import org.fest.assertions.Assertions;
 
 
 import org.junit.Before;
@@ -17,23 +17,23 @@ public class NormalItemTest extends ItemTest {
 	@Test
 	public void quality_degrades_twice_as_fast_after_the_sell_date_has_passed() {
 		// Given
-		int startquality = 10;
+		Quality startquality = new Quality(10);
 		Item freshItem = buildRandomNormalItem(2, startquality);
 		Item passedItem = buildRandomNormalItem(0, startquality);
 
 		// When
 		freshItem.updateQuality();
-		int actualFreshItemQuality = startquality - freshItem.quality;
+		int actualFreshItemQuality = startquality.value() - freshItem.quality().value();
 		passedItem.updateQuality();
-		int actualPassedItemQuality = startquality - passedItem.quality;
+		int actualPassedItemQuality = startquality.value() - passedItem.quality().value();
 
 		// Then
-		assertThat(actualFreshItemQuality).isEqualTo(
+		Assertions.assertThat(actualFreshItemQuality).isEqualTo(
 				actualPassedItemQuality / 2);
 	}
 
 
-	private Item buildRandomNormalItem(int sellIn, int quality) {
+	private Item buildRandomNormalItem(int sellIn, Quality quality) {
 		Item item = null;
 
 		int ran = random.nextInt(2);
@@ -48,10 +48,10 @@ public class NormalItemTest extends ItemTest {
 
 		return item;
 	}
-	
-	private Item buildRandomNormalItem(int quality) {
+
+	private Item buildRandomNormalItem(Quality quality) {
 		Item item = null;
-		
+
 		int ran = random.nextInt(2);
 		switch (ran) {
 		case 0:
@@ -61,17 +61,17 @@ public class NormalItemTest extends ItemTest {
 			item = new NormalItem("Elixir of the Mongoose", 5, quality);
 			break;
 		}
-		
+
 		return item;
 	}
 
 	@Override
-	protected Item buildItem(int quality) {
+	protected Item buildItem(Quality quality) {
 		return buildRandomNormalItem(quality);
 	}
 
 	@Override
-	protected Item buildItem(int sellIn, int quality) {
+	protected Item buildItem(int sellIn, Quality quality) {
 		return buildRandomNormalItem(sellIn, quality);
 	}
 }

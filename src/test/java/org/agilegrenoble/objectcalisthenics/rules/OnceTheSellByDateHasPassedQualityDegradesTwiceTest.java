@@ -1,6 +1,7 @@
 package org.agilegrenoble.objectcalisthenics.rules;
 
 import org.agilegrenoble.objectcalisthenics.Item;
+import org.agilegrenoble.objectcalisthenics.Quality;
 import org.agilegrenoble.objectcalisthenics.rules.OnceTheSellByDateHasPassedQualityDegradesTwice;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -13,14 +14,15 @@ public class OnceTheSellByDateHasPassedQualityDegradesTwiceTest {
 		// Given
 		Item item = Mockito.mock(Item.class);
 		Mockito.when(item.hasTheSellByDatePassed()).thenReturn(true);
-		OnceTheSellByDateHasPassedQualityDegradesTwice onceTheSellByDateHasPassedQualityDegradesTwice = new OnceTheSellByDateHasPassedQualityDegradesTwice(item);
+		Quality quality = Mockito.mock(Quality.class);
+		OnceTheSellByDateHasPassedQualityDegradesTwice onceTheSellByDateHasPassedQualityDegradesTwice = new OnceTheSellByDateHasPassedQualityDegradesTwice(item, quality);
 		
 		// When
 		onceTheSellByDateHasPassedQualityDegradesTwice.execute();
 		
 		// Then
 		Mockito.verify(item).hasTheSellByDatePassed();
-		Mockito.verify(item).decreaseQuality(1);
+		Mockito.verify(quality).decreaseQuality(1);
 		Mockito.verifyNoMoreInteractions(item);
 	}
 	
@@ -30,7 +32,8 @@ public class OnceTheSellByDateHasPassedQualityDegradesTwiceTest {
 		// Given
 		Item item = Mockito.mock(Item.class);
 		Mockito.when(item.hasTheSellByDatePassed()).thenReturn(false);
-		OnceTheSellByDateHasPassedQualityDegradesTwice onceTheSellByDateHasPassedQualityDegradesTwice = new OnceTheSellByDateHasPassedQualityDegradesTwice(item);
+		Quality quality = Mockito.mock(Quality.class);
+		OnceTheSellByDateHasPassedQualityDegradesTwice onceTheSellByDateHasPassedQualityDegradesTwice = new OnceTheSellByDateHasPassedQualityDegradesTwice(item, quality);
 		
 		// When
 		onceTheSellByDateHasPassedQualityDegradesTwice.execute();

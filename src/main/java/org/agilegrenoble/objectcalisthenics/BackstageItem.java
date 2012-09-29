@@ -8,11 +8,11 @@ public class BackstageItem extends Item {
 	protected UpdateQualityDependingOnSellIn updateQualityDependingOnSellIn = null;
 	protected QualityIsNeverMoreThan50 qualityIsNeverMoreThan50 = null;
 	
-	public BackstageItem(int sellIn, int quality) {
+	public BackstageItem(int sellIn, Quality quality) {
 		super("Backstage passes to a TAFKAL80ETC concert", sellIn, quality);
 		
-		updateQualityDependingOnSellIn = new UpdateQualityDependingOnSellIn(this);
-		qualityIsNeverMoreThan50 = new QualityIsNeverMoreThan50(this);
+		updateQualityDependingOnSellIn = new UpdateQualityDependingOnSellIn(this, this.quality);
+		qualityIsNeverMoreThan50 = new QualityIsNeverMoreThan50(this.quality);
 	}
 
 	/**

@@ -1,18 +1,18 @@
 package org.agilegrenoble.objectcalisthenics.rules;
 
-import org.agilegrenoble.objectcalisthenics.Item;
+import org.agilegrenoble.objectcalisthenics.Quality;
 
 public class QualityIsNeverMoreThan50 {
 
-	protected Item item = null;
+	protected Quality quality = null;
 	
-	public QualityIsNeverMoreThan50(Item item) {
-		this.item = item; 
+	public QualityIsNeverMoreThan50(Quality quality) {
+		this.quality = quality;
 	}
 
 	public void execute() {
-		if (item.hasQualityGreaterThan50())
-			item.keepQualityTo50();
+		if (quality.hasQualityGreaterThan50())
+			quality.keepQualityTo50();
 	}
 
 }
