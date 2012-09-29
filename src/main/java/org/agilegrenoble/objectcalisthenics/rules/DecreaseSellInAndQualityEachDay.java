@@ -1,25 +1,27 @@
 package org.agilegrenoble.objectcalisthenics.rules;
 
-import org.agilegrenoble.objectcalisthenics.Item;
 import org.agilegrenoble.objectcalisthenics.Quality;
+import org.agilegrenoble.objectcalisthenics.SellIn;
 
 public class DecreaseSellInAndQualityEachDay {
 
-	protected Item item = null;
+	protected SellIn sellIn = null;
 	protected Quality quality = null;
 	
 	/**
-	 * Create a new instance for the given item
-	 * @param item the item who should be decrease. Must be not null.
+	 * Create a new instance for this business rule.
+	 * 
+	 * @param sellIn the sellIn to decrease. Must be not null.
+	 * @param quality the quality to decrease. Must be not null.
 	 */
-	public DecreaseSellInAndQualityEachDay(Item item, Quality quality) {
-		this.item = item;
+	public DecreaseSellInAndQualityEachDay(SellIn sellIn, Quality quality) {
+		this.sellIn = sellIn;
 		this.quality = quality;
 	}
 
 	public void execute() {
 		quality.decreaseQuality(1);
-		item.decreaseSellIn(1);
+		sellIn.decreaseSellIn(1);
 	}
 
 }

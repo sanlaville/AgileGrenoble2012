@@ -8,10 +8,10 @@ public class BrieItem extends Item {
 	protected DecreaseSellInAndIncreaseQualityEachDay decreaseSellInAndIncreaseQualityEachDay = null;
 	protected QualityIsNeverMoreThan50 qualityIsNeverMoreThan50 = null;
 
-	public BrieItem(int sellIn, Quality quality) {
+	public BrieItem(SellIn sellIn, Quality quality) {
 		super("Aged Brie", sellIn, quality);
 		decreaseSellInAndIncreaseQualityEachDay = new DecreaseSellInAndIncreaseQualityEachDay(
-				this, this.quality);
+				this.sellIn, this.quality);
 		qualityIsNeverMoreThan50 = new QualityIsNeverMoreThan50(this.quality);
 	}
 

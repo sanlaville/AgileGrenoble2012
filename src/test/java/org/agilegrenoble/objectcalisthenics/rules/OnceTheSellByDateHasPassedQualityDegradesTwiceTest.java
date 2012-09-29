@@ -1,8 +1,7 @@
 package org.agilegrenoble.objectcalisthenics.rules;
 
-import org.agilegrenoble.objectcalisthenics.Item;
 import org.agilegrenoble.objectcalisthenics.Quality;
-import org.agilegrenoble.objectcalisthenics.rules.OnceTheSellByDateHasPassedQualityDegradesTwice;
+import org.agilegrenoble.objectcalisthenics.SellIn;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -12,35 +11,33 @@ public class OnceTheSellByDateHasPassedQualityDegradesTwiceTest {
 	public void execute_withItemWhoTheSellByDateHasPassed_ShouldCall_DecreaseQuality() {
 		
 		// Given
-		Item item = Mockito.mock(Item.class);
-		Mockito.when(item.hasTheSellByDatePassed()).thenReturn(true);
+		SellIn sellIn = Mockito.mock(SellIn.class);
+		Mockito.when(sellIn.hasTheSellByDatePassed()).thenReturn(true);
 		Quality quality = Mockito.mock(Quality.class);
-		OnceTheSellByDateHasPassedQualityDegradesTwice onceTheSellByDateHasPassedQualityDegradesTwice = new OnceTheSellByDateHasPassedQualityDegradesTwice(item, quality);
+		OnceTheSellByDateHasPassedQualityDegradesTwice onceTheSellByDateHasPassedQualityDegradesTwice = new OnceTheSellByDateHasPassedQualityDegradesTwice(sellIn, quality);
 		
 		// When
 		onceTheSellByDateHasPassedQualityDegradesTwice.execute();
 		
 		// Then
-		Mockito.verify(item).hasTheSellByDatePassed();
 		Mockito.verify(quality).decreaseQuality(1);
-		Mockito.verifyNoMoreInteractions(item);
+		Mockito.verifyNoMoreInteractions(quality);
 	}
 	
 	@Test
-	public void execute_withItemWhoTheSellByDateHasNotPassed_Should_DoNothing() {
+	public void execute_withItemWhoTheSellByDateHasNotPassed_Should_DoNothingOnQuality() {
 		
 		// Given
-		Item item = Mockito.mock(Item.class);
-		Mockito.when(item.hasTheSellByDatePassed()).thenReturn(false);
+		SellIn sellIn = Mockito.mock(SellIn.class);
+		Mockito.when(sellIn.hasTheSellByDatePassed()).thenReturn(false);
 		Quality quality = Mockito.mock(Quality.class);
-		OnceTheSellByDateHasPassedQualityDegradesTwice onceTheSellByDateHasPassedQualityDegradesTwice = new OnceTheSellByDateHasPassedQualityDegradesTwice(item, quality);
+		OnceTheSellByDateHasPassedQualityDegradesTwice onceTheSellByDateHasPassedQualityDegradesTwice = new OnceTheSellByDateHasPassedQualityDegradesTwice(sellIn, quality);
 		
 		// When
 		onceTheSellByDateHasPassedQualityDegradesTwice.execute();
 		
 		// Then
-		Mockito.verify(item).hasTheSellByDatePassed();
-		Mockito.verifyNoMoreInteractions(item);
+		Mockito.verifyNoMoreInteractions(quality);
 	}
 
 }

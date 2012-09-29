@@ -10,10 +10,10 @@ public class NormalItem extends Item {
 	protected OnceTheSellByDateHasPassedQualityDegradesTwice onceTheSellByDateHasPassedQualityDegradesTwice = null;
 	protected QualityIsNeverNegative qualityIsNeverNegative = null;
 	
-	public NormalItem(String name, int sellIn, Quality quality) {
+	public NormalItem(String name, SellIn sellIn, Quality quality) {
 		super(name, sellIn, quality);
-		decreaseSellInAndQualityEachDay = new DecreaseSellInAndQualityEachDay(this, this.quality); 
-		onceTheSellByDateHasPassedQualityDegradesTwice = new OnceTheSellByDateHasPassedQualityDegradesTwice(this, this.quality);
+		decreaseSellInAndQualityEachDay = new DecreaseSellInAndQualityEachDay(this.sellIn, this.quality); 
+		onceTheSellByDateHasPassedQualityDegradesTwice = new OnceTheSellByDateHasPassedQualityDegradesTwice(this.sellIn, this.quality);
 		qualityIsNeverNegative = new QualityIsNeverNegative(this.quality);
 	}
 

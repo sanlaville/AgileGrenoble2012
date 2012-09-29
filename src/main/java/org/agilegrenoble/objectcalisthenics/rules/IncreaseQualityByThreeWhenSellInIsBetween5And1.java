@@ -1,20 +1,26 @@
 package org.agilegrenoble.objectcalisthenics.rules;
 
-import org.agilegrenoble.objectcalisthenics.Item;
 import org.agilegrenoble.objectcalisthenics.Quality;
+import org.agilegrenoble.objectcalisthenics.SellIn;
 
 public class IncreaseQualityByThreeWhenSellInIsBetween5And1 {
 
-	protected Item item = null;
+	protected SellIn sellIn = null;
 	protected Quality quality = null;
 	
-	public IncreaseQualityByThreeWhenSellInIsBetween5And1(Item item, Quality quality) {
-		this.item = item;
+	/**
+	 * Create a new instance for this business rule.
+	 * 
+	 * @param sellIn the sellIn used by this rule. Must be not null.
+	 * @param quality the quality to increase. Must be not null.
+	 */
+	public IncreaseQualityByThreeWhenSellInIsBetween5And1(SellIn sellIn, Quality quality) {
+		this.sellIn = sellIn;
 		this.quality = quality;
 	}
 
 	public void execute() {
-		if (item.hasSellInBetween5And1())
+		if (sellIn.hasSellInBetween5And1())
 			quality.increaseQuality(3);
 	}
 

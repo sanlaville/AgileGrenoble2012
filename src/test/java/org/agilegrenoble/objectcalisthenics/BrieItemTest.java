@@ -28,11 +28,11 @@ public class BrieItemTest extends ItemTest {
 
 	@Override
 	protected Item buildItem(Quality startQuality) {
-		return buildItem(10, startQuality);
+		return buildItem(new SellIn(10), startQuality);
 	}
 
 	@Override
-	protected Item buildItem(int startSellIn, Quality startQuality) {
+	protected Item buildItem(SellIn startSellIn, Quality startQuality) {
 		return new BrieItem(startSellIn, startQuality);
 	}
 }

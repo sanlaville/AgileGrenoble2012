@@ -1,20 +1,26 @@
 package org.agilegrenoble.objectcalisthenics.rules;
 
-import org.agilegrenoble.objectcalisthenics.Item;
 import org.agilegrenoble.objectcalisthenics.Quality;
+import org.agilegrenoble.objectcalisthenics.SellIn;
 
 public class IncreaseQualityByOneWhenSellInIsGreaterThan10 {
 
-	protected Item item = null;
+	protected SellIn sellIn = null;
 	protected Quality quality = null;
 	
-	public IncreaseQualityByOneWhenSellInIsGreaterThan10(Item item, Quality quality) {
-		this.item = item;
+	/**
+	 * Create a new instance for this business rule.
+	 * 
+	 * @param sellIn the sellIn used by this rule. Must be not null.
+	 * @param quality the quality to increase. Must be not null.
+	 */
+	public IncreaseQualityByOneWhenSellInIsGreaterThan10(SellIn sellIn, Quality quality) {
+		this.sellIn = sellIn;
 		this.quality = quality;
 	}
 
 	public void execute() {
-		if (item.hasSellInGreaterThan10())
+		if (sellIn.hasSellInGreaterThan10())
 			quality.increaseQuality(1);
 	}
 

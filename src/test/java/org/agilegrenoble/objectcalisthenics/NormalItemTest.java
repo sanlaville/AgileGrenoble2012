@@ -18,8 +18,8 @@ public class NormalItemTest extends ItemTest {
 	public void quality_degrades_twice_as_fast_after_the_sell_date_has_passed() {
 		// Given
 		Quality startquality = new Quality(10);
-		Item freshItem = buildRandomNormalItem(2, startquality);
-		Item passedItem = buildRandomNormalItem(0, startquality);
+		Item freshItem = buildRandomNormalItem(new SellIn(2), startquality);
+		Item passedItem = buildRandomNormalItem(new SellIn(0), startquality);
 
 		// When
 		freshItem.updateQuality();
@@ -33,7 +33,7 @@ public class NormalItemTest extends ItemTest {
 	}
 
 
-	private Item buildRandomNormalItem(int sellIn, Quality quality) {
+	private Item buildRandomNormalItem(SellIn sellIn, Quality quality) {
 		Item item = null;
 
 		int ran = random.nextInt(2);
@@ -55,10 +55,10 @@ public class NormalItemTest extends ItemTest {
 		int ran = random.nextInt(2);
 		switch (ran) {
 		case 0:
-			item = new NormalItem("+5 Dexterity Vest", 10, quality);
+			item = new NormalItem("+5 Dexterity Vest", new SellIn(10), quality);
 			break;
 		case 1:
-			item = new NormalItem("Elixir of the Mongoose", 5, quality);
+			item = new NormalItem("Elixir of the Mongoose", new SellIn(5), quality);
 			break;
 		}
 
@@ -71,7 +71,7 @@ public class NormalItemTest extends ItemTest {
 	}
 
 	@Override
-	protected Item buildItem(int sellIn, Quality quality) {
+	protected Item buildItem(SellIn sellIn, Quality quality) {
 		return buildRandomNormalItem(sellIn, quality);
 	}
 }

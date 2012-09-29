@@ -21,11 +21,12 @@ public class BackstageItemTest extends ItemTest{
 	public void backstage_passes_increases_by2_from_day_10_to_6_before_the_concert() {
 		// Given
 		Quality startQuality =  new Quality(20);
-		int sellIn = 10;
+		int initialSellInValue = 10;
+		SellIn sellIn = new SellIn(initialSellInValue);
 		BackstageItem backstage = new BackstageItem(sellIn, startQuality);
 
 		// When
-		int startOfPeriod = sellIn;
+		int startOfPeriod = initialSellInValue;
 		int endOfPeriod = 5;
 		List<Quality> actualBackstageQualityInThePeriod = backstageQualityInThePeriod(
 				startOfPeriod, endOfPeriod, backstage);
@@ -42,11 +43,12 @@ public class BackstageItemTest extends ItemTest{
 	public void backstage_passes_increases_by_3_from_day_5_to_0_before_the_concert() {
 		// Given
 		Quality startQuality =  new Quality(20);
-		int sellIn = 5;
+		int initialSellInValue = 5;
+		SellIn sellIn = new SellIn(initialSellInValue);
 		BackstageItem backstage = new BackstageItem(sellIn, startQuality);
 
 		// Then
-		int startOfPeriod = sellIn;
+		int startOfPeriod = initialSellInValue;
 		int endOfPeriod = 0;
 		List<Quality> actualBackstageQualityInThePeriod = backstageQualityInThePeriod(
 				startOfPeriod, endOfPeriod, backstage);
@@ -63,11 +65,12 @@ public class BackstageItemTest extends ItemTest{
 	public void backstage_passes_increases_by1_from_before_day_10_the_concert() {
 		// Given
 		Quality startQuality =  new Quality(20);
-		int sellIn = 15;
+		int initialSellInValue = 15;
+		SellIn sellIn = new SellIn(initialSellInValue);
 		BackstageItem backstage = new BackstageItem(sellIn, startQuality);
 
 		// Then
-		int startOfPeriod = sellIn;
+		int startOfPeriod = initialSellInValue;
 		int endOfPeriod = 10;
 		List<Quality> actualBackstageQualityInThePeriod = backstageQualityInThePeriod(
 				startOfPeriod, endOfPeriod, backstage);
@@ -84,7 +87,7 @@ public class BackstageItemTest extends ItemTest{
 	public void backstage_passes_is_0_after_the_concert() {
 		// Given
 		Quality startQuality =  new Quality(20);
-		int sellIn = 0;
+		SellIn sellIn = new SellIn(0);
 		BackstageItem backstage = new BackstageItem(sellIn, startQuality);
 
 		// When
@@ -127,11 +130,11 @@ public class BackstageItemTest extends ItemTest{
 
 	@Override
 	protected Item buildItem(Quality quality) {
-		return buildItem(15, quality);
+		return buildItem(new SellIn(15), quality);
 	}
 
 	@Override
-	protected Item buildItem(int sellIn, Quality quality) {
+	protected Item buildItem(SellIn sellIn, Quality quality) {
 		return  new BackstageItem(sellIn, quality);
 	}
 }

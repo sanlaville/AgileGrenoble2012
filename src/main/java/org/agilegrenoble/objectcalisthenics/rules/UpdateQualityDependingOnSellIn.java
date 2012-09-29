@@ -1,7 +1,7 @@
 package org.agilegrenoble.objectcalisthenics.rules;
 
-import org.agilegrenoble.objectcalisthenics.Item;
 import org.agilegrenoble.objectcalisthenics.Quality;
+import org.agilegrenoble.objectcalisthenics.SellIn;
 
 public class UpdateQualityDependingOnSellIn {
 	
@@ -10,15 +10,15 @@ public class UpdateQualityDependingOnSellIn {
 	protected IncreaseQualityByThreeWhenSellInIsBetween5And1 increaseQualityByThreeWhenSellInIsBetween5And1 = null;
 	protected DropQualityToZeroAfterTheConcert dropQualityToZeroAfterTheConcert = null;
 
-	public UpdateQualityDependingOnSellIn(Item item, Quality quality) {
+	public UpdateQualityDependingOnSellIn(SellIn sellIn, Quality quality) {
 		increaseQualityByOneWhenSellInIsGreaterThan10 = new IncreaseQualityByOneWhenSellInIsGreaterThan10(
-				item, quality);
+				sellIn, quality);
 		increaseQualityByTwoWhenSellInIsBetween10And6 = new IncreaseQualityByTwoWhenSellInIsBetween10And6(
-				item, quality);
+				sellIn, quality);
 		increaseQualityByThreeWhenSellInIsBetween5And1 = new IncreaseQualityByThreeWhenSellInIsBetween5And1(
-				item, quality);
+				sellIn, quality);
 		dropQualityToZeroAfterTheConcert = new DropQualityToZeroAfterTheConcert(
-				item, quality);
+				sellIn, quality);
 	}
 
 	public void execute() {
