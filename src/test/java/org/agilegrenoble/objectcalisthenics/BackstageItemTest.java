@@ -1,11 +1,10 @@
 package org.agilegrenoble.objectcalisthenics;
 
-import org.agilegrenoble.objectcalisthenics.assertions.QualityAssert;
-import org.fest.assertions.Assertions;
-
 import java.util.LinkedList;
 import java.util.List;
 
+import org.agilegrenoble.objectcalisthenics.assertions.QualityAssert;
+import org.fest.assertions.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 

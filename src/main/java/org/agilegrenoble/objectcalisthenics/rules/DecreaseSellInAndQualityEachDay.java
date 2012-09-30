@@ -3,7 +3,7 @@ package org.agilegrenoble.objectcalisthenics.rules;
 import org.agilegrenoble.objectcalisthenics.Quality;
 import org.agilegrenoble.objectcalisthenics.SellIn;
 
-public class DecreaseSellInAndQualityEachDay {
+public class DecreaseSellInAndQualityEachDay implements IBusinessRule {
 
 	protected SellIn sellIn = null;
 	protected Quality quality = null;
@@ -19,6 +19,7 @@ public class DecreaseSellInAndQualityEachDay {
 		this.quality = quality;
 	}
 
+	@Override
 	public void execute() {
 		quality.decreaseQuality(1);
 		sellIn.decreaseSellIn(1);

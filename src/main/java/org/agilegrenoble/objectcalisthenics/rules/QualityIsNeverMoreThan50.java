@@ -2,7 +2,7 @@ package org.agilegrenoble.objectcalisthenics.rules;
 
 import org.agilegrenoble.objectcalisthenics.Quality;
 
-public class QualityIsNeverMoreThan50 {
+public class QualityIsNeverMoreThan50 implements IBusinessRule {
 
 	protected Quality quality = null;
 	
@@ -15,6 +15,7 @@ public class QualityIsNeverMoreThan50 {
 		this.quality = quality;
 	}
 
+	@Override
 	public void execute() {
 		if (quality.hasQualityGreaterThan50())
 			quality.keepQualityTo50();

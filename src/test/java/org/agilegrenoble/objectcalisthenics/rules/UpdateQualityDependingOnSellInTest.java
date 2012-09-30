@@ -1,55 +1,107 @@
 package org.agilegrenoble.objectcalisthenics.rules;
 
+import java.util.Random;
+
 import org.agilegrenoble.objectcalisthenics.Quality;
 import org.agilegrenoble.objectcalisthenics.SellIn;
+import org.fest.assertions.Assertions;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
-@RunWith(PowerMockRunner.class)
 public class UpdateQualityDependingOnSellInTest {
 
+	protected Random random = null;
+
+	@Before
+	public void setup() {
+		random = new Random();
+	}
+	
 	@Test
-	@PrepareForTest( UpdateQualityDependingOnSellIn.class )
 	public void execute_ShouldCall_() throws Exception {
 		// Given
-		SellIn expectedSellIn = Mockito.mock(SellIn.class);
-		Quality expectedQuality = Mockito.mock(Quality.class);
-		IncreaseQualityByOneWhenSellInIsGreaterThan10 increaseQualityByOneWhenSellInIsGreaterThan10 = Mockito.mock(IncreaseQualityByOneWhenSellInIsGreaterThan10.class);
-		IncreaseQualityByTwoWhenSellInIsBetween10And6 increaseQualityByTwoWhenSellInIsBetween10And6 = Mockito.mock(IncreaseQualityByTwoWhenSellInIsBetween10And6.class);
-		IncreaseQualityByThreeWhenSellInIsBetween5And1 increaseQualityByThreeWhenSellInIsBetween5And1 = Mockito.mock(IncreaseQualityByThreeWhenSellInIsBetween5And1.class);
-		DropQualityToZeroAfterTheConcert dropQualityToZeroAfterTheConcert = Mockito.mock(DropQualityToZeroAfterTheConcert.class);
+		IBusinessRule expectedBusinessRule = Mockito.mock(IBusinessRule.class);
 		
-		PowerMockito.whenNew(IncreaseQualityByOneWhenSellInIsGreaterThan10.class).withArguments(expectedSellIn, expectedQuality).thenReturn(increaseQualityByOneWhenSellInIsGreaterThan10);
-		PowerMockito.whenNew(IncreaseQualityByTwoWhenSellInIsBetween10And6.class).withArguments(expectedSellIn, expectedQuality).thenReturn(increaseQualityByTwoWhenSellInIsBetween10And6);
-		PowerMockito.whenNew(IncreaseQualityByThreeWhenSellInIsBetween5And1.class).withArguments(expectedSellIn, expectedQuality).thenReturn(increaseQualityByThreeWhenSellInIsBetween5And1);
-		PowerMockito.whenNew(DropQualityToZeroAfterTheConcert.class).withArguments(expectedSellIn, expectedQuality).thenReturn(dropQualityToZeroAfterTheConcert);
-
-		UpdateQualityDependingOnSellIn updateQualityDependingOnSellIn = new UpdateQualityDependingOnSellIn(expectedSellIn, expectedQuality);
+		SellIn sellIn = Mockito.mock(SellIn.class);
+		Quality quality = Mockito.mock(Quality.class);
+		UpdateQualityDependingOnSellIn updateQualityDependingOnSellIn = Mockito.spy(new UpdateQualityDependingOnSellIn(sellIn, quality));
+		Mockito.doReturn(expectedBusinessRule).when(updateQualityDependingOnSellIn).findBusinessRuleDependingOnSellIn();
+		
 		
 		// When
 		updateQualityDependingOnSellIn.execute();
 		
 		// Then
-		PowerMockito.verifyNew(IncreaseQualityByOneWhenSellInIsGreaterThan10.class).withArguments(expectedSellIn, expectedQuality);
-		PowerMockito.verifyNew(IncreaseQualityByTwoWhenSellInIsBetween10And6.class).withArguments(expectedSellIn, expectedQuality);
-		PowerMockito.verifyNew(IncreaseQualityByThreeWhenSellInIsBetween5And1.class).withArguments(expectedSellIn, expectedQuality);
-		PowerMockito.verifyNew(DropQualityToZeroAfterTheConcert.class).withArguments(expectedSellIn, expectedQuality);
+		Mockito.verify(expectedBusinessRule).execute();
+		Mockito.verifyNoMoreInteractions(expectedBusinessRule);
+	}
+	
+	@Test
+	public void findBusinessRuleDependingOnSellIn_WhenSellInIsAfterTheConcert_ShouldReturn_DropQualityToZeroAfterTheConcert()
+	{
+		// Given
+		SellIn expectedSellIn = Mockito.mock(SellIn.class);
+		Mockito.when(expectedSellIn.value()).thenReturn(0);		
+		Quality quality = Mockito.mock(Quality.class);
+		UpdateQualityDependingOnSellIn updateQualityDependingOnSellIn = new UpdateQualityDependingOnSellIn(expectedSellIn, quality);
 		
-		Mockito.verify(increaseQualityByOneWhenSellInIsGreaterThan10).execute();
-		Mockito.verify(increaseQualityByTwoWhenSellInIsBetween10And6).execute();
-		Mockito.verify(increaseQualityByThreeWhenSellInIsBetween5And1).execute();
-		Mockito.verify(dropQualityToZeroAfterTheConcert).execute();
+		// When
+		IBusinessRule actualBusinessRule = updateQualityDependingOnSellIn.findBusinessRuleDependingOnSellIn();
 		
-		Mockito.verifyNoMoreInteractions(increaseQualityByOneWhenSellInIsGreaterThan10);
-		Mockito.verifyNoMoreInteractions(increaseQualityByTwoWhenSellInIsBetween10And6);
-		Mockito.verifyNoMoreInteractions(increaseQualityByThreeWhenSellInIsBetween5And1);
-		Mockito.verifyNoMoreInteractions(dropQualityToZeroAfterTheConcert);
-
+		// Then
+		Assertions.assertThat(actualBusinessRule).isInstanceOf(DropQualityToZero.class);
+	}
+	
+	@Test
+	public void findBusinessRuleDependingOnSellIn_WhenSellInIsBetween5and1_ShouldReturn_DropQualityToZeroAfterTheConcert()
+	{
+		// Given
+		SellIn expectedSellIn = Mockito.mock(SellIn.class);
+		int sellInValue = random.nextInt(5) + 1;
+		Mockito.when(expectedSellIn.value()).thenReturn(sellInValue);		
+		Quality quality = Mockito.mock(Quality.class);
+		UpdateQualityDependingOnSellIn updateQualityDependingOnSellIn = new UpdateQualityDependingOnSellIn(expectedSellIn, quality);
 		
+		// When
+		IBusinessRule actualBusinessRule = updateQualityDependingOnSellIn.findBusinessRuleDependingOnSellIn();
+		
+		// Then
+		Assertions.assertThat(actualBusinessRule).isInstanceOf(IncreaseQualityByThree.class);
+	}
+	
+	@Test
+	public void findBusinessRuleDependingOnSellIn_WhenSellInIsBetween10and6_ShouldReturn_DropQualityToZeroAfterTheConcert()
+	{
+		// Given
+		SellIn expectedSellIn = Mockito.mock(SellIn.class);
+		int sellInValue = random.nextInt(5) + 6;
+		Mockito.when(expectedSellIn.value()).thenReturn(sellInValue);		
+		Quality quality = Mockito.mock(Quality.class);
+		UpdateQualityDependingOnSellIn updateQualityDependingOnSellIn = new UpdateQualityDependingOnSellIn(expectedSellIn, quality);
+		
+		// When
+		IBusinessRule actualBusinessRule = updateQualityDependingOnSellIn.findBusinessRuleDependingOnSellIn();
+		
+		// Then
+		Assertions.assertThat(actualBusinessRule).isInstanceOf(IncreaseQualityByTwo.class);
+	}
+	
+	@Test
+	public void findBusinessRuleDependingOnSellIn_WhenSellInIsGreaterThan10_ShouldReturn_DropQualityToZeroAfterTheConcert()
+	{
+		// Given
+		SellIn expectedSellIn = Mockito.mock(SellIn.class);
+		int sellInValue = random.nextInt(30) + 11;
+		Mockito.when(expectedSellIn.value()).thenReturn(sellInValue);		
+		Quality quality = Mockito.mock(Quality.class);
+		UpdateQualityDependingOnSellIn updateQualityDependingOnSellIn = new UpdateQualityDependingOnSellIn(expectedSellIn, quality);
+		
+		// When
+		IBusinessRule actualBusinessRule = updateQualityDependingOnSellIn.findBusinessRuleDependingOnSellIn();
+		
+		// Then
+		Assertions.assertThat(actualBusinessRule).isInstanceOf(IncreaseQualityByOne.class);
 	}
 
 }

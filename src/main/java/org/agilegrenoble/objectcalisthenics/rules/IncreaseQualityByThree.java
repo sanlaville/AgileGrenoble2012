@@ -2,23 +2,27 @@ package org.agilegrenoble.objectcalisthenics.rules;
 
 import org.agilegrenoble.objectcalisthenics.Quality;
 
-public class QualityIsNeverNegative implements IBusinessRule {
+/**
+ * Business Rule: Increase Quality by 3.
+ * 
+ */
+public class IncreaseQualityByThree implements IBusinessRule {
 
 	protected Quality quality = null;
-	
+
 	/**
 	 * Create a new instance for this business rule.
 	 * 
-	 * @param quality the quality to verify. Must be not null.
+	 * @param quality
+	 *            the quality to increase by 3. Must be not null.
 	 */
-	public QualityIsNeverNegative(Quality quality) {
+	public IncreaseQualityByThree(Quality quality) {
 		this.quality = quality;
 	}
 
 	@Override
 	public void execute() {
-		if (quality.hasNegativeQuality())
-			quality.dropQualityToZero();
+		quality.increaseQuality(3);
 	}
 
 }
