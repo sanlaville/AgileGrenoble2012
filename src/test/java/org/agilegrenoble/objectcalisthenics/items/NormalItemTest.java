@@ -250,7 +250,7 @@ public class NormalItemTest {
 		Item item = forge.anItem_thatDecaysWithTime(null, startSellIn, 0);
 		
 		// When
-		item.sellIn.updateDaysBefore();
+		item.ageing.updateDaysBefore();
 		int actualSelIn = item.getDayCountDown();
 		
 		// Then

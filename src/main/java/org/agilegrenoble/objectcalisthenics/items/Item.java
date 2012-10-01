@@ -5,13 +5,13 @@ import org.agilegrenoble.objectcalisthenics.quality.Quality;
 
 public abstract class Item {
     protected String name;
-    public Ageing sellIn;
+    public Ageing ageing;
     protected Quality quality;
 
     public Item(String name, Quality quality, Ageing sellIn) {
         this.name = name;
         this.quality = quality;
-        this.sellIn = sellIn;
+        this.ageing = sellIn;
     }
 
     public abstract void updateQuality();
@@ -21,6 +21,6 @@ public abstract class Item {
     }
 
     protected int getDayCountDown() {
-        return sellIn.getDayCountDown();
+        return ageing.getDayCountDown();
     }
 }
