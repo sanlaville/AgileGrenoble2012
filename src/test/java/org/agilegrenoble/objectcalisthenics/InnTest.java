@@ -8,10 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import org.agilegrenoble.objectcalisthenics.Inn;
-import org.agilegrenoble.objectcalisthenics.Item;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class InnTest {
@@ -33,13 +30,14 @@ public class InnTest {
 
 		// When
 		inn.updateQuality();
-		int actualFreshItemQuality = startquality - freshItem.getQuality();
-		int actualPassedItemQuality = startquality - passedItem.getQuality();
+		int actualFreshItemQuality = startquality - getQualityOf(freshItem);
+		int actualPassedItemQuality = startquality - getQualityOf(passedItem);
 
 		// Then
 		assertThat(actualFreshItemQuality).isEqualTo(
 				actualPassedItemQuality / 2);
 	}
+
 
 	@Test
 	public void quality_is_never_negative() {
@@ -53,23 +51,22 @@ public class InnTest {
 
 		// Then
 		for (Item item : items) {
-			assertThat(item.getQuality()).isGreaterThanOrEqualTo(0);
+			assertThat(getQualityOf(item)).isGreaterThanOrEqualTo(0);
 		}
 	}
-
 
 	@Test
 	public void brie_quality_increases_with_time() {
 		// Given
 		int startQuality = 20;
-		Item brie = new Item("Aged Brie", 10, startQuality);
+		Item brie = buildBrieItem(10, startQuality);
 		Inn inn = new Inn(asList(brie));
 
 		// When
 		inn.updateQuality();
 
 		// Then
-		assertThat(brie.getQuality()).isEqualTo(startQuality + 1);
+		assertThat(getQualityOf(brie)).isEqualTo(startQuality + 1);
 	}
 
 	@Test
@@ -84,7 +81,7 @@ public class InnTest {
 
 		// Then
 		for (Item item : items) {
-			assertThat(item.getQuality()).isLessThanOrEqualTo(maxQuality);
+			assertThat(getQualityOf(item)).isLessThanOrEqualTo(maxQuality);
 		}
 	}
 
@@ -92,37 +89,37 @@ public class InnTest {
 	public void sulfuras_never_decreases_in_quality() {
 		// Given
 		int startQuality = 40;
-		Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", 0, startQuality);
+		Item sulfuras = buildSulfurasItem(0, startQuality);
 		Inn inn = new Inn(asList(sulfuras));
 
 		// When
 		repeatUpdateQuality(inn, random.nextInt(10));
 
 		// Then
-		assertThat(sulfuras.getQuality()).isGreaterThanOrEqualTo(startQuality);
+		assertThat(getQualityOf(sulfuras)).isGreaterThanOrEqualTo(startQuality);
 	}
 
 	@Test
 	public void sulfuras_never_has_to_be_sold() {
 		// Given
 		int startSellIn = 10;
-		Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", startSellIn, 0);
+		Item sulfuras = buildSulfurasItem(startSellIn, 0);
 		Inn inn = new Inn(asList(sulfuras));
 
 		// When
 		repeatUpdateQuality(inn, random.nextInt(10));
 
 		// Then
-		assertThat(sulfuras.getSellIn()).isEqualTo(startSellIn);
+		assertThat(getSellInOf(sulfuras)).isEqualTo(startSellIn);
 	}
+
 
 	@Test
 	public void backstage_passes_increases_by2_from_day_10_to_6_before_the_concert() {
 		// Given
 		int startQuality = 20;
 		int sellIn = 10;
-		Item backstage = new Item("Backstage passes to a TAFKAL80ETC concert",
-				sellIn, startQuality);
+		Item backstage = buildBackstageItem(sellIn, startQuality);
 		Inn inn = new Inn(asList(backstage));
 
 		// When
@@ -144,8 +141,7 @@ public class InnTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 5;
-		Item backstage = new Item("Backstage passes to a TAFKAL80ETC concert",
-				sellIn, startQuality);
+		Item backstage = buildBackstageItem(sellIn, startQuality);
 		Inn inn = new Inn(asList(backstage));
 
 		// Then
@@ -167,8 +163,7 @@ public class InnTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 15;
-		Item backstage = new Item("Backstage passes to a TAFKAL80ETC concert",
-				sellIn, startQuality);
+		Item backstage = buildBackstageItem(sellIn, startQuality);
 		Inn inn = new Inn(asList(backstage));
 
 		// Then
@@ -190,61 +185,16 @@ public class InnTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 0;
-		Item backstage = new Item("Backstage passes to a TAFKAL80ETC concert",
-				sellIn, startQuality);
+		Item backstage = buildBackstageItem(sellIn, startQuality);
 		Inn inn = new Inn(asList(backstage));
 
 		// When
 		inn.updateQuality();
 
 		// Then
-		assertThat(backstage.getQuality()).isEqualTo(0);
+		assertThat(getQualityOf(backstage)).isEqualTo(0);
 	}
 
-	@Test
-	@Ignore
-	// TODO not yet implemented
-	public void conjured_degrade_in_quality_twice_as_fast_as_normal_items() {
-		// Given
-		int startQuality = 6;
-		Item conjured = new Item("Conjured Mana Cake", 3, startQuality);
-		Inn inn = new Inn(asList(conjured));
-
-		// When
-		inn.updateQuality();
-
-		// Then
-		assertThat(conjured.getQuality()).isEqualTo(4);
-	}
-
-	private Item buildRandomNormalItem(int sellIn, int quality) {
-		Item item = null;
-		
-		int ran = random.nextInt(2);
-		switch (ran) {
-		case 0:
-			item = new Item("+5 Dexterity Vest", sellIn, quality);
-			break;
-		case 1:
-			item = new Item("Elixir of the Mongoose", sellIn, quality);
-			break;
-		}
-		
-		return item;
-	}
-
-
-	private ArrayList<Item> buildItems(int quality) {
-		ArrayList<Item> items = new ArrayList<Item>();
-		items.add(new Item("+5 Dexterity Vest", 10, quality));
-		items.add(new Item("Aged Brie", 2, quality));
-		items.add(new Item("Elixir of the Mongoose", 5, quality));
-		items.add(new Item("Sulfuras, Hand of Ragnaros", 0, quality));
-		items.add(new Item("Backstage passes to a TAFKAL80ETC concert", 15, quality));
-		items.add(new Item("Conjured Mana Cake", 3, quality));
-		return items;
-	}
-	
 	private void repeatUpdateQuality(Inn inn, int times) {
 		for (int i = 0; i < times; i++) {
 			inn.updateQuality();
@@ -265,9 +215,71 @@ public class InnTest {
 
 		for (int day = startOfPeriod; day > endOfPeriod; --day) {
 			inn.updateQuality();
-			qualityInThePeriod.add(backstage.getQuality());
+			qualityInThePeriod.add(getQualityOf(backstage));
 		}
 
 		return qualityInThePeriod;
+	}
+
+	/* ================================================================ */
+	/* ===               FACTORIES FOR BUILDING ITEMS               === */
+	/* ================================================================ */
+
+	private Item buildRandomNormalItem(int sellIn, int quality) {
+		Item item = null;
+
+		int ran = random.nextInt(2);
+		switch (ran) {
+		case 0:
+			item = buildDexterityVestItem(sellIn, quality);
+			break;
+		case 1:
+			item = buildMongooseElixirItem(sellIn, quality);
+			break;
+		}
+
+		return item;
+	}
+
+	private ArrayList<Item> buildItems(int quality) {
+		ArrayList<Item> items = new ArrayList<Item>();
+		items.add(buildDexterityVestItem(10, quality));
+		items.add(buildBrieItem(2, quality));
+		items.add(buildMongooseElixirItem(5, quality));
+		items.add(buildSulfurasItem(0, quality));
+		items.add(buildBackstageItem(15,quality));
+		return items;
+	}
+
+	private Item buildBrieItem(int sellIn, int startQuality) {
+		return new Item("Aged Brie", sellIn, startQuality);
+	}
+	
+	private Item buildDexterityVestItem(int sellIn, int quality) {
+		return  new Item("+5 Dexterity Vest", sellIn, quality);
+	}
+	
+	private Item buildMongooseElixirItem(int sellIn, int quality) {
+		return new Item("Elixir of the Mongoose", sellIn, quality);
+	}
+	
+	private Item buildSulfurasItem(int sellIn, int quality) {
+		return new Item("Sulfuras, Hand of Ragnaros", sellIn, quality);
+	}
+	
+	private Item buildBackstageItem(int sellIn, int quality) {
+		return new Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality);
+	}
+	
+	/* ================================================================ */
+	/* ===                     GET ITEM QUALITY                     === */
+	/* ================================================================ */
+	private int getQualityOf(Item item) {
+		return item.getQuality();
+	}
+	
+
+	private int getSellInOf(Item item) {
+		return item.getSellIn();
 	}
 }
