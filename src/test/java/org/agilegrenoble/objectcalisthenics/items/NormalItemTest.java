@@ -2,17 +2,13 @@ package org.agilegrenoble.objectcalisthenics.items;
 
 import static java.util.Arrays.asList;
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.NavigableMap;
 import java.util.Random;
-import java.util.TreeMap;
 
 import org.agilegrenoble.objectcalisthenics.Inn;
 import org.agilegrenoble.objectcalisthenics.ItemForge;
-import org.agilegrenoble.objectcalisthenics.Ageing.backstagepass.IncreaseStrategy;
 import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -32,8 +28,8 @@ public class NormalItemTest {
 	public void quality_degrades_twice_as_fast_after_the_sell_date_has_passed() {
 		// Given
 		int startquality = 10;
-        Item freshItem = forge.anItem_thatDecaysWithTime("freshItem", 2, startquality);
-		Item passedItem = forge.anItem_thatDecaysWithTime("passedItem", 0, startquality);
+        Item freshItem = itemThatDecays("freshItem", 2, startquality);
+		Item passedItem = itemThatDecays("passedItem", 0, startquality);
 
 		// When
 		freshItem.updateQuality();
@@ -64,7 +60,8 @@ public class NormalItemTest {
 	public void brie_quality_increases_with_time() {
 		// Given
 		int startQuality = 20;
-		Item brie = forge.anAgedBrie_thatImprovesWithTime(10, startQuality);
+		int daysUntilBestBeforeDate = 10;
+        Item brie = anAgedBrie(startQuality, daysUntilBestBeforeDate);
 
 		// When
 		brie.updateQuality();
@@ -120,7 +117,7 @@ public class NormalItemTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 10;
-		Item backstage = forge.aBackstagePass_thatImprovesUntilTheConcertDate(sellIn, startQuality);
+		Item backstage = aBackstagePass(startQuality, sellIn);
 
 		// When
 		int startOfPeriod = sellIn;
@@ -141,7 +138,7 @@ public class NormalItemTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 5;
-		Item backstage = forge.aBackstagePass_thatImprovesUntilTheConcertDate(sellIn, startQuality);
+		Item backstage = aBackstagePass(startQuality, sellIn);
 
 		// Then
 		int startOfPeriod = sellIn;
@@ -162,7 +159,7 @@ public class NormalItemTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 15;
-		Item backstage = forge.aBackstagePass_thatImprovesUntilTheConcertDate(sellIn, startQuality);
+		Item backstage = aBackstagePass(startQuality, sellIn);
 
 		// Then
 		int startOfPeriod = sellIn;
@@ -183,7 +180,7 @@ public class NormalItemTest {
 		// Given
 		int startQuality = 20;
 		int sellIn = 0;
-		Item backstage = forge.aBackstagePass_thatImprovesUntilTheConcertDate(sellIn, startQuality);
+		Item backstage = aBackstagePass(startQuality, sellIn);
 
 		// When
 		backstage.updateQuality();
@@ -198,7 +195,7 @@ public class NormalItemTest {
 	public void conjured_degrade_in_quality_twice_as_fast_as_normal_items() {
 		// Given
 		int startQuality = 6;
-		Item conjured = forge.anItem_thatDecaysWithTime("Conjured Mana Cake", 3, startQuality);
+		Item conjured = itemThatDecays("Conjured Mana Cake", 3, startQuality);
 		Inn inn = new Inn(asList(conjured));
 
 		// When
@@ -212,7 +209,7 @@ public class NormalItemTest {
 	public void increaseQuality_ShouldIncreaseQualityByTheGivenValue(){
 		// Given
 		int startQuality = random.nextInt(51);
-		Item item = forge.anItem_thatDecaysWithTime(null, 0, startQuality);
+		Item item = itemThatDecays(null, 0, startQuality);
 		
 		int value = random.nextInt();
 		
@@ -229,7 +226,7 @@ public class NormalItemTest {
 	public void decreaseQuality_ShouldDecreaseQualityByTheGivenValue(){
 		// Given
 		int startQuality = random.nextInt(51);
-		Item item = forge.anItem_thatDecaysWithTime(null, 0, startQuality);
+		Item item = itemThatDecays(null, 0, startQuality);
 		
 		int value = random.nextInt();
 		
@@ -246,7 +243,7 @@ public class NormalItemTest {
 	public void decreaseSellIn_IsAlwaysByOne(){
 		// Given
 		int startSellIn = random.nextInt();
-		Item item = forge.anItem_thatDecaysWithTime(null, startSellIn, 0);
+		Item item = itemThatDecays(null, startSellIn, 0);
 		
 		// When
 		item.ageing.updateDaysBefore();
@@ -262,7 +259,7 @@ public class NormalItemTest {
 	{
 		// Given
 		int startQuality = random.nextInt();
-		Item item = forge.anItem_thatDecaysWithTime(null, 0, startQuality);
+		Item item = itemThatDecays(null, 0, startQuality);
 		
 		// When
 		item.quality.resetToZero();
@@ -278,22 +275,22 @@ public class NormalItemTest {
 		int ran = random.nextInt(6);
 		switch (ran) {
 		case 0:
-			item = forge.anItem_thatDecaysWithTime("+5 Dexterity Vest", 10, quality);
+			item = itemThatDecays("+5 Dexterity Vest", 10, quality);
 			break;
 		case 1:
-			item = forge.anAgedBrie_thatImprovesWithTime(2, 0);
+			item = anAgedBrie(2, 0);
 			break;
 		case 2:
-			item = forge.anItem_thatDecaysWithTime("Elixir of the Mongoose", 5, quality);
+			item = itemThatDecays("Elixir of the Mongoose", 5, quality);
 			break;
 		case 3:
-			item = forge.aSulfuras_isAMagicItemThatNeverChanges();
+			item = aSulfuras();
 			break;
 		case 4:
-			item = forge.aBackstagePass_thatImprovesUntilTheConcertDate(15, quality);
+			item = aBackstagePass(15, quality);
 			break;
 		case 5:
-			item = forge.anItem_thatDecaysWithTime("Conjured Mana Cake", 3, quality);
+			item = itemThatDecays("Conjured Mana Cake", 3, quality);
 			break;
 		}
 
@@ -325,14 +322,21 @@ public class NormalItemTest {
 
 		return qualityInThePeriod;
 	}
-	
-	@Test public void 
-    whatever() throws Exception {
-        NavigableMap<Integer, String> strategy = new TreeMap<Integer, String>() {{
-            put(Integer.MIN_VALUE, "below or equal to zero");
-            put(1, "more than zero");
-            put(6, "more than 5");
-         }}; 
-         assertEquals("below or equal to zero", strategy.floorEntry(-1).getValue());
+
+	private Item itemThatDecays(String itemName, int startAge, int startquality) {
+        return forge.anItem_thatDecaysWithTime(itemName, startAge, startquality);
     }
+
+    private Item aBackstagePass(int startQuality, int sellIn) {
+        return forge.aBackstagePass_thatImprovesUntilTheConcertDate(sellIn, startQuality);
+    }
+
+    private Item anAgedBrie(int startQuality, int daysUntilBestBeforeDate) {
+        return forge.anAgedBrie_thatImprovesWithTime(daysUntilBestBeforeDate, startQuality);
+    }
+
+    private Item aSulfuras() {
+        return forge.aSulfuras_isAMagicItemThatNeverChanges();
+    }
+
 }
