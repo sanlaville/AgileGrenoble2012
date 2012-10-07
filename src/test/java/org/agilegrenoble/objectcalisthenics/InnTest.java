@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class InnTest {
@@ -67,6 +68,21 @@ public class InnTest {
 
 		// Then
 		assertThat(getQualityOf(brie)).isEqualTo(startQuality + 1);
+	}
+	
+	@Test
+	@Ignore
+	public void brie_quality_increases_by2_when_sellIn_has_passed() {
+		// Given
+		int startQuality = 20;
+		Item brie = buildBrieItem(0, startQuality);
+		Inn inn = new Inn(asList(brie));
+		
+		// When
+		inn.updateQuality();
+		
+		// Then
+		assertThat(getQualityOf(brie)).isEqualTo(startQuality + 2);
 	}
 
 	@Test
