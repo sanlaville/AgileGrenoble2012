@@ -9,6 +9,8 @@ import java.util.Random;
 
 import org.agilegrenoble.objectcalisthenics.Inn;
 import org.agilegrenoble.objectcalisthenics.ItemForge;
+import org.agilegrenoble.objectcalisthenics.quality.Between0and50Quality;
+import org.agilegrenoble.objectcalisthenics.quality.Quality;
 import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -27,33 +29,36 @@ public class NormalItemTest {
 	@Test
 	public void quality_degrades_twice_as_fast_after_the_sell_date_has_passed() {
 		// Given
-		int startquality = 10;
-        Item freshItem = itemThatDecays("freshItem", 2, startquality);
-		Item passedItem = itemThatDecays("passedItem", 0, startquality);
+		Quality freshItemQuality = quality(10);
+		Quality passedItemQuality = quality(10);
+        Item freshItem = itemThatDecays("freshItem", 2, freshItemQuality);
+		Item passedItem = itemThatDecays("passedItem", 0, passedItemQuality);
 
 		// When
 		freshItem.updateQuality();
-		int actualFreshItemQuality = startquality - freshItem.getQuality();
 		passedItem.updateQuality();
-		int actualPassedItemQuality = startquality - passedItem.getQuality();
 
 		
 		// Then
-		assertThat(actualFreshItemQuality).isEqualTo(
-				actualPassedItemQuality / 2);
+		assertThat(freshItemQuality).isEqualTo(quality(9));
+		assertThat(passedItemQuality).isEqualTo(quality(8));
 	}
 
-	@Test
+	private Quality quality(int amount) {
+        return new Between0and50Quality(amount);
+    }
+
+    @Test
 	public void quality_is_never_negative() {
 		// Given
-		int quality = 0;
+		Quality quality = quality(0);
 		Item item = buildRandomItem(quality);
 
 		// When
 		repeatUpdateQuality(item, random.nextInt(10));
 
 		// Then
-		assertThat(item.getQuality()).isGreaterThanOrEqualTo(0);
+		assertThat(quality).isEqualTo(quality(0));
 	}
 
 	@Test
@@ -74,7 +79,8 @@ public class NormalItemTest {
 	public void quality_never_exceeds_50_or_is_80_in_the_case_of_sulfuras() {
 		// Given
 		int maxQuality = 50;
-		Item item = buildRandomItem(maxQuality);
+        Quality quality = quality(maxQuality);
+		Item item = buildRandomItem(quality);
 
 		// When
 		repeatUpdateQuality(item, random.nextInt(10));
@@ -116,8 +122,10 @@ public class NormalItemTest {
 	public void backstage_passes_increases_by2_from_day_10_to_6_before_the_concert() {
 		// Given
 		int startQuality = 20;
+		Quality quality = quality(startQuality);
+
 		int sellIn = 10;
-		Item backstage = aBackstagePass(startQuality, sellIn);
+		Item backstage = aBackstagePass(sellIn, quality);
 
 		// When
 		int startOfPeriod = sellIn;
@@ -137,8 +145,10 @@ public class NormalItemTest {
 	public void backstage_passes_increases_by_3_from_day_5_to_0_before_the_concert() {
 		// Given
 		int startQuality = 20;
+		Quality quality = quality(startQuality);
+
 		int sellIn = 5;
-		Item backstage = aBackstagePass(startQuality, sellIn);
+		Item backstage = aBackstagePass(sellIn, quality);
 
 		// Then
 		int startOfPeriod = sellIn;
@@ -158,8 +168,9 @@ public class NormalItemTest {
 	public void backstage_passes_increases_by1_from_before_day_10_the_concert() {
 		// Given
 		int startQuality = 20;
+        Quality quality = quality(startQuality);
 		int sellIn = 15;
-		Item backstage = aBackstagePass(startQuality, sellIn);
+        Item backstage = aBackstagePass(sellIn, quality);
 
 		// Then
 		int startOfPeriod = sellIn;
@@ -179,14 +190,15 @@ public class NormalItemTest {
 	public void backstage_passes_is_0_after_the_concert() {
 		// Given
 		int startQuality = 20;
+        Quality quality = quality(startQuality);
 		int sellIn = 0;
-		Item backstage = aBackstagePass(startQuality, sellIn);
+        Item backstage = aBackstagePass(sellIn, quality);
 
 		// When
 		backstage.updateQuality();
 
 		// Then
-		assertThat(backstage.getQuality()).isEqualTo(0);
+		assertThat(quality).isEqualTo(quality(0));
 	}
 
 	@Test
@@ -194,56 +206,55 @@ public class NormalItemTest {
 	// TODO not yet implemented
 	public void conjured_degrade_in_quality_twice_as_fast_as_normal_items() {
 		// Given
-		int startQuality = 6;
-		Item conjured = itemThatDecays("Conjured Mana Cake", 3, startQuality);
+		Quality quality = quality(6);
+		Item conjured = itemThatDecays("Conjured Mana Cake", 3, quality);
 		Inn inn = new Inn(asList(conjured));
 
 		// When
 		inn.updateQuality();
 
 		// Then
-		assertThat(conjured.getQuality()).isEqualTo(4);
+		assertThat(quality).isEqualTo(quality(4));
 	}
 	
 	@Test
 	public void increaseQuality_ShouldIncreaseQualityByTheGivenValue(){
 		// Given
-		int startQuality = random.nextInt(51);
-		Item item = itemThatDecays(null, 0, startQuality);
+        Quality quality = quality(6);
+		Item item = itemThatDecays(null, 0, quality);
 		
 		int value = random.nextInt();
 		
 		// When
 		item.quality.increase(value);
-		int actualQuality = item.getQuality();
 		
 		// Then
-		int expectedQuality = startQuality + value;
-		Assertions.assertThat(actualQuality).isEqualTo(expectedQuality);
+		Quality expectedQuality = quality(6 + value);
+		Assertions.assertThat(quality).isEqualTo(expectedQuality);
 	}
 	
 	@Test
 	public void decreaseQuality_ShouldDecreaseQualityByTheGivenValue(){
 		// Given
 		int startQuality = random.nextInt(51);
-		Item item = itemThatDecays(null, 0, startQuality);
+		Quality quality = quality(startQuality);
+		Item item = itemThatDecays(null, 0, quality);
 		
 		int value = random.nextInt();
 		
 		// When
 		item.quality.decrease(value);
-		int actualQuality = item.getQuality();
 		
 		// Then
 		int expectedQuality = startQuality - value;
-		Assertions.assertThat(actualQuality).isEqualTo(expectedQuality);
+		Assertions.assertThat(quality).isEqualTo(quality(expectedQuality));
 	}
 	
 	@Test
 	public void decreaseSellIn_IsAlwaysByOne(){
 		// Given
 		int startSellIn = random.nextInt();
-		Item item = itemThatDecays(null, startSellIn, 0);
+		Item item = itemThatDecays(null, startSellIn, quality(0));
 		
 		// When
 		item.ageing.updateDaysBefore();
@@ -259,17 +270,18 @@ public class NormalItemTest {
 	{
 		// Given
 		int startQuality = random.nextInt();
-		Item item = itemThatDecays(null, 0, startQuality);
+		Quality quality = quality(startQuality);
+
+		Item item = itemThatDecays(null, 0, quality);
 		
 		// When
 		item.quality.resetToZero();
-		int actualQuality = item.getQuality();
 		
 		// Then
-		Assertions.assertThat(actualQuality).isEqualTo(0);
+		Assertions.assertThat(quality).isEqualTo(quality(0));
 	}
 
-	private Item buildRandomItem(int quality) {
+	private Item buildRandomItem(Quality quality) {
 		Item item = null;
 
 		int ran = random.nextInt(6);
@@ -323,11 +335,11 @@ public class NormalItemTest {
 		return qualityInThePeriod;
 	}
 
-	private Item itemThatDecays(String itemName, int startAge, int startquality) {
+	private Item itemThatDecays(String itemName, int startAge, Quality startquality) {
         return forge.anItem_thatDecaysWithTime(itemName, startAge, startquality);
     }
 
-    private Item aBackstagePass(int startQuality, int sellIn) {
+    private Item aBackstagePass(int sellIn, Quality startQuality) {
         return forge.aBackstagePass_thatImprovesUntilTheConcertDate(sellIn, startQuality);
     }
 

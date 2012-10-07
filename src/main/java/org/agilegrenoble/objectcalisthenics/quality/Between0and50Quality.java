@@ -52,6 +52,36 @@ public class Between0and50Quality implements Quality {
     public void resetToZero() {
         quality = 0;
     }
+
+
+    @Override
+    public String toString() {
+        return "Between0and50Quality [quality=" + quality + "]";
+    }
+
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + quality;
+        return result;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Between0and50Quality other = (Between0and50Quality) obj;
+        if (quality != other.quality)
+            return false;
+        return true;
+    }
     
 
 }
