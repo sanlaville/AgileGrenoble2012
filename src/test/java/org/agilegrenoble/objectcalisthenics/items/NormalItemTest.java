@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 import org.agilegrenoble.objectcalisthenics.Inn;
 import org.agilegrenoble.objectcalisthenics.ItemForge;
-import org.agilegrenoble.objectcalisthenics.Ageing.IncreaseStrategy;
+import org.agilegrenoble.objectcalisthenics.Ageing.backstagepass.IncreaseStrategy;
 import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Ignore;
