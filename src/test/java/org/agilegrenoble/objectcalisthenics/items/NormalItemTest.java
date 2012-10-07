@@ -189,39 +189,6 @@ public class NormalItemTest {
 	}
 	
 	@Test
-	public void increaseQuality_ShouldIncreaseQualityByTheGivenValue(){
-		// Given
-        Quality quality = quality(6);
-		Item item = itemThatDecays(null, 0, quality);
-		
-		int value = random.nextInt();
-		
-		// When
-		item.quality.increase(value);
-		
-		// Then
-		Quality expectedQuality = quality(6 + value);
-		Assertions.assertThat(quality).isEqualTo(expectedQuality);
-	}
-	
-	@Test
-	public void decreaseQuality_ShouldDecreaseQualityByTheGivenValue(){
-		// Given
-		int startQuality = random.nextInt(51);
-		Quality quality = quality(startQuality);
-		Item item = itemThatDecays(null, 0, quality);
-		
-		int value = random.nextInt();
-		
-		// When
-		item.quality.decrease(value);
-		
-		// Then
-		int expectedQuality = startQuality - value;
-		Assertions.assertThat(quality).isEqualTo(quality(expectedQuality));
-	}
-	
-	@Test
 	public void decreaseSellIn_IsAlwaysByOne(){
 		// Given
 		int startSellIn = random.nextInt();
@@ -236,22 +203,6 @@ public class NormalItemTest {
 		Assertions.assertThat(actualSelIn).isEqualTo(expectedSellIn);
 	}
 	
-	@Test
-	public void resetQualityToZero_ShouldResetQualityToZero()
-	{
-		// Given
-		int startQuality = random.nextInt();
-		Quality quality = quality(startQuality);
-
-		Item item = itemThatDecays(null, 0, quality);
-		
-		// When
-		item.quality.resetToZero();
-		
-		// Then
-		Assertions.assertThat(quality).isEqualTo(quality(0));
-	}
-
 	private Item buildRandomItem(Quality quality) {
 		Item item = null;
 
