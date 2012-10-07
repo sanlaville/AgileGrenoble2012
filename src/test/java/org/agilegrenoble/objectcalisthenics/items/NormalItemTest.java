@@ -1,20 +1,19 @@
 package org.agilegrenoble.objectcalisthenics.items;
 
 import static java.util.Arrays.asList;
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.api.Assertions.assertThat;
+import static org.junit.Assert.*;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NavigableMap;
 import java.util.Random;
+import java.util.TreeMap;
 
 import org.agilegrenoble.objectcalisthenics.Inn;
 import org.agilegrenoble.objectcalisthenics.ItemForge;
-import org.agilegrenoble.objectcalisthenics.Ageing.DecayWithAge;
-import org.agilegrenoble.objectcalisthenics.items.Item;
-import org.agilegrenoble.objectcalisthenics.items.Sulfuras;
-import org.agilegrenoble.objectcalisthenics.quality.Between0and50Quality;
-import org.agilegrenoble.objectcalisthenics.quality.Quality;
-import org.fest.assertions.Assertions;
+import org.agilegrenoble.objectcalisthenics.Ageing.IncreaseStrategy;
+import org.fest.assertions.api.Assertions;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -326,4 +325,14 @@ public class NormalItemTest {
 
 		return qualityInThePeriod;
 	}
+	
+	@Test public void 
+    whatever() throws Exception {
+        NavigableMap<Integer, String> strategy = new TreeMap<Integer, String>() {{
+            put(Integer.MIN_VALUE, "below or equal to zero");
+            put(1, "more than zero");
+            put(6, "more than 5");
+         }}; 
+         assertEquals("below or equal to zero", strategy.floorEntry(-1).getValue());
+    }
 }

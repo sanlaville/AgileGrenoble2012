@@ -1,5 +1,5 @@
 package org.agilegrenoble.objectcalisthenics.Ageing;
-
+ 
 import org.agilegrenoble.objectcalisthenics.quality.Quality;
 
 public abstract class Ageing {
