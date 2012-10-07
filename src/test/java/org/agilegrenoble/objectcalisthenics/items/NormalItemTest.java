@@ -48,61 +48,32 @@ public class NormalItemTest {
         return new Between0and50Quality(amount);
     }
 
-    @Test
-	public void quality_is_never_negative() {
-		// Given
-		Quality quality = quality(0);
-		Item item = buildRandomItem(quality);
-
-		// When
-		repeatUpdateQuality(item, random.nextInt(10));
-
-		// Then
-		assertThat(quality).isEqualTo(quality(0));
-	}
-
 	@Test
 	public void brie_quality_increases_with_time() {
 		// Given
 		int startQuality = 20;
 		int daysUntilBestBeforeDate = 10;
-        Item brie = anAgedBrie(startQuality, daysUntilBestBeforeDate);
+        Quality quality = quality(startQuality);
+		
+        Item brie = anAgedBrie(quality, daysUntilBestBeforeDate);
 
 		// When
 		brie.updateQuality();
 
 		// Then
-		assertThat(brie.getQuality()).isEqualTo(startQuality + 1);
-	}
-
-	@Test
-	public void quality_never_exceeds_50_or_is_80_in_the_case_of_sulfuras() {
-		// Given
-		int maxQuality = 50;
-        Quality quality = quality(maxQuality);
-		Item item = buildRandomItem(quality);
-
-		// When
-		repeatUpdateQuality(item, random.nextInt(10));
-
-		// Then
-		if (item instanceof Sulfuras) 
-		    assertThat(item.getQuality()).isLessThanOrEqualTo(80);
-		else 
-		    assertThat(item.getQuality()).isLessThanOrEqualTo(maxQuality);
+		assertThat(quality).isEqualTo(quality(startQuality + 1));
 	}
 
     @Test
 	public void sulfuras_never_decreases_in_quality() {
 		// Given
-		int startQuality = 40;
 		Item sulfuras = new Sulfuras();
 
 		// When
 		repeatUpdateQuality(sulfuras, random.nextInt(10));
 
 		// Then
-		assertThat(sulfuras.getQuality()).isGreaterThanOrEqualTo(startQuality);
+		assertThat(sulfuras).isEqualsToByComparingFields(new Sulfuras());
 	}
 
 	@Test
@@ -125,7 +96,7 @@ public class NormalItemTest {
 		Quality quality = quality(startQuality);
 
 		int sellIn = 10;
-		Item backstage = aBackstagePass(sellIn, quality);
+		BackStagePass backstage = aBackstagePass(sellIn, quality);
 
 		// When
 		int startOfPeriod = sellIn;
@@ -148,7 +119,7 @@ public class NormalItemTest {
 		Quality quality = quality(startQuality);
 
 		int sellIn = 5;
-		Item backstage = aBackstagePass(sellIn, quality);
+		BackStagePass backstage = aBackstagePass(sellIn, quality);
 
 		// Then
 		int startOfPeriod = sellIn;
@@ -170,7 +141,7 @@ public class NormalItemTest {
 		int startQuality = 20;
         Quality quality = quality(startQuality);
 		int sellIn = 15;
-        Item backstage = aBackstagePass(sellIn, quality);
+        BackStagePass backstage = aBackstagePass(sellIn, quality);
 
 		// Then
 		int startOfPeriod = sellIn;
@@ -290,7 +261,7 @@ public class NormalItemTest {
 			item = itemThatDecays("+5 Dexterity Vest", 10, quality);
 			break;
 		case 1:
-			item = anAgedBrie(2, 0);
+			item = anAgedBrie(quality(2), 0);
 			break;
 		case 2:
 			item = itemThatDecays("Elixir of the Mongoose", 5, quality);
@@ -324,7 +295,7 @@ public class NormalItemTest {
 	}
 
 	private List<Integer> backstageQualityInThePeriod(int startOfPeriod,
-			int endOfPeriod, Item backstage) {
+			int endOfPeriod, BackStagePass backstage) {
 		List<Integer> qualityInThePeriod = new LinkedList<Integer>();
 
 		for (int day = startOfPeriod; day > endOfPeriod; --day) {
@@ -339,12 +310,12 @@ public class NormalItemTest {
         return forge.anItem_thatDecaysWithTime(itemName, startAge, startquality);
     }
 
-    private Item aBackstagePass(int sellIn, Quality startQuality) {
+    private BackStagePass aBackstagePass(int sellIn, Quality startQuality) {
         return forge.aBackstagePass_thatImprovesUntilTheConcertDate(sellIn, startQuality);
     }
 
-    private Item anAgedBrie(int startQuality, int daysUntilBestBeforeDate) {
-        return forge.anAgedBrie_thatImprovesWithTime(daysUntilBestBeforeDate, startQuality);
+    private Item anAgedBrie(Quality quality, int daysUntilBestBeforeDate) {
+        return forge.anAgedBrie_thatImprovesWithTime(daysUntilBestBeforeDate, quality);
     }
 
     private Item aSulfuras() {

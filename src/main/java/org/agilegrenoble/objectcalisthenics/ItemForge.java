@@ -3,6 +3,7 @@ package org.agilegrenoble.objectcalisthenics;
 import org.agilegrenoble.objectcalisthenics.Ageing.DecayWithAge;
 import org.agilegrenoble.objectcalisthenics.Ageing.ImproveWithAge;
 import org.agilegrenoble.objectcalisthenics.Ageing.backstagepass.BackStagePassAgeing;
+import org.agilegrenoble.objectcalisthenics.items.BackStagePass;
 import org.agilegrenoble.objectcalisthenics.items.Item;
 import org.agilegrenoble.objectcalisthenics.items.NormalItem;
 import org.agilegrenoble.objectcalisthenics.items.Sulfuras;
@@ -16,6 +17,11 @@ public class ItemForge {
                 new ImproveWithAge(daysUntilBestBeforeDate), new Between0and50Quality(startQuality));
     }
 
+    public Item anAgedBrie_thatImprovesWithTime(int daysUntilBestBeforeDate, Quality quality) {
+        return new NormalItem("Aged Brie", 
+                new ImproveWithAge(daysUntilBestBeforeDate), quality);
+    }
+    
     public Item aSulfuras_isAMagicItemThatNeverChanges() {
         return new Sulfuras();
     }
@@ -29,14 +35,14 @@ public class ItemForge {
         return new NormalItem("Backstage passes to a TAFKAL80ETC concert", 
                 new BackStagePassAgeing(daysUntilConcert), new Between0and50Quality(startQuality));
     }
-    public Item aBackstagePass_thatImprovesUntilTheConcertDate(int daysUntilConcert, Quality quality) {
-        return new NormalItem("Backstage passes to a TAFKAL80ETC concert", 
-                new BackStagePassAgeing(daysUntilConcert), quality);
+    public BackStagePass aBackstagePass_thatImprovesUntilTheConcertDate(int daysUntilConcert, Quality quality) {
+        return new BackStagePass(quality, new BackStagePassAgeing(daysUntilConcert));
     }
 
     public Item anItem_thatDecaysWithTime(String itemName, int startAge, Quality quality) {
         return new NormalItem(itemName, 
                 new DecayWithAge(startAge), quality);
     }
+
 
 }
