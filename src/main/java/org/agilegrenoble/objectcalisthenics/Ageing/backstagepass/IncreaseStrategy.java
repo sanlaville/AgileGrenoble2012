@@ -10,22 +10,13 @@ public interface IncreaseStrategy {
             quality.resetToZero();
         }
     }
-    public class IncreaseByOne implements IncreaseStrategy {
-        public void applyTo(Quality quality) {
-            quality.increase();
+    public class IncreaseBy implements IncreaseStrategy {
+        private int step;
+        public IncreaseBy(int step) {
+            this.step = step;
         }
-    }
-    public class IncreaseByTwo implements IncreaseStrategy {
         public void applyTo(Quality quality) {
-            quality.increase();
-            quality.increase();
-        }
-    }
-    public class IncreaseByThree implements IncreaseStrategy {
-        public void applyTo(Quality quality) {
-            quality.increase();
-            quality.increase();
-            quality.increase();
+            quality.increase(step);
         }
     }
 }
