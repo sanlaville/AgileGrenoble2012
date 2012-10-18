@@ -1,8 +1,8 @@
 package org.agilegrenoble.objectcalisthenics;
 
+import org.agilegrenoble.objectcalisthenics.Ageing.BackStagePassAgeing;
 import org.agilegrenoble.objectcalisthenics.Ageing.DecayWithAge;
 import org.agilegrenoble.objectcalisthenics.Ageing.ImproveWithAge;
-import org.agilegrenoble.objectcalisthenics.Ageing.backstagepass.BackStagePassAgeing;
 import org.agilegrenoble.objectcalisthenics.items.BackStagePass;
 import org.agilegrenoble.objectcalisthenics.items.Item;
 import org.agilegrenoble.objectcalisthenics.items.NormalItem;

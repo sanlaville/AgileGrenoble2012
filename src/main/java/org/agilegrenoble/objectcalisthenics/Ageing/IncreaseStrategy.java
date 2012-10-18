@@ -1,4 +1,4 @@
-package org.agilegrenoble.objectcalisthenics.Ageing.backstagepass;
+package org.agilegrenoble.objectcalisthenics.Ageing;
 
 import org.agilegrenoble.objectcalisthenics.quality.Quality;
 

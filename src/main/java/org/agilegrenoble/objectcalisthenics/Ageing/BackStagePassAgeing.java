@@ -1,11 +1,10 @@
-package org.agilegrenoble.objectcalisthenics.Ageing.backstagepass;
+package org.agilegrenoble.objectcalisthenics.Ageing;
 
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-import org.agilegrenoble.objectcalisthenics.Ageing.Ageing;
-import org.agilegrenoble.objectcalisthenics.Ageing.backstagepass.IncreaseStrategy.IncreaseBy;
-import org.agilegrenoble.objectcalisthenics.Ageing.backstagepass.IncreaseStrategy.ResetToZero;
+import org.agilegrenoble.objectcalisthenics.Ageing.IncreaseStrategy.IncreaseBy;
+import org.agilegrenoble.objectcalisthenics.Ageing.IncreaseStrategy.ResetToZero;
 import org.agilegrenoble.objectcalisthenics.quality.Quality;
 
 public class BackStagePassAgeing extends Ageing {
@@ -30,4 +29,6 @@ public class BackStagePassAgeing extends Ageing {
     private IncreaseStrategy strategy() {
         return strategies.lowerEntry(daysBefore).getValue();
     }
+    
+    
 }
